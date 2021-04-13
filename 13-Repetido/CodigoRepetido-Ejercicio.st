@@ -21,38 +21,54 @@ TestCase subclass: #CustomerBookTest
 	poolDictionaries: ''
 	category: 'CodigoRepetido-Ejercicio'!
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'NR 4/3/2019 10:50:19'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'ERMC 4/12/2021 21:52:35'!
+assertarQueAlEvaluar: closure tardaMenosMilisengundosQue: aNumber
+
+	| millisecondsBeforeRunning millisecondsAfterRunning  |
+	  
+	millisecondsBeforeRunning := Time millisecondClockValue * millisecond.
+	closure value.
+	millisecondsAfterRunning := Time millisecondClockValue * millisecond.
+	
+	self assert: (millisecondsAfterRunning-millisecondsBeforeRunning) < (aNumber * millisecond)
+	
+! !
+
+!CustomerBookTest methodsFor: 'testing' stamp: 'ERMC 4/12/2021 21:52:35'!
 test01AddingCustomerShouldNotTakeMoreThan50Milliseconds
 
 	| customerBook millisecondsBeforeRunning millisecondsAfterRunning |
 	
 	customerBook := CustomerBook new.
 	
+	"
 	millisecondsBeforeRunning := Time millisecondClockValue * millisecond.
 	customerBook addCustomerNamed: 'John Lennon'.
 	millisecondsAfterRunning := Time millisecondClockValue * millisecond.
 	
-	self assert: (millisecondsAfterRunning-millisecondsBeforeRunning) < (50 * millisecond)
+	self assert: (millisecondsAfterRunning-millisecondsBeforeRunning) < (50 * millisecond).
+	"
 	
-! !
+	self assertarQueAlEvaluar: [customerBook addCustomerNamed: 'John Lennon'.] tardaMenosMilisengundosQue: 50! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'NR 4/3/2019 10:50:13'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'ERMC 4/12/2021 21:54:02'!
 test02RemovingCustomerShouldNotTakeMoreThan100Milliseconds
 
 	| customerBook millisecondsBeforeRunning millisecondsAfterRunning paulMcCartney |
 	
 	customerBook := CustomerBook new.
 	paulMcCartney := 'Paul McCartney'.
-	
+
 	customerBook addCustomerNamed: paulMcCartney.
-	  
+	"  
 	millisecondsBeforeRunning := Time millisecondClockValue * millisecond.
 	customerBook removeCustomerNamed: paulMcCartney.
 	millisecondsAfterRunning := Time millisecondClockValue * millisecond.
 	
 	self assert: (millisecondsAfterRunning-millisecondsBeforeRunning) < (100 * millisecond)
-	
-! !
+	"
+
+	self assertarQueAlEvaluar: [customerBook removeCustomerNamed: paulMcCartney.] tardaMenosMilisengundosQue: 100! !
 
 !CustomerBookTest methodsFor: 'testing' stamp: 'HernanWilkinson 5/9/2012 18:12'!
 test03CanNotAddACustomerWithEmptyName 
