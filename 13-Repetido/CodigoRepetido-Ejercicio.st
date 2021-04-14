@@ -205,6 +205,19 @@ addCustomerNamed: aName
 	
 	active add: aName ! !
 
+!CustomerBook methodsFor: 'customer management' stamp: 'ERMC 4/13/2021 23:45:58'!
+deleteACustomer: aName from: aCustomerCollection
+ 
+	1 to: aCustomerCollection size do: 
+	[ :index |
+		aName = (aCustomerCollection at: index)
+			ifTrue: [
+				aCustomerCollection removeAt: index.
+				^ aName 
+			] 
+	].
+	^nil! !
+
 !CustomerBook methodsFor: 'customer management' stamp: 'NR 4/3/2019 10:14:26'!
 numberOfActiveCustomers
 	
@@ -220,28 +233,12 @@ numberOfSuspendedCustomers
 	
 	^suspended size! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'NR 4/3/2019 10:14:26'!
+!CustomerBook methodsFor: 'customer management' stamp: 'ERMC 4/13/2021 23:52:47'!
 removeCustomerNamed: aName 
  
-	1 to: active size do: 
-	[ :index |
-		aName = (active at: index)
-			ifTrue: [
-				active removeAt: index.
-				^ aName 
-			] 
-	].
-
-	1 to: suspended size do: 	
-	[ :index |
-		aName = (suspended at: index)
-			ifTrue: [
-				suspended removeAt: index.
-				^ aName 
-			] 
-	].
+	"(self deleteACustomer: aName from: active) ifNil: [(self deleteACustomer: aName from: suspended) ifNil: [^NotFound signal]]."
 	
-	^ NotFound signal.
+	active remove: aName ifAbsent: [suspended remove: aName ifAbsent: [^NotFound signal]]
 ! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'HernanWilkinson 7/6/2011 17:52'!
