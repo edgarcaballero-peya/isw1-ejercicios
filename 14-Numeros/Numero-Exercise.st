@@ -340,6 +340,47 @@ isZero
 
 	self subclassResponsibility ! !
 
+
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:08:27'!
+divideFromEntero
+
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:06:04'!
+divideFromFraccion
+
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:14:40'!
+multiplyFromEntero
+
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:14:48'!
+multiplyFromFraccion
+
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:08:50'!
+substractFromEntero
+
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:08:54'!
+substractFromFraccion
+
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:06:19'!
+sumWithEntero
+
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:06:23'!
+sumWithFraccion
+
+	self subclassResponsibility ! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Numero class' category: 'Numero-Exercise'!
@@ -467,14 +508,11 @@ isZero
 	^value = 0! !
 
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/18/2021 21:41:07'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:20:00'!
 divideFromEntero: aDividend
 	
 	^Fraccion with: aDividend over: self
-	"
-	(aDivisor isKindOf: Fraccion ) ifTrue: [^ (aDivisor denominator * self) / aDivisor numerator ].
-	^Fraccion with: self over: aDivisor
-	"! !
+! !
 
 !Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/18/2021 21:53:29'!
 divideFromFraccion: aDividend
@@ -494,10 +532,10 @@ multiplyFromFraccion: aMultiplier
 	^Fraccion with: (self * aMultiplier numerator ) over: aMultiplier denominator
 ! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 21:34:26'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:32:04'!
 subtractFromAFraccion: aMinuend
 
-	^Fraccion with: aMinuend numerator  - (self * aMinuend denominator )  over: aMinuend denominator.
+	^ aMinuend numerator  - (self * aMinuend denominator )  / aMinuend denominator.
 ! !
 
 !Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 21:34:51'!
@@ -506,15 +544,15 @@ subtractFromAnInteger: aMinuend
 	^ self class with: (aMinuend integerValue) - value.
 ! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/17/2021 21:41:56'!
-sumWithEntero: anInteger
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:27:02'!
+sumWithEntero: anAdder
 	
-	^self class with: value + anInteger integerValue! !
+	^self class with: value + anAdder integerValue! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/17/2021 21:36:08'!
-sumWithFraccion: aFraccion 
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:27:10'!
+sumWithFraccion: anAdder 
 	
-	^Fraccion with: (self * aFraccion denominator ) + aFraccion numerator over: aFraccion denominator! !
+	^Fraccion with: (self * anAdder denominator ) + anAdder numerator over: anAdder denominator! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -688,24 +726,19 @@ subtractFromAnInteger: aMinuend
 
 ! !
 
-!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/17/2021 21:43:09'!
-sumWithEntero: anInteger 
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/19/2021 22:30:27'!
+sumWithEntero: anAdder 
 
-	| newDenominator newNumerator |
-	
-	newNumerator := (self denominator * anInteger) + self numerator.
-	newDenominator := self denominator.
-	
-	^ newNumerator / newDenominator 
+	^ numerator + (denominator * anAdder ) / denominator 
 ! !
 
-!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/17/2021 21:34:57'!
-sumWithFraccion: aFraccion 
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/19/2021 22:27:55'!
+sumWithFraccion: anAdder 
 	
 	| newNumerator newDenominator |
 	
-	newNumerator := (numerator * aFraccion denominator) + (denominator * aFraccion numerator).
-	newDenominator := denominator * aFraccion denominator.
+	newNumerator := (numerator * anAdder denominator) + (denominator * anAdder numerator).
+	newDenominator := denominator * anAdder denominator.
 	
 	^newNumerator / newDenominator ! !
 
