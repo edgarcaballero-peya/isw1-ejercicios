@@ -99,9 +99,9 @@ test14FraccionMultipliesEnteroCorrectly
 
 	self assert: oneFifth * two equals: twoFifth ! !
 
-!NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 21:57'!
+!NumeroTest methodsFor: 'tests' stamp: 'ERMC 4/17/2021 20:49:43'!
 test15EnteroDividesFraccionCorrectly
-
+	
 	self assert: one / twoFifth equals: fiveHalfs  ! !
 
 !NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 21:59'!
@@ -364,27 +364,36 @@ Numero subclass: #Entero
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 23:13'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ERMC 4/19/2021 21:47:43'!
 * aMultiplier 
 	
-	^self class with: value * aMultiplier integerValue
-	! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 23:13'!
-+ anAdder 
-	
-	^self class with: value + anAdder integerValue
+	^aMultiplier multiplyFromEntero: self
 ! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'NR 9/23/2018 23:40:37'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ERMC 4/17/2021 21:41:56'!
++ anAdder 
+
+	^anAdder sumWithEntero: self.! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'ERMC 4/19/2021 21:33:38'!
 - aSubtrahend 
 	
-	^ self class with: value - aSubtrahend integerValue.! !
+	^ aSubtrahend subtractFromAnInteger: self.
+	
+	"	
+	(aSubtrahend isKindOf: Fraccion ) ifTrue: [^Fraccion with: (self * aSubtrahend denominator ) - aSubtrahend numerator over: aSubtrahend denominator].
+	^ self class with: value - aSubtrahend integerValue.
+	"! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 23:14'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ERMC 4/18/2021 21:44:15'!
 / aDivisor 
 	
-	^Fraccion with: self over: aDivisor! !
+	^aDivisor divideFromEntero: self
+	
+	"
+	(aDivisor isKindOf: Fraccion ) ifTrue: [^ (aDivisor denominator * self) / aDivisor numerator ].
+	^Fraccion with: self over: aDivisor
+	"! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 21:55'!
 // aDivisor 
@@ -457,6 +466,56 @@ isZero
 	
 	^value = 0! !
 
+
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/18/2021 21:41:07'!
+divideFromEntero: aDividend
+	
+	^Fraccion with: aDividend over: self
+	"
+	(aDivisor isKindOf: Fraccion ) ifTrue: [^ (aDivisor denominator * self) / aDivisor numerator ].
+	^Fraccion with: self over: aDivisor
+	"! !
+
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/18/2021 21:53:29'!
+divideFromFraccion: aDividend
+	
+	^ aDividend numerator /  (aDividend denominator * self)
+	! !
+
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 21:47:43'!
+multiplyFromEntero: aMultiplier
+	
+	^self class with: value * aMultiplier integerValue
+	! !
+
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 21:48:05'!
+multiplyFromFraccion: aMultiplier
+	
+	^Fraccion with: (self * aMultiplier numerator ) over: aMultiplier denominator
+! !
+
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 21:34:26'!
+subtractFromAFraccion: aMinuend
+
+	^Fraccion with: aMinuend numerator  - (self * aMinuend denominator )  over: aMinuend denominator.
+! !
+
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 21:34:51'!
+subtractFromAnInteger: aMinuend
+	
+	^ self class with: (aMinuend integerValue) - value.
+! !
+
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/17/2021 21:41:56'!
+sumWithEntero: anInteger
+	
+	^self class with: value + anInteger integerValue! !
+
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/17/2021 21:36:08'!
+sumWithFraccion: aFraccion 
+	
+	^Fraccion with: (self * aFraccion denominator ) + aFraccion numerator over: aFraccion denominator! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Entero class' category: 'Numero-Exercise'!
@@ -483,37 +542,50 @@ Numero subclass: #Fraccion
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 23:14'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/19/2021 21:48:35'!
 * aMultiplier 
 	
-	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator)
-	! !
+	^aMultiplier multiplyFromFraccion: self
+! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 23:14'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/17/2021 21:34:14'!
 + anAdder 
 	
+	^ anAdder sumWithFraccion: self.
+	
+	"
 	| newNumerator newDenominator |
 	
 	newNumerator := (numerator * anAdder denominator) + (denominator * anAdder numerator).
 	newDenominator := denominator * anAdder denominator.
 	
-	^newNumerator / newDenominator ! !
+	^newNumerator / newDenominator 
+	"! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'NR 9/23/2018 23:43:50'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/19/2021 21:35:42'!
 - aSubtrahend 
 	
+	^aSubtrahend subtractFromAFraccion: self.
+	"
 	| newNumerator newDenominator |
 	
+	(aSubtrahend isKindOf: Entero ) ifTrue: [^Fraccion with: (self numerator - (self denominator * aSubtrahend)) over: self denominator].
 	newNumerator := (numerator * aSubtrahend denominator) - (denominator * aSubtrahend numerator).
 	newDenominator := denominator * aSubtrahend denominator.
 	
 	^newNumerator / newDenominator 
-! !
+	"! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 23:14'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/18/2021 21:53:01'!
 / aDivisor 
 	
-	^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)! !
+	^aDivisor divideFromFraccion: self.
+	
+	"	
+	(aDivisor isKindOf: Entero ) ifTrue: [^ self numerator /( self denominator * aDivisor ) ].
+	^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)
+	"
+	! !
 
 
 !Fraccion methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:42'!
@@ -572,6 +644,70 @@ printOn: aStream
 		print: numerator;
 		nextPut: $/;
 		print: denominator ! !
+
+
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/18/2021 21:46:12'!
+divideFromEntero: aDividend
+	
+	^ (self denominator * aDividend ) / self numerator! !
+
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/18/2021 21:51:12'!
+divideFromFraccion: aDividend
+
+	^ (aDividend numerator * denominator) / (aDividend denominator * numerator)
+
+	! !
+
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/19/2021 21:48:24'!
+multiplyFromEntero: aMultiplier
+	
+	^Fraccion with: numerator * aMultiplier over:  denominator
+	
+	! !
+
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/19/2021 21:48:35'!
+multiplyFromFraccion: aMultiplier
+
+	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator)! !
+
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/19/2021 21:36:43'!
+subtractFromAFraccion: aMinuend
+
+	| newNumerator newDenominator |
+	
+	newNumerator := (denominator * aMinuend numerator) - (numerator * aMinuend denominator).
+	newDenominator := denominator * aMinuend denominator.
+	
+	^newNumerator / newDenominator 
+! !
+
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/19/2021 21:36:03'!
+subtractFromAnInteger: aMinuend
+	
+	^Fraccion with: ((self denominator * aMinuend) -self numerator) over: self denominator.
+
+! !
+
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/17/2021 21:43:09'!
+sumWithEntero: anInteger 
+
+	| newDenominator newNumerator |
+	
+	newNumerator := (self denominator * anInteger) + self numerator.
+	newDenominator := self denominator.
+	
+	^ newNumerator / newDenominator 
+! !
+
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/17/2021 21:34:57'!
+sumWithFraccion: aFraccion 
+	
+	| newNumerator newDenominator |
+	
+	newNumerator := (numerator * aFraccion denominator) + (denominator * aFraccion numerator).
+	newDenominator := denominator * aFraccion denominator.
+	
+	^newNumerator / newDenominator ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
