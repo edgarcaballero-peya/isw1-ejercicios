@@ -341,43 +341,43 @@ isZero
 	self subclassResponsibility ! !
 
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:08:27'!
-divideFromEntero
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 20:46:07'!
+divideFromEntero: aDividend
 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:06:04'!
-divideFromFraccion
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 20:46:18'!
+divideFromFraccion: aDividend
 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:14:40'!
-multiplyFromEntero
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 20:46:31'!
+multiplyFromEntero: aMultiplier
 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:14:48'!
-multiplyFromFraccion
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 20:47:01'!
+multiplyFromFraccion: aMultiplier
 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:08:50'!
-substractFromEntero
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 20:47:10'!
+substractFromEntero: aMinuend
 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:08:54'!
-substractFromFraccion
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 20:47:17'!
+substractFromFraccion: aMinuend
 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:06:19'!
-sumWithEntero
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 20:47:25'!
+sumWithEntero: anAdder
 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:06:23'!
-sumWithFraccion
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 20:47:32'!
+sumWithFraccion: anAdder
 
 	self subclassResponsibility ! !
 
@@ -456,11 +456,6 @@ hash
 	^value hash! !
 
 
-!Entero methodsFor: 'initialization' stamp: 'HernanWilkinson 5/7/2016 20:09'!
-initalizeWith: aValue 
-	
-	value := aValue! !
-
 
 !Entero methodsFor: 'value' stamp: 'HernanWilkinson 5/7/2016 21:02'!
 integerValue
@@ -510,10 +505,10 @@ multiplyFromEntero: aMultiplier
 	^self class with: value * aMultiplier integerValue
 	! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 21:48:05'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 09:27:50'!
 multiplyFromFraccion: aMultiplier
 	
-	^Fraccion with: (self * aMultiplier numerator ) over: aMultiplier denominator
+	^ aMultiplier multiplyFromEntero: self
 ! !
 
 !Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:32:04'!
@@ -533,10 +528,10 @@ sumWithEntero: anAdder
 	
 	^self class with: value + anAdder integerValue! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/19/2021 22:27:10'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'ERMC 4/21/2021 09:27:02'!
 sumWithFraccion: anAdder 
 	
-	^Fraccion with: (self * anAdder denominator ) + anAdder numerator over: anAdder denominator! !
+	^ anAdder sumWithEntero: self.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -548,7 +543,7 @@ Entero class
 negativeFibonacciErrorDescription
 	^ ' Fibonacci no está definido aquí para Enteros Negativos!!!!!!'! !
 
-!Entero class methodsFor: 'instance creation' stamp: 'ERMC 4/20/2021 23:08:42'!
+!Entero class methodsFor: 'instance creation' stamp: 'ERMC 4/21/2021 20:50:16'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
@@ -557,7 +552,7 @@ with: aValue
 	(aValue  < 0) ifTrue: [^Negative new initializeWith: aValue ].
 	(aValue  = 0) ifTrue: [^Zero new ].	
 	(aValue  = 1) ifTrue: [^One new ].
-	^Positive new initalizeWith: aValue! !
+	^Positive new initializeWith: aValue! !
 
 
 !classDefinition: #Negative category: 'Numero-Exercise'!
@@ -567,14 +562,26 @@ Entero subclass: #Negative
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Negative methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 22:43:13'!
+!Negative methodsFor: 'operations' stamp: 'ERMC 4/20/2021 22:43:13'!
 fibonacci
 
 	self error: Entero negativeFibonacciErrorDescription
 	
 	! !
 
-!Negative methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 22:45:23'!
+
+!Negative methodsFor: 'operations - private' stamp: 'ERMC 4/20/2021 23:41:56'!
+elDividendoEsCero
+	
+	! !
+
+!Negative methodsFor: 'operations - private' stamp: 'ERMC 4/20/2021 23:37:25'!
+puedeSerDivisor
+
+	^true! !
+
+
+!Negative methodsFor: 'initialize' stamp: 'ERMC 4/20/2021 22:45:23'!
 initializeWith: aValue
 	
 	value _ aValue.! !
@@ -587,15 +594,26 @@ Entero subclass: #One
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!One methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:11:42'!
+!One methodsFor: 'operations' stamp: 'ERMC 4/20/2021 23:11:42'!
 fibonacci
 	
 	^ self! !
 
-!One methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 22:42:31'!
+
+!One methodsFor: 'initialization' stamp: 'ERMC 4/20/2021 22:42:31'!
 initialize
 	
 	value _ 1 ! !
+
+
+!One methodsFor: 'operations - private' stamp: 'ERMC 4/20/2021 23:41:06'!
+elDividendoEsCero
+	! !
+
+!One methodsFor: 'operations - private' stamp: 'ERMC 4/20/2021 23:37:32'!
+puedeSerDivisor
+	
+	^true! !
 
 
 !classDefinition: #Positive category: 'Numero-Exercise'!
@@ -605,7 +623,7 @@ Entero subclass: #Positive
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Positive methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:16:06'!
+!Positive methodsFor: 'operations' stamp: 'ERMC 4/20/2021 23:16:06'!
 fibonacci
 	
 	| one two |
@@ -615,7 +633,18 @@ fibonacci
 		
 	^ (self - one) fibonacci + (self - two) fibonacci! !
 
-!Positive methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:09:16'!
+
+!Positive methodsFor: 'operations - private' stamp: 'ERMC 4/20/2021 23:41:17'!
+elDividendoEsCero
+	! !
+
+!Positive methodsFor: 'operations - private' stamp: 'ERMC 4/20/2021 23:34:37'!
+puedeSerDivisor
+
+	^true! !
+
+
+!Positive methodsFor: 'initialization' stamp: 'ERMC 4/20/2021 23:09:16'!
 initializeWith: aValue
 	
 	value _ aValue ! !
@@ -628,15 +657,27 @@ Entero subclass: #Zero
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Zero methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:14:29'!
+!Zero methodsFor: 'operations' stamp: 'ERMC 4/20/2021 23:14:29'!
 fibonacci 
 	
 	^One new! !
 
-!Zero methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:07:02'!
+
+!Zero methodsFor: 'initialization' stamp: 'ERMC 4/20/2021 23:07:02'!
 initialize
 	
 	value _ 0! !
+
+
+!Zero methodsFor: 'operations - private' stamp: 'ERMC 4/20/2021 23:41:46'!
+elDividendoEsCero
+	
+	^self.! !
+
+!Zero methodsFor: 'operations - private' stamp: 'ERMC 4/20/2021 23:37:45'!
+puedeSerDivisor
+
+	self error: self class canNotDivideByZeroErrorDescription! !
 
 
 !classDefinition: #Fraccion category: 'Numero-Exercise'!
@@ -794,13 +835,13 @@ sumWithFraccion: anAdder
 Fraccion class
 	instanceVariableNames: ''!
 
-!Fraccion class methodsFor: 'intance creation' stamp: 'NR 9/23/2018 23:45:19'!
+!Fraccion class methodsFor: 'intance creation' stamp: 'ERMC 4/20/2021 23:47:15'!
 with: aDividend over: aDivisor
 
 	| greatestCommonDivisor numerator denominator |
 	
-	aDivisor isZero ifTrue: [ self error: self canNotDivideByZeroErrorDescription ].
-	aDividend isZero ifTrue: [ ^aDividend ].
+	aDivisor puedeSerDivisor.
+	aDividend elDividendoEsCero.
 	
 	aDivisor isNegative ifTrue:[ ^aDividend negated / aDivisor negated].
 	
