@@ -416,43 +416,27 @@ Numero subclass: #Entero
 
 	^anAdder sumWithEntero: self.! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'ERMC 4/19/2021 21:33:38'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ERMC 4/20/2021 23:17:27'!
 - aSubtrahend 
 	
 	^ aSubtrahend subtractFromAnInteger: self.
-	
-	"	
-	(aSubtrahend isKindOf: Fraccion ) ifTrue: [^Fraccion with: (self * aSubtrahend denominator ) - aSubtrahend numerator over: aSubtrahend denominator].
-	^ self class with: value - aSubtrahend integerValue.
-	"! !
+! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'ERMC 4/18/2021 21:44:15'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ERMC 4/20/2021 23:17:35'!
 / aDivisor 
 	
 	^aDivisor divideFromEntero: self
-	
-	"
-	(aDivisor isKindOf: Fraccion ) ifTrue: [^ (aDivisor denominator * self) / aDivisor numerator ].
-	^Fraccion with: self over: aDivisor
-	"! !
+! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 21:55'!
 // aDivisor 
 	
 	^self class with: value // aDivisor integerValue! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'HAW 9/24/2018 08:47:50'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ERMC 4/20/2021 23:11:20'!
 fibonacci
 
-	| one two |
-	
-	one := Entero with: 1.
-	two := Entero with: 2.
-	
-	self isNegative ifTrue: [self error: Entero negativeFibonacciErrorDescription ].	
-	(self isZero or: [self isOne]) ifTrue: [^one].
-	
-	^ (self - one) fibonacci + (self - two) fibonacci
+	self subclassResponsibility 
 		! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 21:00'!
@@ -564,13 +548,95 @@ Entero class
 negativeFibonacciErrorDescription
 	^ ' Fibonacci no está definido aquí para Enteros Negativos!!!!!!'! !
 
-!Entero class methodsFor: 'instance creation' stamp: 'HernanWilkinson 5/7/2016 22:53'!
+!Entero class methodsFor: 'instance creation' stamp: 'ERMC 4/20/2021 23:08:42'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
 	aValue isInteger ifFalse: [  self error: 'aValue debe ser anInteger' ].
 	
-	^self new initalizeWith: aValue! !
+	(aValue  < 0) ifTrue: [^Negative new initializeWith: aValue ].
+	(aValue  = 0) ifTrue: [^Zero new ].	
+	(aValue  = 1) ifTrue: [^One new ].
+	^Positive new initalizeWith: aValue! !
+
+
+!classDefinition: #Negative category: 'Numero-Exercise'!
+Entero subclass: #Negative
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!Negative methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 22:43:13'!
+fibonacci
+
+	self error: Entero negativeFibonacciErrorDescription
+	
+	! !
+
+!Negative methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 22:45:23'!
+initializeWith: aValue
+	
+	value _ aValue.! !
+
+
+!classDefinition: #One category: 'Numero-Exercise'!
+Entero subclass: #One
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!One methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:11:42'!
+fibonacci
+	
+	^ self! !
+
+!One methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 22:42:31'!
+initialize
+	
+	value _ 1 ! !
+
+
+!classDefinition: #Positive category: 'Numero-Exercise'!
+Entero subclass: #Positive
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!Positive methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:16:06'!
+fibonacci
+	
+	| one two |
+	
+	one _ One new.
+	two _ Entero with: 2.
+		
+	^ (self - one) fibonacci + (self - two) fibonacci! !
+
+!Positive methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:09:16'!
+initializeWith: aValue
+	
+	value _ aValue ! !
+
+
+!classDefinition: #Zero category: 'Numero-Exercise'!
+Entero subclass: #Zero
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!Zero methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:14:29'!
+fibonacci 
+	
+	^One new! !
+
+!Zero methodsFor: 'as yet unclassified' stamp: 'ERMC 4/20/2021 23:07:02'!
+initialize
+	
+	value _ 0! !
 
 
 !classDefinition: #Fraccion category: 'Numero-Exercise'!
@@ -586,43 +652,23 @@ Numero subclass: #Fraccion
 	^aMultiplier multiplyFromFraccion: self
 ! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/17/2021 21:34:14'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/20/2021 23:19:21'!
 + anAdder 
 	
 	^ anAdder sumWithFraccion: self.
-	
-	"
-	| newNumerator newDenominator |
-	
-	newNumerator := (numerator * anAdder denominator) + (denominator * anAdder numerator).
-	newDenominator := denominator * anAdder denominator.
-	
-	^newNumerator / newDenominator 
-	"! !
+! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/19/2021 21:35:42'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/20/2021 23:19:29'!
 - aSubtrahend 
 	
 	^aSubtrahend subtractFromAFraccion: self.
-	"
-	| newNumerator newDenominator |
-	
-	(aSubtrahend isKindOf: Entero ) ifTrue: [^Fraccion with: (self numerator - (self denominator * aSubtrahend)) over: self denominator].
-	newNumerator := (numerator * aSubtrahend denominator) - (denominator * aSubtrahend numerator).
-	newDenominator := denominator * aSubtrahend denominator.
-	
-	^newNumerator / newDenominator 
-	"! !
+! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/18/2021 21:53:01'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ERMC 4/20/2021 23:19:35'!
 / aDivisor 
 	
 	^aDivisor divideFromFraccion: self.
 	
-	"	
-	(aDivisor isKindOf: Entero ) ifTrue: [^ self numerator /( self denominator * aDivisor ) ].
-	^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)
-	"
 	! !
 
 
@@ -684,10 +730,10 @@ printOn: aStream
 		print: denominator ! !
 
 
-!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/18/2021 21:46:12'!
+!Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/20/2021 23:20:07'!
 divideFromEntero: aDividend
 	
-	^ (self denominator * aDividend ) / self numerator! !
+	^ (denominator * aDividend ) / numerator! !
 
 !Fraccion methodsFor: 'operations - private' stamp: 'ERMC 4/18/2021 21:51:12'!
 divideFromFraccion: aDividend
