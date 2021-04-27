@@ -144,13 +144,125 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:42:44'!
+test01NoSePuedeUtilizarPrefijosVacios
+	
+	| stack firstPushedObject prefijo  xxx|
+	
+	stack := OOStack new.
+	firstPushedObject := 'firstObject'.
+	stack push: firstPushedObject.
+	prefijo := ' '.
+	xxx := SentenceFinderByPrefix new initializeWith: stack.
+	self
+		should: [ xxx find: prefijo. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: stack top = firstPushedObject.
+			self assert: anError messageText = SentenceFinderByPrefix prefijoEmptyErrorDescription ]
+	
+	
+	 
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:50:07'!
+test02ElPrefijoNoPuedeContenerEspaciosVacios
+	
+	| stack firstPushedObject prefijo  xxx|
+	
+	stack := OOStack new.
+	firstPushedObject := 'firstObject'.
+	stack push: firstPushedObject.
+	prefijo := 'fi rst'.
+	xxx := SentenceFinderByPrefix new initializeWith: stack.
+	self
+		should: [ xxx find: prefijo. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: stack top = firstPushedObject.
+			self assert: anError messageText = SentenceFinderByPrefix elPrefijoNoPuedeTenerEspaciosVaciosErrorDescription ]
+	
+	
+	 
+! !
+
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
-	instanceVariableNames: ''
+	instanceVariableNames: 'elements'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!OOStack methodsFor: 'initialization' stamp: 'sgs 4/26/2021 20:54:34'!
+initialize
+	
+	
+	 elements := 	OrderedCollection new.
+	! !
+
+
+!OOStack methodsFor: 'xxxx' stamp: 'sgs 4/26/2021 20:54:34'!
+isEmpty
+	
+	^elements isEmpty .
+	! !
+
+!OOStack methodsFor: 'xxxx' stamp: 'sgs 4/26/2021 20:57:16'!
+size
+	
+	^elements size .
+	! !
+
+
+!OOStack methodsFor: 'operations' stamp: 'sgs 4/26/2021 18:00:22'!
+pop 
+"
+	 elements isEmpty ifTrue: [self error: self class stackEmptyErrorDescription].
+	^elements removeFirst.
+"
+	^OOStackState comoHagoPop: self.! !
+
+!OOStack methodsFor: 'operations' stamp: 'sgs 4/26/2021 20:54:34'!
+push: aElement
+
+	elements addFirst: aElement.! !
+
+!OOStack methodsFor: 'operations' stamp: 'sgs 4/26/2021 17:59:06'!
+top 
+"	elements isEmpty ifTrue: [self error: self class stackEmptyErrorDescription].
+
+	^elements first.
+"
+	^OOStackState comoHagoTop: self.! !
+
+
+!OOStack methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:15:24'!
+haceElPopConElementos
+	
+	|element|
+	
+	element:= elements first.
+	elements removeFirst.
+	^element.
+	! !
+
+!OOStack methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 20:55:20'!
+haceElPopConLaBase.
+
+	self error: self class stackEmptyErrorDescription.! !
+
+!OOStack methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:11:28'!
+haceElTopConElementos.
+	
+	^elements first.
+	! !
+
+!OOStack methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 20:56:01'!
+haceElTopConLaBase
+
+	self error: self class stackEmptyErrorDescription.
+! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -163,10 +275,119 @@ stackEmptyErrorDescription
 	
 	^ 'Stack is empty!!!!!!'! !
 
+
+!OOStack class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 15:41:11'!
+initialize
+	^self new initialize.! !
+
 
-!classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
-Object subclass: #SentenceFinderByPrefix
+!classDefinition: #OOStackState category: 'Stack-Exercise'!
+Object subclass: #OOStackState
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'OOStackState class' category: 'Stack-Exercise'!
+OOStackState class
+	instanceVariableNames: ''!
+
+!OOStackState class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:26:19'!
+comoHagoPop: aStack
+	|aSackSatet|
+	(aStack size < 1) ifTrue: [ aSackSatet:= OOEmpty new ] ifFalse: [aSackSatet := OONotEmpty  new].
+	^aSackSatet comoHagoPop: aStack.! !
+
+!OOStackState class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:26:25'!
+comoHagoTop: aStack
+
+	|aSackSatet|
+	(aStack size < 1) ifTrue: [ aSackSatet:= OOEmpty new] ifFalse: [aSackSatet := OONotEmpty  new].
+	
+	^aSackSatet comoHagoTop: aStack.! !
+
+
+!classDefinition: #OOEmpty category: 'Stack-Exercise'!
+OOStackState subclass: #OOEmpty
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!OOEmpty methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 20:56:11'!
+comoHagoPop: aStack
+
+	^aStack haceElPopConLaBase.
+! !
+
+!OOEmpty methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 20:56:15'!
+comoHagoTop: aStack
+
+	^aStack haceElTopConLaBase.
+! !
+
+
+!classDefinition: #OONotEmpty category: 'Stack-Exercise'!
+OOStackState subclass: #OONotEmpty
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!OONotEmpty methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:12:19'!
+comoHagoPop: aStack
+	
+	^aStack haceElPopConElementos.
+	
+	
+
+	! !
+
+!OONotEmpty methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:12:15'!
+comoHagoTop: aStack
+	
+	^aStack haceElTopConElementos.
+	
+	
+
+	! !
+
+
+!classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
+Object subclass: #SentenceFinderByPrefix
+	instanceVariableNames: 'stack'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:59:29'!
+find: unPrefijo
+	(unPrefijo findString: ' ' > 1) ifTrue: [^self error: self class elPrefijoNoPuedeTenerEspaciosVaciosErrorDescription].
+	
+	self error: self class prefijoEmptyErrorDescription.
+! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:42:07'!
+initializeWith: unStack
+	
+	stack:= unStack.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
+SentenceFinderByPrefix class
+	instanceVariableNames: ''!
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:50:42'!
+elPrefijoNoPuedeTenerEspaciosVaciosErrorDescription
+	
+	^'No se admiten prefijos con espacios vacios'! !
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:35:48'!
+prefijoEmptyErrorDescription
+	
+	^'No se admiten prefijos vacios'! !
+
+OOStack initialize!
