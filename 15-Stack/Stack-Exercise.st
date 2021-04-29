@@ -144,6 +144,23 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/29/2021 15:06:47'!
+test00PrefixCanNotBeASpace
+	
+	| sentenceFinder |
+	
+	sentenceFinder _ SentenceFinderByPrefix with: self stackWithOneSentence.
+	
+	self
+		should: [ sentenceFinder find: ' '. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = SentenceFinderByPrefix prefixCanNotContainsSpacesErrorDescription]
+	
+	
+	 
+! !
+
 !SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/28/2021 23:26:28'!
 test01PrefixCanNotBeEmpty
 	
@@ -265,10 +282,10 @@ test08FindSentenceWithCaseSensitive
 ! !
 
 
-!SentenceFinderByPrefixTest methodsFor: 'asserts' stamp: 'ERMC 4/28/2021 23:33:38'!
+!SentenceFinderByPrefixTest methodsFor: 'asserts' stamp: 'ERMC 4/29/2021 16:04:30'!
 assert: aStack hasEqualsElements: anotherStack.
 
-	[aStack isNotEmpty] whileTrue: [self assert: aStack pop equals: anotherStack pop]
+	aStack size timesRepeat: [self assert: aStack pop equals: anotherStack pop]
 ! !
 
 !SentenceFinderByPrefixTest methodsFor: 'asserts' stamp: 'ERMC 4/28/2021 23:34:31'!
@@ -548,10 +565,10 @@ addSentenceIfThereIsAMatch: aPrefix
 	stackBackup push: sentence.
 	! !
 
-!SentenceFinderByPrefix methodsFor: 'operations - private' stamp: 'ERMC 4/28/2021 23:41:40'!
+!SentenceFinderByPrefix methodsFor: 'operations - private' stamp: 'ERMC 4/29/2021 15:17:38'!
 findAllSentencesMatchesWith: aPrefix
 
-	[stackSentences isNotEmpty ] whileTrue: [self addSentenceIfThereIsAMatch: aPrefix].! !
+	stackSentences size  timesRepeat: [self addSentenceIfThereIsAMatch: aPrefix].! !
 
 !SentenceFinderByPrefix methodsFor: 'operations - private' stamp: 'ERMC 4/28/2021 23:27:11'!
 isPrefixValid: aPrefix
