@@ -144,47 +144,164 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:42:44'!
-test01NoSePuedeUtilizarPrefijosVacios
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/28/2021 23:26:28'!
+test01PrefixCanNotBeEmpty
 	
-	| stack firstPushedObject prefijo  xxx|
+	|  sentenceFinder|
+		
+	sentenceFinder _ SentenceFinderByPrefix with: self stackWithOneSentence.
 	
-	stack := OOStack new.
-	firstPushedObject := 'firstObject'.
-	stack push: firstPushedObject.
-	prefijo := ' '.
-	xxx := SentenceFinderByPrefix new initializeWith: stack.
 	self
-		should: [ xxx find: prefijo. ]
+		should: [ sentenceFinder find: '']
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
-			self assert: stack top = firstPushedObject.
-			self assert: anError messageText = SentenceFinderByPrefix prefijoEmptyErrorDescription ]
+			self assert: anError messageText = SentenceFinderByPrefix prefixEmptyErrorDescription ]
 	
 	
 	 
 ! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:50:07'!
-test02ElPrefijoNoPuedeContenerEspaciosVacios
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/28/2021 23:27:31'!
+test02PrefixCanNotContainsSpaces
 	
-	| stack firstPushedObject prefijo  xxx|
+	| sentenceFinder |
 	
-	stack := OOStack new.
-	firstPushedObject := 'firstObject'.
-	stack push: firstPushedObject.
-	prefijo := 'fi rst'.
-	xxx := SentenceFinderByPrefix new initializeWith: stack.
+	sentenceFinder _ SentenceFinderByPrefix with: self stackWithOneSentence.
+	
 	self
-		should: [ xxx find: prefijo. ]
+		should: [ sentenceFinder find: 'fir st'. ]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
-			self assert: stack top = firstPushedObject.
-			self assert: anError messageText = SentenceFinderByPrefix elPrefijoNoPuedeTenerEspaciosVaciosErrorDescription ]
+			self assert: anError messageText = SentenceFinderByPrefix prefixCanNotContainsSpacesErrorDescription]
 	
 	
 	 
 ! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/28/2021 23:28:24'!
+test03CanNotFindInAEmptySenteceFinder
+	
+	| sentenceFinder sentencesMatchesExpected |
+	
+	sentenceFinder _ SentenceFinderByPrefix with: OOStack new.
+	sentencesMatchesExpected _ OrderedCollection new.
+		
+	self assert: sentencesMatchesExpected equals: (sentenceFinder find: 'winter')
+	
+	
+	 
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/28/2021 23:28:59'!
+test04WhenThereIsNotPrefixMatchInASentenceReturnAnEmptyCollection
+	
+	| sentenceFinder sentencesMatchesExpected |
+	
+	sentenceFinder _ SentenceFinderByPrefix with: self stackWithOneSentence.
+	sentencesMatchesExpected _ OrderedCollection new.
+	
+	self assert: sentencesMatchesExpected equals: (sentenceFinder find: 'winter')
+	
+	 
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/28/2021 23:34:31'!
+test05FindPrefixMatchWhenFinderHasOneSentenceAndReturnTheSentence
+	
+	| sentenceFinder sentencesMatchesExpected stackWithOneSentence |
+	
+	stackWithOneSentence _ self stackWithOneSentence. 
+	sentenceFinder _ SentenceFinderByPrefix with: stackWithOneSentence.
+	
+	sentencesMatchesExpected _ sentenceFinder find: 'north'.
+	
+	self assert: 1 equals: sentencesMatchesExpected size. 
+	self assert: sentencesMatchesExpected first equals: stackWithOneSentence top.
+	self assert: (self stackWithOneSentence) hasEqualsElementsAndTheSameSize: (sentenceFinder stackSentences).
+	
+	
+	
+	 
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/28/2021 23:30:54'!
+test06GivenASentenceFinderWithMoreThanOneSentencesAndThereIsNotPrefixMatchReturnEmptyCollection
+	
+	| sentenceFinder sentencesMatchesExpected |
+
+	sentenceFinder := SentenceFinderByPrefix with: self stackWithFourSentences.
+	sentencesMatchesExpected _ OrderedCollection new.
+	
+	self assert: sentencesMatchesExpected equals: (sentenceFinder find: 'sum')
+	
+	 
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/28/2021 23:33:38'!
+test07GivenASentenceFinderWithMoreThanOneSentencesAndThereIsPrefixMatchReturnCorrectMatchSentences
+	
+	| sentenceFinder sentencesExpected |
+	
+	sentenceFinder := SentenceFinderByPrefix with: self stackWithFourSentences.
+	sentencesExpected _ OrderedCollection with: 'The winds of winter'  with: 'winter'.
+	
+	self assert: sentencesExpected equals: (sentenceFinder find: 'win').
+	self assert:  self stackWithFourSentences hasEqualsElements: sentenceFinder stackSentences.
+	
+	 
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'ERMC 4/28/2021 23:21:53'!
+test08FindSentenceWithCaseSensitive
+	
+	| sentenceFinder sentencesExpected |
+
+	sentenceFinder := SentenceFinderByPrefix with: self stackWithOneSentence.
+	sentencesExpected _ OrderedCollection new.
+	
+	self assert: sentencesExpected equals: (sentenceFinder find: 'king')
+	
+	 
+! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'asserts' stamp: 'ERMC 4/28/2021 23:33:38'!
+assert: aStack hasEqualsElements: anotherStack.
+
+	[aStack isNotEmpty] whileTrue: [self assert: aStack pop equals: anotherStack pop]
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'asserts' stamp: 'ERMC 4/28/2021 23:34:31'!
+assert: aStack hasEqualsElementsAndTheSameSize: anotherStack 
+	
+	self assert: aStack size equals: anotherStack size.
+	self assert: aStack hasEqualsElements: anotherStack.
+	 
+! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'initialization' stamp: 'ERMC 4/28/2021 23:17:43'!
+stackWithFourSentences
+	
+	| stack |
+	stack _ OOStack new.
+	stack push: 'winter'.
+	stack push: 'Winter is coming'.
+	stack push: 'The winds of winter'.
+	stack push: 'Winter is here'.
+	
+	^stack 
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'initialization' stamp: 'ERMC 4/28/2021 20:02:59'!
+stackWithOneSentence
+	
+	|stackWithOneSentence|
+	
+	stackWithOneSentence _ OOStack new. 
+	stackWithOneSentence push: 'King in the north'.
+	
+	^stackWithOneSentence ! !
 
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
@@ -194,72 +311,71 @@ Object subclass: #OOStack
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'initialization' stamp: 'sgs 4/26/2021 20:54:34'!
+!OOStack methodsFor: 'initialization' stamp: 'ERMC 4/27/2021 22:43:07'!
 initialize
 	
 	
-	 elements := 	OrderedCollection new.
+	 elements _ 	OrderedCollection new.
 	! !
 
 
-!OOStack methodsFor: 'xxxx' stamp: 'sgs 4/26/2021 20:54:34'!
+!OOStack methodsFor: 'stack properties' stamp: 'sgs 4/26/2021 20:54:34'!
 isEmpty
 	
 	^elements isEmpty .
 	! !
 
-!OOStack methodsFor: 'xxxx' stamp: 'sgs 4/26/2021 20:57:16'!
+!OOStack methodsFor: 'stack properties' stamp: 'ERMC 4/28/2021 21:16:55'!
+isNotEmpty
+	
+	^ (elements isEmpty ) not
+	! !
+
+!OOStack methodsFor: 'stack properties' stamp: 'sgs 4/26/2021 20:57:16'!
 size
 	
 	^elements size .
 	! !
 
 
-!OOStack methodsFor: 'operations' stamp: 'sgs 4/26/2021 18:00:22'!
+!OOStack methodsFor: 'operations' stamp: 'ERMC 4/27/2021 23:04:38'!
 pop 
-"
-	 elements isEmpty ifTrue: [self error: self class stackEmptyErrorDescription].
-	^elements removeFirst.
-"
-	^OOStackState comoHagoPop: self.! !
 
-!OOStack methodsFor: 'operations' stamp: 'sgs 4/26/2021 20:54:34'!
-push: aElement
+	| top |
+	top _ self top.
+	elements removeLast .
+	
+	^top 
+	! !
 
-	elements addFirst: aElement.! !
+!OOStack methodsFor: 'operations' stamp: 'ERMC 4/28/2021 19:33:06'!
+push: anElement
 
-!OOStack methodsFor: 'operations' stamp: 'sgs 4/26/2021 17:59:06'!
+	elements addLast: anElement.! !
+
+!OOStack methodsFor: 'operations' stamp: 'ERMC 4/28/2021 23:39:51'!
 top 
-"	elements isEmpty ifTrue: [self error: self class stackEmptyErrorDescription].
 
-	^elements first.
-"
-	^OOStackState comoHagoTop: self.! !
-
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:15:24'!
-haceElPopConElementos
+	^ self state top
 	
-	|element|
-	
-	element:= elements first.
-	elements removeFirst.
-	^element.
 	! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 20:55:20'!
-haceElPopConLaBase.
 
-	self error: self class stackEmptyErrorDescription.! !
+!OOStack methodsFor: 'operations - private' stamp: 'ERMC 4/28/2021 23:39:51'!
+state
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:11:28'!
-haceElTopConElementos.
+	^OOStackState howMakeToTop: self.
 	
-	^elements first.
 	! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 20:56:01'!
-haceElTopConLaBase
+!OOStack methodsFor: 'operations - private' stamp: 'ERMC 4/27/2021 22:50:22'!
+topWithElemnts
+	
+	^elements last.
+	! !
+
+!OOStack methodsFor: 'operations - private' stamp: 'ERMC 4/27/2021 22:51:00'!
+topWithoutElements
 
 	self error: self class stackEmptyErrorDescription.
 ! !
@@ -276,17 +392,23 @@ stackEmptyErrorDescription
 	^ 'Stack is empty!!!!!!'! !
 
 
-!OOStack class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 15:41:11'!
-initialize
-	^self new initialize.! !
-
 
 !classDefinition: #OOStackState category: 'Stack-Exercise'!
 Object subclass: #OOStackState
-	instanceVariableNames: ''
+	instanceVariableNames: 'stack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!OOStackState methodsFor: 'as yet unclassified' stamp: 'ERMC 4/28/2021 20:37:01'!
+howMakeToTop: aStack
+	
+	self subclassResponsibility ! !
+
+!OOStackState methodsFor: 'as yet unclassified' stamp: 'ERMC 4/28/2021 21:07:23'!
+initializeWith: aStack
+	
+	stack _ aStack.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -294,19 +416,22 @@ Object subclass: #OOStackState
 OOStackState class
 	instanceVariableNames: ''!
 
-!OOStackState class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:26:19'!
-comoHagoPop: aStack
-	|aSackSatet|
-	(aStack size < 1) ifTrue: [ aSackSatet:= OOEmpty new ] ifFalse: [aSackSatet := OONotEmpty  new].
-	^aSackSatet comoHagoPop: aStack.! !
+!OOStackState class methodsFor: 'testing' stamp: 'ERMC 4/28/2021 21:09:54'!
+canHandle: aStack
 
-!OOStackState class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:26:25'!
-comoHagoTop: aStack
+	self subclassResponsibility! !
 
-	|aSackSatet|
-	(aStack size < 1) ifTrue: [ aSackSatet:= OOEmpty new] ifFalse: [aSackSatet := OONotEmpty  new].
+
+!OOStackState class methodsFor: 'helper' stamp: 'ERMC 4/28/2021 23:38:51'!
+howMakeToTop: aStack
 	
-	^aSackSatet comoHagoTop: aStack.! !
+	^(self subclasses detect: [:aStackStateClass | aStackStateClass canHandle: aStack ]) for: aStack! !
+
+
+!OOStackState class methodsFor: 'initialization' stamp: 'ERMC 4/28/2021 21:10:19'!
+for: aStack
+
+	self subclassResponsibility! !
 
 
 !classDefinition: #OOEmpty category: 'Stack-Exercise'!
@@ -316,17 +441,29 @@ OOStackState subclass: #OOEmpty
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOEmpty methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 20:56:11'!
-comoHagoPop: aStack
+!OOEmpty methodsFor: 'as yet unclassified' stamp: 'ERMC 4/28/2021 20:45:01'!
+top
 
-	^aStack haceElPopConLaBase.
+	^stack topWithoutElements.
 ! !
 
-!OOEmpty methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 20:56:15'!
-comoHagoTop: aStack
 
-	^aStack haceElTopConLaBase.
-! !
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'OOEmpty class' category: 'Stack-Exercise'!
+OOEmpty class
+	instanceVariableNames: ''!
+
+!OOEmpty class methodsFor: 'testing' stamp: 'ERMC 4/28/2021 20:40:30'!
+canHandle: aStack
+	
+	^aStack isEmpty ! !
+
+
+!OOEmpty class methodsFor: 'initialization' stamp: 'ERMC 4/28/2021 20:44:18'!
+for: aStack 
+	
+	^self new initializeWith: aStack! !
 
 
 !classDefinition: #OONotEmpty category: 'Stack-Exercise'!
@@ -336,43 +473,96 @@ OOStackState subclass: #OONotEmpty
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OONotEmpty methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:12:19'!
-comoHagoPop: aStack
+!OONotEmpty methodsFor: 'as yet unclassified' stamp: 'ERMC 4/28/2021 20:45:16'!
+top
 	
-	^aStack haceElPopConElementos.
-	
-	
-
-	! !
-
-!OONotEmpty methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:12:15'!
-comoHagoTop: aStack
-	
-	^aStack haceElTopConElementos.
+	^stack topWithElemnts.
 	
 	
 
 	! !
+
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'OONotEmpty class' category: 'Stack-Exercise'!
+OONotEmpty class
+	instanceVariableNames: ''!
+
+!OONotEmpty class methodsFor: 'testing' stamp: 'ERMC 4/28/2021 21:16:05'!
+canHandle: aStack
+	
+	^ (aStack isNotEmpty)! !
+
+
+!OONotEmpty class methodsFor: 'initialization' stamp: 'ERMC 4/28/2021 20:42:49'!
+for: anOOStack 
+
+ 	^self new initializeWith: anOOStack.! !
 
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: 'stack'
+	instanceVariableNames: 'stackSentences sentencesMatches stackBackup'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:59:29'!
-find: unPrefijo
-	(unPrefijo findString: ' ' > 1) ifTrue: [^self error: self class elPrefijoNoPuedeTenerEspaciosVaciosErrorDescription].
+!SentenceFinderByPrefix methodsFor: 'propertie' stamp: 'ERMC 4/28/2021 21:32:19'!
+stackSentences
 	
-	self error: self class prefijoEmptyErrorDescription.
+	^stackSentences.! !
+
+
+!SentenceFinderByPrefix methodsFor: 'initialization' stamp: 'ERMC 4/28/2021 21:32:00'!
+initializeWith: anStack 
+
+	stackSentences _ anStack.! !
+
+
+!SentenceFinderByPrefix methodsFor: 'operations' stamp: 'ERMC 4/28/2021 23:42:02'!
+find: aPrefix
+
+	self isPrefixValid: aPrefix.
+	
+	sentencesMatches _ OrderedCollection new.
+	stackBackup _ OOStack new.
+	
+	self findAllSentencesMatchesWith: aPrefix.
+	
+	self restoreOriginalStack. 
+	
+	^sentencesMatches 		
 ! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:42:07'!
-initializeWith: unStack
+
+!SentenceFinderByPrefix methodsFor: 'operations - private' stamp: 'ERMC 4/28/2021 23:42:02'!
+addSentenceIfThereIsAMatch: aPrefix
 	
-	stack:= unStack.! !
+	| sentence |
+	
+	sentence _ stackSentences pop.
+	
+	 (sentence includesSubString: aPrefix ) ifTrue: [sentencesMatches add: sentence].
+	
+	stackBackup push: sentence.
+	! !
+
+!SentenceFinderByPrefix methodsFor: 'operations - private' stamp: 'ERMC 4/28/2021 23:41:40'!
+findAllSentencesMatchesWith: aPrefix
+
+	[stackSentences isNotEmpty ] whileTrue: [self addSentenceIfThereIsAMatch: aPrefix].! !
+
+!SentenceFinderByPrefix methodsFor: 'operations - private' stamp: 'ERMC 4/28/2021 23:27:11'!
+isPrefixValid: aPrefix
+	
+ 	(aPrefix = '' ) ifTrue: [^self error: self class prefixEmptyErrorDescription].
+	(aPrefix includesSubString: ' ') ifTrue: [^self error: self class prefixCanNotContainsSpacesErrorDescription].! !
+
+!SentenceFinderByPrefix methodsFor: 'operations - private' stamp: 'ERMC 4/28/2021 23:41:55'!
+restoreOriginalStack 
+	
+	[stackBackup isNotEmpty] whileTrue: [stackSentences push: stackBackup pop]! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -380,14 +570,24 @@ initializeWith: unStack
 SentenceFinderByPrefix class
 	instanceVariableNames: ''!
 
-!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:50:42'!
-elPrefijoNoPuedeTenerEspaciosVaciosErrorDescription
+!SentenceFinderByPrefix class methodsFor: 'errors' stamp: 'ERMC 4/27/2021 20:22:11'!
+SentenceFinderIsEmptyErrorDescription
+	
+	'Can not search prefix in an Empty sentence finder'.! !
+
+!SentenceFinderByPrefix class methodsFor: 'errors' stamp: 'ERMC 4/28/2021 23:27:11'!
+prefixCanNotContainsSpacesErrorDescription
 	
 	^'No se admiten prefijos con espacios vacios'! !
 
-!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'sgs 4/26/2021 21:35:48'!
-prefijoEmptyErrorDescription
+!SentenceFinderByPrefix class methodsFor: 'errors' stamp: 'ERMC 4/28/2021 23:26:28'!
+prefixEmptyErrorDescription
 	
 	^'No se admiten prefijos vacios'! !
 
-OOStack initialize!
+
+!SentenceFinderByPrefix class methodsFor: 'initialization' stamp: 'ERMC 4/28/2021 23:42:20'!
+with: aStack 
+		
+	^self new initializeWith: aStack
+	! !
