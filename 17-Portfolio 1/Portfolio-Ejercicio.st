@@ -1,3 +1,31 @@
+!classDefinition: #PortfolioTest category: 'Portfolio-Ejercicio'!
+TestCase subclass: #PortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/17/2021 21:05:53'!
+test01UnPortfolioSePuedeCrearSinCuentas
+	| aPortfolio |
+	
+	aPortfolio _ Portfolio new.
+	
+	self assert: 0 equals: aPortfolio balance ! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/17/2021 21:54:50'!
+test02
+	| account portfolio |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 50 on: account. 
+	portfolio _ Portfolio new. 
+	portfolio add: account.
+		
+	self assert: 50 equals: portfolio balance.
+! !
+
+
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
 	instanceVariableNames: ''
@@ -131,6 +159,11 @@ initializeFor: aValue
 	value := aValue ! !
 
 
+!Deposit methodsFor: 'value' stamp: 'ERMC 5/17/2021 22:05:47'!
+addTo: aBalance
+	
+	^aBalance + value! !
+
 !Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
 value
 
@@ -161,6 +194,11 @@ initializeFor: aValue
 	value := aValue ! !
 
 
+!Withdraw methodsFor: 'value' stamp: 'ERMC 5/17/2021 22:05:31'!
+addTo: aBalance
+	
+	^aBalance - value! !
+
 !Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
 value
 
@@ -176,6 +214,25 @@ Withdraw class
 for: aValue
 
 	^ self new initializeFor: aValue ! !
+
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'accounts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/17/2021 21:57:08'!
+add: anAccount 
+	
+	accounts add: anAccount 
+	! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/17/2021 21:05:17'!
+balance
+	
+	^0! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
@@ -203,10 +260,15 @@ transactions
 	^ transactions copy! !
 
 
-!ReceptiveAccount methodsFor: 'balance' stamp: 'HAW 5/23/2019 15:19:32'!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ERMC 5/17/2021 22:06:17'!
 balance
 
-	^transactions sum: [ :aTransaction | aTransaction value ] ifEmpty: [ 0 ]! !
+	| totalBalance |
+	totalBalance _ 0.
+
+	totalBalance _ transactions sum: [ :aTransaction | aTransaction addTo: totalBalance].
+	
+	^totalBalance! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
