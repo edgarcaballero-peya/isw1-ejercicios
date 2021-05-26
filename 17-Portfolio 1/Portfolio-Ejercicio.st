@@ -5,65 +5,172 @@ TestCase subclass: #PortfolioTest
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 13:54:06'!
-createReceptiveAccountWithDeposit
-	
-	| account |
-	
-	account _ ReceptiveAccount new.
-	Deposit register: 50 on: account. 
-	
-	^account ! !
+!PortfolioTest methodsFor: 'tests - adding' stamp: 'ERMC 5/25/2021 20:07:53'!
+test13APortfolioCanNotHaveDuplicatedAccount
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/17/2021 21:05:53'!
-test01UnPortfolioSePuedeCrearSinCuentas
+	|aPortfolio  account |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	self should: [aPortfolio add: account ] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!PortfolioTest methodsFor: 'tests - adding' stamp: 'ERMC 5/25/2021 20:07:48'!
+test14APortfolioCanNotIncludeItSelf
+
+	|aPortfolio  account |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	self should: [aPortfolio add: aPortfolio] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!PortfolioTest methodsFor: 'tests - adding' stamp: 'ERMC 5/25/2021 20:07:43'!
+test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount
+
+	|aPortfolio  account mainPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	mainPortfolio _ Portfolio with: aPortfolio.
+	
+	self should: [mainPortfolio add: account] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!PortfolioTest methodsFor: 'tests - adding' stamp: 'ERMC 5/25/2021 20:07:37'!
+test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount
+
+	|aPortfolio  account mainPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	mainPortfolio _ Portfolio with: account.
+	
+	aPortfolio _ Portfolio with: account.
+			
+	self should: [mainPortfolio add: aPortfolio] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!PortfolioTest methodsFor: 'tests - adding' stamp: 'ERMC 5/25/2021 21:35:38'!
+test17CanNotAddAnAccountIfAnyParentsHasIt
+
+	|aPortfolio  account rootPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio new.
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account. 
+	
+	self should: [aPortfolio add: account] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 18:20:14'!
+test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero
 	| aPortfolio |
 	
 	aPortfolio _ Portfolio new.
 	
 	self assert: 0 equals: aPortfolio balance ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 13:54:44'!
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 18:45:20'!
 test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance
 	|portfolio|
 	
-	portfolio _ Portfolio with: self createReceptiveAccountWithDeposit.
+	portfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
 		
 	self assert: 50 equals: portfolio balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 13:56:06'!
-test03APortfolioWithOnePortfolio
-	|mainPortfolio aPortfolio|
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 19:50:33'!
+test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances
+	 |portfolio account1 account2|
+	 
+	 account1 _ self createReceptiveAccountWith: (Deposit for: 50).
+	 account2 _ self createReceptiveAccountWith: (Deposit for: 50).
+	 portfolio _ Portfolio with: account1 .
+	 portfolio add: account2.
+	  
+	 self assert: 100 equals: portfolio balance.! !
+
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 19:53:06'!
+test04APortfolioWithOnePortfolio
+	|rootPortfolio aPortfolio|
 	
-	aPortfolio _ Portfolio with: self createReceptiveAccountWithDeposit.
-	mainPortfolio _ Portfolio with: aPortfolio.
+	aPortfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
+	rootPortfolio _ Portfolio with: aPortfolio.
 			
-	self assert: 50 equals: mainPortfolio balance.
+	self assert: 50 equals: rootPortfolio balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 14:00:11'!
-test04APortfolioWithManyAccountHasTheSumOfTheBalance
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 19:54:10'!
+test05APortfolioWithManyAccountHasTheSumOfTheBalance
 
-	|mainPortfolio aPortfolio  account account2 anotherPortfolio |
+	|rootPortfolio aPortfolio anotherPortfolio|
 	
-	account _ ReceptiveAccount new.
-	account2 _ ReceptiveAccount new.
-	Deposit register: 150 on: account.
-	Withdraw register: 20 on: account.
-	Deposit register: 30 on: account2.
-	
-	aPortfolio _ Portfolio with: account.
+	aPortfolio _ Portfolio with: self createReceptiveAccountWithDepositAndWithdraw.
 	anotherPortfolio _ Portfolio with: aPortfolio.
 		
-	mainPortfolio _ Portfolio with: anotherPortfolio. 
-	mainPortfolio add: account2.
+	rootPortfolio _ Portfolio with: anotherPortfolio. 
+	rootPortfolio add: (self createReceptiveAccountWith: (Deposit for: 30)).
 	
-	self assert: 160 equals: mainPortfolio balance.
+	self assert: 160 equals: rootPortfolio balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/22/2021 20:04:26'!
-test05AnEmptyPortfolioDoNotKnowAnyTransaction
+
+!PortfolioTest methodsFor: 'tests - private' stamp: 'ERMC 5/25/2021 18:44:48'!
+createReceptiveAccountWith: aTransaction
+
+	|account|
+	
+	account _ ReceptiveAccount new.
+	
+	^account register: aTransaction
+	! !
+
+!PortfolioTest methodsFor: 'tests - private' stamp: 'ERMC 5/25/2021 18:23:39'!
+createReceptiveAccountWithDepositAndWithdraw
+
+	|account|
+	
+	account _ ReceptiveAccount new.
+	Deposit register: 150 on: account.
+	Withdraw register: 20 on: account.
+	
+	^account ! !
+
+
+!PortfolioTest methodsFor: 'tests - hasRegistered' stamp: 'ERMC 5/25/2021 18:49:12'!
+test06APortfolioWithOneAccountWithATransactionKnowsTransaction
+
+	|aPortfolio aDeposit account |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account .
+	
+	self assert: (aPortfolio hasRegistered: aDeposit)
+! !
+
+!PortfolioTest methodsFor: 'tests - hasRegistered' stamp: 'ERMC 5/25/2021 19:55:01'!
+test07AnEmptyPortfolioDoNotKnowAnyTransaction
 
 	|aPortfolio aDeposit |
 	
@@ -73,44 +180,47 @@ test05AnEmptyPortfolioDoNotKnowAnyTransaction
 	self deny: (aPortfolio hasRegistered: aDeposit)
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/22/2021 20:09:35'!
-test06APortfolioWithOneAccountWithATransactionKnowsTransaction
+!PortfolioTest methodsFor: 'tests - hasRegistered' stamp: 'ERMC 5/25/2021 19:59:57'!
+test08APortfolioWithManyAccountsKnowsAccountTransactions
 
-	|aPortfolio aDeposit account |
+	 |aPortfolio aDeposit account aWithdraw account2 |
+	 
+	 account _ ReceptiveAccount new. 
+	 aDeposit _ Deposit register: 150 on: account.
+	 
+	 account2 _ ReceptiveAccount new.
+	 aWithdraw _ Withdraw register: 50 on: account2.  
+	 
+	 aPortfolio _ Portfolio with: account.
+	 aPortfolio add: account2.
+
+	 self assert: (aPortfolio hasRegistered: aDeposit).
+	 self assert: (aPortfolio hasRegistered: aWithdraw).! !
+
+!PortfolioTest methodsFor: 'tests - hasRegistered' stamp: 'ERMC 5/25/2021 20:01:23'!
+test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 aDeposit2 |
 	
 	account _ ReceptiveAccount new.	
 	aDeposit _ Deposit register: 150 on: account.
-	aPortfolio _ Portfolio new.
-	
-	aPortfolio add: account.
-	
-	self assert: (aPortfolio hasRegistered: aDeposit)
-! !
-
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 12:27:21'!
-test07APortfolioWithManyAccountsKnowsAllTransaction
-
-	|aPortfolio mainPortfolio aDeposit account aWithdraw account2 |
-	
-	account _ ReceptiveAccount new.	
-	aDeposit _ Deposit register: 150 on: account.
-	aPortfolio _ Portfolio new.
-	aPortfolio add: account.
+	aPortfolio _ Portfolio with: account.
 	
 	account2 _ ReceptiveAccount new.
-	Deposit register: 100 on: account2. 
+	aDeposit2 _ Deposit register: 100 on: account2. 
 	aWithdraw _ Withdraw register: 50 on: account2.  
 	
-	mainPortfolio _ Portfolio new.
-	mainPortfolio add: account2.
-	mainPortfolio add: aPortfolio.
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account2.
 	
-	self assert: (mainPortfolio hasRegistered: aDeposit).
-	self assert: (mainPortfolio hasRegistered: aWithdraw).
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aDeposit2).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 12:30:16'!
-test08APortfolioWithotAnAccountHasNotAnyTransaction
+
+!PortfolioTest methodsFor: 'tests - transactions' stamp: 'ERMC 5/25/2021 20:02:27'!
+test10APortfolioWithotAnAccountHasNotAnyTransaction
 
 	|aPortfolio |
 	
@@ -119,17 +229,16 @@ test08APortfolioWithotAnAccountHasNotAnyTransaction
 	self assert: aPortfolio transactions isEmpty
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 12:57:26'!
-test09APortfolioWithOneAccountHasCorrectTransactions
+!PortfolioTest methodsFor: 'tests - transactions' stamp: 'ERMC 5/25/2021 20:02:34'!
+test11APortfolioWithOneAccountHasCorrectTransactions
 
 	|aPortfolio aPortfolioTransactions account deposit withdraw |
 	
-	aPortfolio _ Portfolio new.
 	account _ ReceptiveAccount new.
 	deposit _ Deposit register: 100 on: account.
 	withdraw _ Withdraw register: 50 on: account.
 	
-	aPortfolio add: account. 
+	aPortfolio _ Portfolio with: account. 
 	aPortfolioTransactions _ aPortfolio transactions. 
 	
 	self assert: 2 equals: (aPortfolioTransactions) size.
@@ -137,27 +246,8 @@ test09APortfolioWithOneAccountHasCorrectTransactions
 	self assert: (aPortfolio transactions includes: withdraw).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 20:06:27'!
-test10APortfolioWithAPortfolioKnowsTransactions
-
-	|aPortfolio mainPortfolio aDeposit account aWithdraw aPortfolioTransactions|
-	
-	account _ ReceptiveAccount new.	
-	aDeposit _ Deposit register: 150 on: account.
-	aWithdraw _ Withdraw register: 50 on: account.
-	aPortfolio _ Portfolio with: account.
-	
-	mainPortfolio _ Portfolio with: aPortfolio.
-
-	aPortfolioTransactions _ mainPortfolio transactions.
-	
-	self assert: 2 equals: (aPortfolioTransactions) size.
-	self assert: (mainPortfolio transactions includes: aDeposit).
-	self assert: (mainPortfolio transactions includes: aWithdraw).	
-! !
-
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 20:08:10'!
-test11APortfolioWithManyAccountsReturnsAllTransactions
+!PortfolioTest methodsFor: 'tests - transactions' stamp: 'ERMC 5/25/2021 20:06:18'!
+test12APortfolioWithManyAccountsReturnsAllTransactions
 
 	|aPortfolio mainPortfolio aDeposit account aWithdraw account2 aPortfolioTransactions deposit2 |
 	
@@ -180,82 +270,6 @@ test11APortfolioWithManyAccountsReturnsAllTransactions
 	self assert: (mainPortfolio transactions includes: deposit2).
 	
 ! !
-
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 20:23:08'!
-test12APortfolioCanNotHaveDuplicatedAccount
-
-	|aPortfolio  account |
-	
-	account _ ReceptiveAccount new.	
-	aPortfolio _ Portfolio with: account.
-	
-	self should: [aPortfolio add: account ] 
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anErrorMessage |
-			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
- ! !
-
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 20:21:53'!
-test13APortfolioCanNotIncludeItSelf
-
-	|aPortfolio  account |
-	
-	account _ ReceptiveAccount new.	
-	aPortfolio _ Portfolio with: account.
-	
-	self should: [aPortfolio add: aPortfolio] 
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anErrorMessage |
-			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
- ! !
-
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 20:31:22'!
-test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount
-
-	|aPortfolio  account mainPortfolio |
-	
-	account _ ReceptiveAccount new.	
-	aPortfolio _ Portfolio with: account.
-	
-	mainPortfolio _ Portfolio with: aPortfolio.
-	
-	self should: [mainPortfolio add: account] 
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anErrorMessage |
-			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
- ! !
-
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 21:37:30'!
-test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount
-
-	|aPortfolio  account mainPortfolio |
-	
-	account _ ReceptiveAccount new.	
-	mainPortfolio _ Portfolio with: account.
-	
-	aPortfolio _ Portfolio with: account.
-			
-	self should: [mainPortfolio add: aPortfolio] 
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anErrorMessage |
-			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
- ! !
-
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 21:12:46'!
-test16
-
-	|aPortfolio  account mainPortfolio |
-	
-	account _ ReceptiveAccount new.	
-	aPortfolio _ Portfolio new.
-	mainPortfolio _ Portfolio with: aPortfolio.
-	mainPortfolio add: account. 
-	
-	self should: [aPortfolio add: account] 
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anErrorMessage |
-			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
- ! !
 
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
@@ -356,6 +370,11 @@ Object subclass: #AccountTransaction
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
+!AccountTransaction methodsFor: 'value' stamp: 'ERMC 5/25/2021 23:04:47'!
+affectBalance: aBalance
+
+	self subclassResponsibility ! !
+
 !AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
 value 
 
@@ -448,56 +467,104 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
-!classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
-Object subclass: #Portfolio
-	instanceVariableNames: 'accounts'
+!classDefinition: #BankAccount category: 'Portfolio-Ejercicio'!
+Object subclass: #BankAccount
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 21:04:14'!
+!BankAccount methodsFor: 'accesing' stamp: 'ERMC 5/25/2021 22:52:00'!
+balance
+	
+	self subclassResponsibility ! !
+
+!BankAccount methodsFor: 'accesing' stamp: 'ERMC 5/25/2021 22:52:16'!
+hasRegistered: aTransaction
+	
+	self subclassResponsibility ! !
+
+
+!BankAccount methodsFor: 'adding - private' stamp: 'ERMC 5/25/2021 22:52:38'!
+isAnyAccountThatIncludes: anAccount 
+
+	self subclassResponsibility ! !
+
+
+!BankAccount methodsFor: 'adding' stamp: 'ERMC 5/25/2021 22:51:50'!
+addAsParent: anAccount
+	
+	self subclassResponsibility ! !
+
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
+BankAccount subclass: #Portfolio
+	instanceVariableNames: 'accounts parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!Portfolio methodsFor: 'initialization' stamp: 'ERMC 5/25/2021 22:09:33'!
+initialize
+	
+	accounts _ OrderedCollection new.
+	parents _ OrderedCollection new.! !
+
+!Portfolio methodsFor: 'initialization' stamp: 'ERMC 5/25/2021 22:32:32'!
+initializeWith: anAccount
+	
+	accounts _ OrderedCollection with: anAccount.
+	anAccount addAsParent: self.! !
+
+
+!Portfolio methodsFor: 'adding' stamp: 'ERMC 5/25/2021 23:06:01'!
+add: anAccountToAdd 
+	
+	self assertCanAdd: anAccountToAdd. 
+	accounts add: anAccountToAdd.
+	anAccountToAdd addAsParent: self! !
+
+!Portfolio methodsFor: 'adding' stamp: 'ERMC 5/25/2021 22:09:12'!
+addAsParent: aPortfolio
+
+	parents add: aPortfolio ! !
+
+
+!Portfolio methodsFor: 'adding - private' stamp: 'ERMC 5/25/2021 22:27:57'!
+anyParentHasAccount: anAccountToAdd 
+	
+	^parents anySatisfy: [ :aParent | (aParent accounts)  includes: anAccountToAdd]! !
+
+!Portfolio methodsFor: 'adding - private' stamp: 'ERMC 5/25/2021 22:34:40'!
+isAnyAccountThatIncludes: anAccountToAdd 
+
+ 	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount isAnyAccountThatIncludes: anAccountToAdd) or: [anAccountToAdd isAnyAccountThatIncludes: anAccount]]]
+
+	or: (self anyParentHasAccount: anAccountToAdd)! !
+
+
+!Portfolio methodsFor: 'accesing' stamp: 'ERMC 5/23/2021 21:04:14'!
 accounts
 
 	^accounts! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 21:36:10'!
-accountsIncludes: anAccount
-
-"checkear si existe alguna cuenta que este incluida dentro de accounts y viceversa "
-	accounts  do: [:aPortfolioOrAccount |
-		(aPortfolioOrAccount isKindOf: Portfolio) ifTrue: [^aPortfolioOrAccount accounts includes: anAccount]].
-	^false
-	
-! !
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 20:35:58'!
-add: anAccount 
-	
-	self assertCanAdd: anAccount. 
-	accounts add: anAccount 
-	! !
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 21:19:55'!
-assertCanAdd: anAccount
-	
-	((self accountsIncludes: anAccount accounts) or: (anAccount = self)) ifTrue: [^self error: self class canNotAddDuplicatedAccountErrorMessage].! !
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/22/2021 19:40:28'!
+!Portfolio methodsFor: 'accesing' stamp: 'ERMC 5/22/2021 19:40:28'!
 balance
 	
 	^accounts sum: [:account | account balance ] ifEmpty: [^0]! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/22/2021 20:56:18'!
+!Portfolio methodsFor: 'accesing' stamp: 'ERMC 5/22/2021 20:56:18'!
 hasRegistered: aTransaction
 	
 	^accounts anySatisfy: [:anAccount | anAccount hasRegistered: aTransaction] ! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/22/2021 19:08:00'!
-initialize
+!Portfolio methodsFor: 'accesing' stamp: 'ERMC 5/25/2021 22:04:44'!
+parents
 	
-	accounts _ OrderedCollection new! !
+	^parents! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 12:56:22'!
+!Portfolio methodsFor: 'accesing' stamp: 'ERMC 5/23/2021 12:56:22'!
 transactions
 
 	| transactions |
@@ -508,6 +575,13 @@ transactions
 	^transactions 
 	
 ! !
+
+
+!Portfolio methodsFor: 'asserts' stamp: 'ERMC 5/25/2021 22:02:25'!
+assertCanAdd: anAccountToAdd
+	
+	(self isAnyAccountThatIncludes: anAccountToAdd) ifTrue: [^self error: self class canNotAddDuplicatedAccountErrorMessage].
+	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -520,20 +594,16 @@ canNotAddDuplicatedAccountErrorMessage
 
 	^'can not add account'! !
 
-!Portfolio class methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 13:52:13'!
+!Portfolio class methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:30:13'!
 with: aReceptiveAccount 
 
-	| porfolio |
-	
-	porfolio _ self new.
-	porfolio add: aReceptiveAccount.
-	^porfolio
+	^self new initializeWith: aReceptiveAccount
 	! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
-Object subclass: #ReceptiveAccount
-	instanceVariableNames: 'transactions'
+BankAccount subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions parents'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
@@ -582,3 +652,14 @@ hasRegistered: aTransaction
 
 	^ transactions includes: aTransaction 
 ! !
+
+
+!ReceptiveAccount methodsFor: 'private' stamp: 'ERMC 5/25/2021 21:49:12'!
+addAsParent: aPortfolio 
+	
+	parents _ aPortfolio ! !
+
+!ReceptiveAccount methodsFor: 'private' stamp: 'ERMC 5/25/2021 22:35:23'!
+isAnyAccountThatIncludes: anAccount 
+	
+	^self = anAccount. ! !

@@ -2481,3 +2481,3009 @@ test15
 		withExceptionDo: [:anErrorMessage |
 			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
  !
+
+----QUIT----(23 May 2021 23:49:10) CuisUniversity-4532.image priorSource: 17605060!
+
+----STARTUP---- (25 May 2021 00:06:03) as /Users/edgardo.mosqueira/Desktop/ISW/CuisUniversity/CuisUniversity-4532.image!
+
+
+----QUIT----(25 May 2021 10:34:14) CuisUniversity-4532.image priorSource: 17641632!
+
+----STARTUP---- (25 May 2021 18:14:12) as /Users/edgardo.mosqueira/Desktop/ISW/CuisUniversity/CuisUniversity-4532.image!
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:20:14'!
+test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero
+	| aPortfolio |
+	
+	aPortfolio _ Portfolio new.
+	
+	self assert: 0 equals: aPortfolio balance ! !
+
+!methodRemoval: PortfolioTest #test01UnPortfolioSePuedeCrearSinCuentas stamp: 'ERMC 5/25/2021 18:20:15'!
+test01UnPortfolioSePuedeCrearSinCuentas
+	| aPortfolio |
+	
+	aPortfolio _ Portfolio new.
+	
+	self assert: 0 equals: aPortfolio balance !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:23:39'!
+createReceptiveAccountWithDepositAndWithdraw
+
+	|account|
+	
+	account _ ReceptiveAccount new.
+	Deposit register: 150 on: account.
+	Withdraw register: 20 on: account.
+	
+	^account ! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:27:28'!
+createReceptiveAccountWith: aTransaction
+
+	|account|
+	
+	account _ ReceptiveAccount new.
+	Deposit register: 30 on: account.
+	! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:28:40' prior: 50882989!
+createReceptiveAccountWith: aTransaction
+
+	|account|
+	
+	account _ ReceptiveAccount new.
+	account register: aTransaction
+	! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:32:31' prior: 50881745!
+test04APortfolioWithManyAccountHasTheSumOfTheBalance
+
+	|mainPortfolio aPortfolio anotherPortfolio|
+	
+	aPortfolio _ Portfolio with: self createReceptiveAccountWithDepositAndWithdraw.
+	anotherPortfolio _ Portfolio with: aPortfolio.
+		
+	mainPortfolio _ Portfolio with: anotherPortfolio. 
+	mainPortfolio add: (self createReceptiveAccountWith: (Deposit for: 30)).
+	
+	self assert: 160 equals: mainPortfolio balance.
+! !
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:33:08'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:33:08'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/23/2021 20:38:41' prior: 50882850!
+assertCanAdd: anAccount
+	
+	((accounts includes: anAccount) or: (anAccount = self)) ifTrue: [^self error: self class canNotAddDuplicatedAccountErrorMessage].
+	! !
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 18:34:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 18:34:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 18:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:34:40'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:34:40'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:43:06'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:43:45'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:43:56'!
+ERROR!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:44:48' prior: 50882997!
+createReceptiveAccountWith: aTransaction
+
+	|account|
+	
+	account _ ReceptiveAccount new.
+	
+	^account register: aTransaction
+	! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:45:20' prior: 50881665!
+test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance
+	|portfolio|
+	
+	portfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
+		
+	self assert: 50 equals: portfolio balance.
+! !
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 18:45:27'!
+PASSED!
+
+!methodRemoval: PortfolioTest #createReceptiveAccountWithDeposit stamp: 'ERMC 5/25/2021 18:45:32'!
+createReceptiveAccountWithDeposit
+	
+	| account |
+	
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account. 
+	
+	^account !
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:45:39'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:47:07' prior: 50883004!
+test04APortfolioWithManyAccountHasTheSumOfTheBalance
+
+	|rootPortfolio aPortfolio anotherPortfolio|
+	
+	aPortfolio _ Portfolio with: self createReceptiveAccountWithDepositAndWithdraw.
+	anotherPortfolio _ Portfolio with: aPortfolio.
+		
+	rootPortfolio _ Portfolio with: anotherPortfolio. 
+	rootPortfolio add: (self createReceptiveAccountWith: (Deposit for: 30)).
+	
+	self assert: 160 equals: rootPortfolio balance.
+! !
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 18:47:25'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test05AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithAPortfolioKnowsTransactions stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 18:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 18:47:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 18:47:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'ERMC 5/25/2021 18:47:25'!
+FAILURE!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:48:12' prior: 50881690!
+test03APortfolioWithOnePortfolio
+	|rootPortfolio aPortfolio|
+	
+	aPortfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
+	rootPortfolio _ Portfolio with: aPortfolio.
+			
+	self assert: 50 equals: rootPortfolio balance.
+! !
+
+!testRun: #PortfolioTest #test03APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 18:48:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test05AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 18:48:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 18:48:18'!
+PASSED!
+
+!testRun: #PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 18:48:19'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:49:12' prior: 50880949!
+test06APortfolioWithOneAccountWithATransactionKnowsTransaction
+
+	|aPortfolio aDeposit account |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account .
+	
+	self assert: (aPortfolio hasRegistered: aDeposit)
+! !
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 18:49:16'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:49:27' prior: 50881155!
+test07APortfolioWithManyAccountsKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio new.
+	aPortfolio add: account.
+	
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	rootPortfolio _ Portfolio new.
+	rootPortfolio add: account2.
+	rootPortfolio add: aPortfolio.
+	
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:50:02' prior: 50883221!
+test07APortfolioWithManyAccountsKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	rootPortfolio _ Portfolio new.
+	rootPortfolio add: account2.
+	rootPortfolio add: aPortfolio.
+	
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:51:09' prior: 50883243!
+test07APortfolioWithManyAccountsKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account2.
+	
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
+! !
+
+!testRun: #PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 18:51:12'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:52:05' prior: 50883265!
+test07APortfolioWithManyAccountsKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 aDeposit2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	aDeposit2 _ Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account2.
+	
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:52:16' prior: 50883290!
+test07APortfolioWithManyAccountsKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 aDeposit2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	aDeposit2 _ Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account2.
+	
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aDeposit2).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
+! !
+
+!testRun: #PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test05AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithAPortfolioKnowsTransactions stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 18:52:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 18:52:17'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 18:52:17'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'ERMC 5/25/2021 18:52:17'!
+FAILURE!
+
+!testRun: #PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 18:52:21'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:55:26' prior: 50881378!
+test09APortfolioWithOneAccountHasCorrectTransactions
+
+	|aPortfolio aPortfolioTransactions account deposit withdraw |
+	
+	account _ ReceptiveAccount new.
+	deposit _ Deposit register: 100 on: account.
+	withdraw _ Withdraw register: 50 on: account.
+	
+	aPortfolio _ Portfolio with: account. 
+	aPortfolioTransactions _ aPortfolio transactions. 
+	
+	self assert: 2 equals: (aPortfolioTransactions) size.
+	self assert: (aPortfolio transactions includes: deposit).
+	self assert: (aPortfolio transactions includes: withdraw).
+! !
+
+!testRun: #PortfolioTest #test09APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 18:55:29'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:58:05' prior: 50882453!
+test12APortfolioCanNotHaveDuplicatedAccount
+
+	|aPortfolio  account |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	self should: [aPortfolio add: account ] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText.
+			self deny: (aPortfolio accounts includes: account)]
+ ! !
+
+!testRun: #PortfolioTest #test12APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 18:58:07'!
+FAILURE!
+
+!testRun: #PortfolioTest #test12APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 18:58:11'!
+FAILURE!
+
+!testRun: #PortfolioTest #test12APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 18:58:11'!
+FAILURE!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 18:58:39' prior: 50883426!
+test12APortfolioCanNotHaveDuplicatedAccount
+
+	|aPortfolio  account |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	self should: [aPortfolio add: account ] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!testRun: #PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 18:58:53'!
+FAILURE!
+
+!testRun: #PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 18:58:53'!
+FAILURE!
+
+!testRun: #PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 19:04:50'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 19:09:40' prior: 50883028!
+assertCanAdd: anAccountToAdd
+	
+	((accounts includes: anAccountToAdd) or: (anAccountToAdd = self)) ifTrue: [^self error: self class canNotAddDuplicatedAccountErrorMessage].
+	! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 19:10:47' prior: 50883482!
+assertCanAdd: anAccountToAdd
+	
+	(self accountsIncludes: anAccountToAdd) ifTrue: [^self error: self class canNotAddDuplicatedAccountErrorMessage].
+	! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 19:11:10' prior: 50882908!
+accountsIncludes: anAccountToAdd
+
+"checkear si existe alguna cuenta que este incluida dentro de accounts y viceversa "
+	accounts  do: [:aPortfolioOrAccount |
+		(aPortfolioOrAccount isKindOf: Portfolio) ifTrue: [^aPortfolioOrAccount accounts includes: anAccountToAdd]].
+	^false
+	
+! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 19:11:16' prior: 50883499!
+accountsIncludes: anAccountToAdd
+
+	accounts  do: [:aPortfolioOrAccount |
+		(aPortfolioOrAccount isKindOf: Portfolio) ifTrue: [^aPortfolioOrAccount accounts includes: anAccountToAdd]].
+	^false
+	
+! !
+
+!testRun: #PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 19:11:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 19:11:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 19:11:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 19:12:17'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 19:12:17'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 19:16:22' prior: 50883511!
+accountsIncludes: anAccountToAdd
+
+	^ accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd = anAccount]]
+	
+! !
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 19:16:23'!
+ERROR!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 19:16:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 19:16:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 19:16:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:16:31'!
+ERROR!
+
+!testRun: #PortfolioTest #test05AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 19:16:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 19:16:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 19:16:31'!
+ERROR!
+
+!testRun: #PortfolioTest #test08APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 19:16:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 19:16:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithAPortfolioKnowsTransactions stamp: 'ERMC 5/25/2021 19:16:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 19:16:31'!
+ERROR!
+
+!testRun: #PortfolioTest #test12APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 19:16:31'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 19:16:31'!
+ERROR!
+
+!testRun: #PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 19:16:31'!
+ERROR!
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 19:16:31'!
+ERROR!
+
+!testRun: #PortfolioTest #test16 stamp: 'ERMC 5/25/2021 19:16:31'!
+FAILURE!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:16:34'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:17:52'!
+ERROR!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 19:17:56'!
+accountsIncludes: aReceptiveAccount 
+	self shouldBeImplemented.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 19:18:08' prior: 50883621!
+accountsIncludes: anAccount
+
+	self = anAccount.
+	
+	! !
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:18:10'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:18:52'!
+ERROR!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 19:19:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 19:19:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 19:19:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:19:14'!
+ERROR!
+
+!testRun: #PortfolioTest #test05AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 19:19:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 19:19:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 19:19:14'!
+ERROR!
+
+!testRun: #PortfolioTest #test08APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 19:19:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 19:19:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithAPortfolioKnowsTransactions stamp: 'ERMC 5/25/2021 19:19:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 19:19:14'!
+ERROR!
+
+!testRun: #PortfolioTest #test12APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 19:19:14'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 19:19:14'!
+FAILURE!
+
+!testRun: #PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 19:19:14'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 19:19:14'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'ERMC 5/25/2021 19:19:14'!
+FAILURE!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:19:16'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:31:29'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 19:09:40' prior: 50883491!
+assertCanAdd: anAccountToAdd
+	
+	((accounts includes: anAccountToAdd) or: (anAccountToAdd = self)) ifTrue: [^self error: self class canNotAddDuplicatedAccountErrorMessage].
+	! !
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test05AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithAPortfolioKnowsTransactions stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 19:32:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 19:32:34'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 19:32:34'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'ERMC 5/25/2021 19:32:34'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 19:49:43'!
+test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances
+	 |portfolio account1 account2|
+	 
+	 account1 _ self createReceptiveAccountWith: (Deposit for: 50).
+	 account2 _ self createReceptiveAccountWith: (Deposit for: 50).
+	 portfolio _ Portfolio with: account1 .
+	 portfolio add: account2.
+	 
+	  
+	 self assert: 100 equals: portfolio balance.! !
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 19:49:46'!
+PASSED!
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 19:50:33' prior: 50883774!
+test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances
+	 |portfolio account1 account2|
+	 
+	 account1 _ self createReceptiveAccountWith: (Deposit for: 50).
+	 account2 _ self createReceptiveAccountWith: (Deposit for: 50).
+	 portfolio _ Portfolio with: account1 .
+	 portfolio add: account2.
+	  
+	 self assert: 100 equals: portfolio balance.! !
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 19:50:54'!
+test04APortfolioWithOnePortfolio
+	|rootPortfolio aPortfolio|
+	
+	aPortfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
+	rootPortfolio _ Portfolio with: aPortfolio.
+			
+	self assert: 50 equals: rootPortfolio balance.
+! !
+
+!methodRemoval: PortfolioTest #test03APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 19:50:58'!
+test03APortfolioWithOnePortfolio
+	|rootPortfolio aPortfolio|
+	
+	aPortfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
+	rootPortfolio _ Portfolio with: aPortfolio.
+			
+	self assert: 50 equals: rootPortfolio balance.
+!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 19:51:00'!
+PASSED!
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 19:52:53'!
+test05APortfolioWithOnePortfolio
+	|rootPortfolio aPortfolio|
+	
+	aPortfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
+	rootPortfolio _ Portfolio with: aPortfolio.
+			
+	self assert: 50 equals: rootPortfolio balance.
+! !
+
+!methodRemoval: PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 19:52:54'!
+test04APortfolioWithOnePortfolio
+	|rootPortfolio aPortfolio|
+	
+	aPortfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
+	rootPortfolio _ Portfolio with: aPortfolio.
+			
+	self assert: 50 equals: rootPortfolio balance.
+!
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 19:53:06'!
+test04APortfolioWithOnePortfolio
+	|rootPortfolio aPortfolio|
+	
+	aPortfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
+	rootPortfolio _ Portfolio with: aPortfolio.
+			
+	self assert: 50 equals: rootPortfolio balance.
+! !
+
+!methodRemoval: PortfolioTest #test05APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 19:53:06'!
+test05APortfolioWithOnePortfolio
+	|rootPortfolio aPortfolio|
+	
+	aPortfolio _ Portfolio with: (self createReceptiveAccountWith: (Deposit for: 50)).
+	rootPortfolio _ Portfolio with: aPortfolio.
+			
+	self assert: 50 equals: rootPortfolio balance.
+!
+!PortfolioTest methodsFor: 'tests - balance' stamp: 'ERMC 5/25/2021 19:54:10'!
+test05APortfolioWithManyAccountHasTheSumOfTheBalance
+
+	|rootPortfolio aPortfolio anotherPortfolio|
+	
+	aPortfolio _ Portfolio with: self createReceptiveAccountWithDepositAndWithdraw.
+	anotherPortfolio _ Portfolio with: aPortfolio.
+		
+	rootPortfolio _ Portfolio with: anotherPortfolio. 
+	rootPortfolio add: (self createReceptiveAccountWith: (Deposit for: 30)).
+	
+	self assert: 160 equals: rootPortfolio balance.
+! !
+
+!methodRemoval: PortfolioTest #test04APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 19:54:10'!
+test04APortfolioWithManyAccountHasTheSumOfTheBalance
+
+	|rootPortfolio aPortfolio anotherPortfolio|
+	
+	aPortfolio _ Portfolio with: self createReceptiveAccountWithDepositAndWithdraw.
+	anotherPortfolio _ Portfolio with: aPortfolio.
+		
+	rootPortfolio _ Portfolio with: anotherPortfolio. 
+	rootPortfolio add: (self createReceptiveAccountWith: (Deposit for: 30)).
+	
+	self assert: 160 equals: rootPortfolio balance.
+!
+!PortfolioTest methodsFor: 'tests - hasRegistered' stamp: 'ERMC 5/25/2021 19:54:51'!
+test06AnEmptyPortfolioDoNotKnowAnyTransaction
+
+	|aPortfolio aDeposit |
+	
+	aDeposit _ Deposit for: 150.
+	aPortfolio _ Portfolio new.
+	
+	self deny: (aPortfolio hasRegistered: aDeposit)
+! !
+
+!methodRemoval: PortfolioTest #test05AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 19:54:51'!
+test05AnEmptyPortfolioDoNotKnowAnyTransaction
+
+	|aPortfolio aDeposit |
+	
+	aDeposit _ Deposit for: 150.
+	aPortfolio _ Portfolio new.
+	
+	self deny: (aPortfolio hasRegistered: aDeposit)
+!
+!PortfolioTest methodsFor: 'tests - hasRegistered' stamp: 'ERMC 5/25/2021 19:55:01'!
+test07AnEmptyPortfolioDoNotKnowAnyTransaction
+
+	|aPortfolio aDeposit |
+	
+	aDeposit _ Deposit for: 150.
+	aPortfolio _ Portfolio new.
+	
+	self deny: (aPortfolio hasRegistered: aDeposit)
+! !
+
+!methodRemoval: PortfolioTest #test06AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 19:55:01'!
+test06AnEmptyPortfolioDoNotKnowAnyTransaction
+
+	|aPortfolio aDeposit |
+	
+	aDeposit _ Deposit for: 150.
+	aPortfolio _ Portfolio new.
+	
+	self deny: (aPortfolio hasRegistered: aDeposit)
+!
+!PortfolioTest methodsFor: 'tests - hasRegistered' stamp: 'ERMC 5/25/2021 19:55:05'!
+test08APortfolioWithManyAccountsKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 aDeposit2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	aDeposit2 _ Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account2.
+	
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aDeposit2).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
+! !
+
+!methodRemoval: PortfolioTest #test07APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 19:55:05'!
+test07APortfolioWithManyAccountsKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 aDeposit2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	aDeposit2 _ Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account2.
+	
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aDeposit2).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
+!
+!PortfolioTest methodsFor: 'tests - hasRegistered' stamp: 'ERMC 5/25/2021 19:59:57'!
+test08APortfolioWithManyAccountsKnowsAccountTransactions
+
+	 |aPortfolio aDeposit account aWithdraw account2 |
+	 
+	 account _ ReceptiveAccount new. 
+	 aDeposit _ Deposit register: 150 on: account.
+	 
+	 account2 _ ReceptiveAccount new.
+	 aWithdraw _ Withdraw register: 50 on: account2.  
+	 
+	 aPortfolio _ Portfolio with: account.
+	 aPortfolio add: account2.
+
+	 self assert: (aPortfolio hasRegistered: aDeposit).
+	 self assert: (aPortfolio hasRegistered: aWithdraw).! !
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 20:00:00'!
+PASSED!
+!PortfolioTest methodsFor: 'tests - hasRegistered' stamp: 'ERMC 5/25/2021 20:01:23'!
+test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 aDeposit2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	aDeposit2 _ Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account2.
+	
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aDeposit2).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
+! !
+
+!methodRemoval: PortfolioTest #test08APortfolioWithManyAccountsKnowsAllTransaction stamp: 'ERMC 5/25/2021 20:01:25'!
+test08APortfolioWithManyAccountsKnowsAllTransaction
+
+	|aPortfolio rootPortfolio aDeposit account aWithdraw account2 aDeposit2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	aDeposit2 _ Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account2.
+	
+	self assert: (rootPortfolio hasRegistered: aDeposit).
+	self assert: (rootPortfolio hasRegistered: aDeposit2).
+	self assert: (rootPortfolio hasRegistered: aWithdraw).
+!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 20:01:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 20:01:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 20:01:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 20:01:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 20:01:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 20:01:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:01:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 20:01:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 20:01:30'!
+PASSED!
+!PortfolioTest methodsFor: 'tests - transactions' stamp: 'ERMC 5/25/2021 20:02:27'!
+test10APortfolioWithotAnAccountHasNotAnyTransaction
+
+	|aPortfolio |
+	
+	aPortfolio _ Portfolio new.
+
+	self assert: aPortfolio transactions isEmpty
+! !
+
+!methodRemoval: PortfolioTest #test08APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 20:02:27'!
+test08APortfolioWithotAnAccountHasNotAnyTransaction
+
+	|aPortfolio |
+	
+	aPortfolio _ Portfolio new.
+
+	self assert: aPortfolio transactions isEmpty
+!
+!PortfolioTest methodsFor: 'tests - transactions' stamp: 'ERMC 5/25/2021 20:02:34'!
+test11APortfolioWithOneAccountHasCorrectTransactions
+
+	|aPortfolio aPortfolioTransactions account deposit withdraw |
+	
+	account _ ReceptiveAccount new.
+	deposit _ Deposit register: 100 on: account.
+	withdraw _ Withdraw register: 50 on: account.
+	
+	aPortfolio _ Portfolio with: account. 
+	aPortfolioTransactions _ aPortfolio transactions. 
+	
+	self assert: 2 equals: (aPortfolioTransactions) size.
+	self assert: (aPortfolio transactions includes: deposit).
+	self assert: (aPortfolio transactions includes: withdraw).
+! !
+
+!methodRemoval: PortfolioTest #test09APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 20:02:34'!
+test09APortfolioWithOneAccountHasCorrectTransactions
+
+	|aPortfolio aPortfolioTransactions account deposit withdraw |
+	
+	account _ ReceptiveAccount new.
+	deposit _ Deposit register: 100 on: account.
+	withdraw _ Withdraw register: 50 on: account.
+	
+	aPortfolio _ Portfolio with: account. 
+	aPortfolioTransactions _ aPortfolio transactions. 
+	
+	self assert: 2 equals: (aPortfolioTransactions) size.
+	self assert: (aPortfolio transactions includes: deposit).
+	self assert: (aPortfolio transactions includes: withdraw).
+!
+!PortfolioTest methodsFor: 'tests - transactions' stamp: 'ERMC 5/25/2021 20:06:18'!
+test12APortfolioWithManyAccountsReturnsAllTransactions
+
+	|aPortfolio mainPortfolio aDeposit account aWithdraw account2 aPortfolioTransactions deposit2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	deposit2 _ Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	mainPortfolio _ Portfolio with: account2.
+	mainPortfolio add: aPortfolio.
+	
+	aPortfolioTransactions _ mainPortfolio transactions.
+	
+	self assert: 3 equals: (aPortfolioTransactions) size.
+	self assert: (mainPortfolio transactions includes: aDeposit).
+	self assert: (mainPortfolio transactions includes: aWithdraw).
+	self assert: (mainPortfolio transactions includes: deposit2).
+	
+! !
+
+!methodRemoval: PortfolioTest #test11APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 20:06:18'!
+test11APortfolioWithManyAccountsReturnsAllTransactions
+
+	|aPortfolio mainPortfolio aDeposit account aWithdraw account2 aPortfolioTransactions deposit2 |
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	account2 _ ReceptiveAccount new.
+	deposit2 _ Deposit register: 100 on: account2. 
+	aWithdraw _ Withdraw register: 50 on: account2.  
+	
+	mainPortfolio _ Portfolio with: account2.
+	mainPortfolio add: aPortfolio.
+	
+	aPortfolioTransactions _ mainPortfolio transactions.
+	
+	self assert: 3 equals: (aPortfolioTransactions) size.
+	self assert: (mainPortfolio transactions includes: aDeposit).
+	self assert: (mainPortfolio transactions includes: aWithdraw).
+	self assert: (mainPortfolio transactions includes: deposit2).
+	
+!
+
+!methodRemoval: PortfolioTest #test10APortfolioWithAPortfolioKnowsTransactions stamp: 'ERMC 5/25/2021 20:07:15'!
+test10APortfolioWithAPortfolioKnowsTransactions
+
+	|aPortfolio mainPortfolio aDeposit account aWithdraw aPortfolioTransactions|
+	
+	account _ ReceptiveAccount new.	
+	aDeposit _ Deposit register: 150 on: account.
+	aWithdraw _ Withdraw register: 50 on: account.
+	aPortfolio _ Portfolio with: account.
+	
+	mainPortfolio _ Portfolio with: aPortfolio.
+
+	aPortfolioTransactions _ mainPortfolio transactions.
+	
+	self assert: 2 equals: (aPortfolioTransactions) size.
+	self assert: (mainPortfolio transactions includes: aDeposit).
+	self assert: (mainPortfolio transactions includes: aWithdraw).	
+!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:07:29'!
+test17
+
+	|aPortfolio  account mainPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio new.
+	mainPortfolio _ Portfolio with: aPortfolio.
+	mainPortfolio add: account. 
+	
+	self should: [aPortfolio add: account] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!methodRemoval: PortfolioTest #test16 stamp: 'ERMC 5/25/2021 20:07:29'!
+test16
+
+	|aPortfolio  account mainPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio new.
+	mainPortfolio _ Portfolio with: aPortfolio.
+	mainPortfolio add: account. 
+	
+	self should: [aPortfolio add: account] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:07:37'!
+test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount
+
+	|aPortfolio  account mainPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	mainPortfolio _ Portfolio with: account.
+	
+	aPortfolio _ Portfolio with: account.
+			
+	self should: [mainPortfolio add: aPortfolio] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!methodRemoval: PortfolioTest #test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 20:07:37'!
+test15APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount
+
+	|aPortfolio  account mainPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	mainPortfolio _ Portfolio with: account.
+	
+	aPortfolio _ Portfolio with: account.
+			
+	self should: [mainPortfolio add: aPortfolio] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:07:43'!
+test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount
+
+	|aPortfolio  account mainPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	mainPortfolio _ Portfolio with: aPortfolio.
+	
+	self should: [mainPortfolio add: account] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!methodRemoval: PortfolioTest #test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:07:43'!
+test14APortfolioWithManyAccountCanNotConteintDuplicatedAccount
+
+	|aPortfolio  account mainPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	mainPortfolio _ Portfolio with: aPortfolio.
+	
+	self should: [mainPortfolio add: account] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:07:48'!
+test14APortfolioCanNotIncludeItSelf
+
+	|aPortfolio  account |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	self should: [aPortfolio add: aPortfolio] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!methodRemoval: PortfolioTest #test13APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 20:07:48'!
+test13APortfolioCanNotIncludeItSelf
+
+	|aPortfolio  account |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	self should: [aPortfolio add: aPortfolio] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:07:53'!
+test13APortfolioCanNotHaveDuplicatedAccount
+
+	|aPortfolio  account |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	self should: [aPortfolio add: account ] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!methodRemoval: PortfolioTest #test12APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:07:53'!
+test12APortfolioCanNotHaveDuplicatedAccount
+
+	|aPortfolio  account |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio with: account.
+	
+	self should: [aPortfolio add: account ] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ !
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 20:07:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 20:07:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:07:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 20:07:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 20:07:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 20:07:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 20:07:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 20:07:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 20:07:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 20:08:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 20:08:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 20:08:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:08:21'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 20:08:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:08:26'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:08:26'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:09:05'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:09:05'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:09:14'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:09:14'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:10:33' prior: 50883706!
+assertCanAdd: anAccountToAdd
+	
+	(self accountsIncludes: anAccountToAdd) ifTrue: [^self error: self class canNotAddDuplicatedAccountErrorMessage].
+	! !
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:10:36'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:10:52'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:13:36' prior: 50883542!
+accountsIncludes: anAccountToAdd
+	
+	(anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd = anAccount]]]! !
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:13:46'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:13:46'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:13:53'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:14:23' prior: 50884481!
+accountsIncludes: anAccountToAdd
+	
+	^(anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd = anAccount]]]! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:14:27' prior: 50884501!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd = anAccount]]]! !
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:14:32'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:14:54'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:14:54'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:15:16'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:15:16'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:23:59' prior: 50884510!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd = anAccount]]].! !
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:24:00'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:28:41'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:28:41'!
+FAILURE!
+!Portfolio class methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:30:13' prior: 50881617!
+with: aReceptiveAccount 
+
+	^self new initializeWith: aReceptiveAccount
+	! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:31:36'!
+initializeWith: aReceptiveAccount
+! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:36:03' prior: 50884537!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd = anAccount]]] or: false.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:36:26' prior: 50884567!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd = anAccount]]]! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:39:50' prior: 50884562!
+initializeWith: aReceptiveAccount
+	
+	accounts _ OrderedCollection with: aReceptiveAccount! !
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:40:06'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:40:06'!
+FAILURE!
+
+	^self == anObject.!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:42:47'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:47:05' prior: 50884577!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd accountsIncludes: anAccount]]]! !
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 20:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 20:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:47:25'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 20:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 20:47:25'!
+ERROR!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 20:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 20:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 20:47:25'!
+ERROR!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 20:47:25'!
+ERROR!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 20:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 20:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 20:47:25'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:47:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 20:47:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 20:47:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 20:47:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17 stamp: 'ERMC 5/25/2021 20:47:25'!
+ERROR!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 20:47:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 20:47:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:47:31'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 20:47:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 20:47:31'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:47:38'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 20:47:38'!
+FAILURE!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 20:51:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 20:51:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:51:50'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 20:51:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 20:51:50'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:51:53'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:51:59'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:52:03'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:53:19'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:53:34'!
+ERROR!
+
+	self = anAccount.!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 20:55:07'!
+ERROR!
+
+	^self == anObject!
+
+	^self == anObject. !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:05:17' prior: 50884604!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts do: [:anAccount | ((anAccount accountsIncludes: anAccountToAdd) ifTrue: [^ true])]]
+	or: [accounts do: [:anAccount | (anAccountToAdd accountsIncludes: anAccount) ifTrue: [^true]]] or: false! !
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:05:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:05:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:06:28'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:06:28'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:08:59' prior: 50883627!
+accountsIncludes: anAccount
+
+	^self = anAccount.
+	
+	! !
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:09:01'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:09:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 21:09:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 21:09:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 21:09:10'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17 stamp: 'ERMC 5/25/2021 21:09:10'!
+ERROR!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 21:09:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 21:09:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:09:14'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 21:09:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 21:09:14'!
+ERROR!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 21:09:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 21:09:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:09:26'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 21:09:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 21:09:26'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:09:28'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:09:52'!
+ERROR!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 21:10:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 21:10:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:10:30'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:10:30'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:10:50'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:12:00'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:13:42'!
+ERROR!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:13:42'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 20:23:59' prior: 50884752!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd = anAccount]]].! !
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:15:00'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:15:23' prior: 50884882!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd accountsIncludes: anAccount]]].! !
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:15:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 21:15:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 21:15:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:15:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 21:15:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 21:15:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 21:15:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 21:15:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 21:15:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 21:15:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 21:15:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 21:15:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:15:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 21:15:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 21:15:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 21:15:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 21:15:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 21:15:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 21:15:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 21:15:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 21:15:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 21:15:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 21:15:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 21:15:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 21:16:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 21:16:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 21:16:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ERMC 5/25/2021 21:16:41'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17 stamp: 'ERMC 5/25/2021 21:16:41'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests - adding' stamp: 'ERMC 5/25/2021 21:18:50' prior: 50884226!
+test17
+
+	|aPortfolio  account rootPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio new.
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account. 
+	
+	self should: [aPortfolio add: account] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+!PortfolioTest methodsFor: 'tests - adding' stamp: 'ERMC 5/25/2021 21:35:38'!
+test17CanNotAddAnAccountIfAnyParentsHasIt
+
+	|aPortfolio  account rootPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio new.
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account. 
+	
+	self should: [aPortfolio add: account] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ ! !
+
+!methodRemoval: PortfolioTest #test17 stamp: 'ERMC 5/25/2021 21:35:40'!
+test17
+
+	|aPortfolio  account rootPortfolio |
+	
+	account _ ReceptiveAccount new.	
+	aPortfolio _ Portfolio new.
+	rootPortfolio _ Portfolio with: aPortfolio.
+	rootPortfolio add: account. 
+	
+	self should: [aPortfolio add: account] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anErrorMessage |
+			self assert: Portfolio canNotAddDuplicatedAccountErrorMessage equals: anErrorMessage messageText]
+ !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:35:43'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:40:19' prior: 50884895!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd accountsIncludes: anAccount]]].! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 21:41:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:41:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:41:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:41:30'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:41:30'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:42:55' prior: 50885123!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd accountsIncludes: anAccount]]] or: false.! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:42:56'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:44:37'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:44:37'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:46:09' prior: 50885212!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd accountsIncludes: anAccount]]] or: true.! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:46:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 21:46:13'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 21:46:13'!
+ERROR!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 21:46:13'!
+ERROR!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 21:46:13'!
+ERROR!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 21:46:13'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 21:46:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:46:13'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:46:55' prior: 50885233!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd accountsIncludes: anAccount]]]! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:47:00'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:47:00'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:48:32' prior: 50882557!
+add: anAccount 
+	
+	self assertCanAdd: anAccount. 
+	accounts add: anAccount.
+	anAccount addAsParent: self! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:48:41'!
+ERROR!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:48:53'!
+addAsParent: aPortfolio 
+	self shouldBeImplemented.! !
+
+!classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio' stamp: 'ERMC 5/25/2021 21:49:13'!
+Object subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:49:12' prior: 50885338!
+addAsParent: aPortfolio 
+	
+	parents _ aPortfolio ! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:49:14'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 21:58:34' prior: 50885311!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd accountsIncludes: anAccount]]]! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 21:58:36'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:02:25' prior: 50884465!
+assertCanAdd: anAccountToAdd
+	
+	(self isAnyAccountThatIncludes: anAccountToAdd) ifTrue: [^self error: self class canNotAddDuplicatedAccountErrorMessage].
+	! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:02:27'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:02:32'!
+isAnyAccountThatIncludes: aReceptiveAccount 
+	self shouldBeImplemented.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:04:23' prior: 50885385!
+isAnyAccountThatIncludes: anAccountToAdd 
+
+ 	^self parents anySatisfy: [ :aParent | aParent accountsIncludes: anAccountToAdd]! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:04:26'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:04:30'!
+parents
+	self shouldBeImplemented.! !
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ERMC 5/25/2021 22:04:46'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'accounts parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:04:44' prior: 50885401!
+parents
+	
+	^parents! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:04:48'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:05:15'!
+ERROR!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:05:15'!
+ERROR!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:05:15'!
+ERROR!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:05:15'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:05:15'!
+ERROR!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:05:18'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:05:18'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:05:18'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:05:18'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:05:18'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:05:46'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:05:46'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:05:56'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:06:03'!
+ERROR!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:06:03'!
+ERROR!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:06:03'!
+ERROR!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:06:03'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:06:03'!
+ERROR!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:06:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:06:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:06:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:06:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:06:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:06:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:06:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:06:09'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:06:14'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:06:14'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:06:47' prior: 50885391!
+isAnyAccountThatIncludes: anAccountToAdd 
+
+ 	^(self parents) anySatisfy: [ :aParent | aParent accountsIncludes: anAccountToAdd]! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:08:04'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:08:04'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:09:12'!
+addAsParent: aPortfolio
+
+	parents add: aPortfolio ! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:09:33' prior: 50880590 overrides: 16896425!
+initialize
+	
+	accounts _ OrderedCollection new.
+	parents _ OrderedCollection new.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:09:38' prior: 50884586!
+initializeWith: aReceptiveAccount
+	
+	accounts _ OrderedCollection with: aReceptiveAccount! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:10:02' prior: 50885584!
+initializeWith: aReceptiveAccount
+	
+	accounts _ OrderedCollection with: aReceptiveAccount.
+	parents _ OrderedCollection new.! !
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:10:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:10:13'!
+FAILURE!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:10:13'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:10:13'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:10:13'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:10:13'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:10:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:10:32'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:12:22'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:12:27'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:12:35'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:19:47'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:19:47'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:22:17' prior: 50885558!
+isAnyAccountThatIncludes: anAccountToAdd 
+
+ 	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd accountsIncludes: anAccount]]]
+
+	or: (self anyParentHasAccount: anAccountToAdd)! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:22:20'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:22:25'!
+anyParentHasAccount: aReceptiveAccount 
+	self shouldBeImplemented.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:24:50' prior: 50885702!
+anyParentHasAccount: aPortfolio 
+	
+	^self parents anySatisfy: [ :aParent | (aParent accounts)  anAccountToAdd]! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:25:41' prior: 50885708!
+anyParentHasAccount: anAccountToAdd 
+	
+	^self parents anySatisfy: [ :aParent | (aParent accounts)  includes: anAccountToAdd]! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:25:44'!
+FAILURE!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:25:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:25:49'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:25:49'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:25:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:25:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:25:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:25:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:25:54'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:25:54'!
+FAILURE!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:25:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:25:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:25:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:25:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:26:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:26:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:26:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:26:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:26:21'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:26:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:26:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:26:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:26:25'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:27:57' prior: 50885715!
+anyParentHasAccount: anAccountToAdd 
+	
+	^parents anySatisfy: [ :aParent | (aParent accounts)  includes: anAccountToAdd]! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:27:59'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:28:34'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:28:34'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:29:16'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:29:16'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:30:31' prior: 50885590!
+initializeWith: aReceptiveAccount
+	
+	accounts _ OrderedCollection with: aReceptiveAccount.! !
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:30:35'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:32:32' prior: 50885910!
+initializeWith: anAccount
+	
+	accounts _ OrderedCollection with: anAccount.
+	anAccount addAsParent: self.! !
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:32:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:32:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:32:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:32:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:32:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:32:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:32:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:32:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:32:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:32:38'!
+PASSED!
+
+!methodRemoval: Portfolio #accountsIncludes: stamp: 'ERMC 5/25/2021 22:32:47'!
+accountsIncludes: anAccountToAdd
+	
+	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount accountsIncludes: anAccountToAdd) or: [anAccountToAdd accountsIncludes: anAccount]]]!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:32:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:32:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:32:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:32:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:32:48'!
+ERROR!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:32:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:32:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:32:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:32:48'!
+ERROR!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:32:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:32:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:32:49'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:32:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:32:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:32:49'!
+ERROR!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:32:49'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:32:49'!
+ERROR!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:33:05'!
+ERROR!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:33:05'!
+ERROR!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:33:05'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:33:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:33:05'!
+ERROR!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:33:05'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:33:05'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:33:15'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:33:15'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:33:15'!
+ERROR!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:33:15'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:33:15'!
+ERROR!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:33:18'!
+ERROR!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:34:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:34:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:34:05'!
+ERROR!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:34:05'!
+ERROR!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:34:05'!
+ERROR!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:34:07'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:34:40' prior: 50885687!
+isAnyAccountThatIncludes: anAccountToAdd 
+
+ 	^ (anAccountToAdd = self) or: [
+	accounts anySatisfy: [:anAccount | (anAccount isAnyAccountThatIncludes: anAccountToAdd) or: [anAccountToAdd isAnyAccountThatIncludes: anAccount]]]
+
+	or: (self anyParentHasAccount: anAccountToAdd)! !
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:34:41'!
+ERROR!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:34:48'!
+isAnyAccountThatIncludes: aReceptiveAccount 
+	self shouldBeImplemented.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:35:23' prior: 50886164!
+isAnyAccountThatIncludes: anAccount 
+	
+	^self = anAccount. ! !
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:35:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:36:04'!
+PASSED!
+
+!methodRemoval: ReceptiveAccount #accountsIncludes: stamp: 'ERMC 5/25/2021 22:49:54'!
+accountsIncludes: anAccount
+
+	^self = anAccount.
+	
+	!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:50:13'!
+PASSED!
+
+Object subclass: #Account
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Account category: 'Portfolio-Ejercicio' stamp: 'ERMC 5/25/2021 22:50:35'!
+Object subclass: #Account
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Account subclass: #Portfolio
+	instanceVariableNames: 'accounts parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ERMC 5/25/2021 22:50:46'!
+Account subclass: #Portfolio
+	instanceVariableNames: 'accounts parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Account subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio' stamp: 'ERMC 5/25/2021 22:50:55'!
+Account subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Account methodsFor: 'nil' stamp: 'ERMC 5/25/2021 22:51:50'!
+addAsParent: anAccount
+	
+	self subclassResponsibility ! !
+!Account methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:52:00'!
+balance
+	
+	self subclassResponsibility ! !
+!Account methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:52:16'!
+hasRegistered: aTransaction
+	
+	self subclassResponsibility ! !
+!Account methodsFor: 'as yet unclassified' stamp: 'ERMC 5/25/2021 22:52:38'!
+isAnyAccountThatIncludes: anAccount 
+
+	self subclassResponsibility ! !
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:52:45'!
+PASSED!
+
+Object subclass: #BankAccount
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #BankAccount category: 'Portfolio-Ejercicio' stamp: 'ERMC 5/25/2021 22:54:15'!
+Object subclass: #BankAccount
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classRemoval: #BankAccount stamp: 'ERMC 5/25/2021 22:55:27'!
+Object subclass: #BankAccount
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classRenamed: #Account as: #BankAccount stamp: 'ERMC 5/25/2021 22:55:32'!
+Smalltalk renameClassNamed: #Account as: #BankAccount!
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 22:58:11'!
+PASSED!
+!AccountTransaction methodsFor: 'value' stamp: 'ERMC 5/25/2021 23:04:47'!
+affectBalance: aBalance
+
+	self subclassResponsibility ! !
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 23:05:46'!
+PASSED!
+!Portfolio methodsFor: 'adding' stamp: 'ERMC 5/25/2021 23:06:01' prior: 50885328!
+add: anAccountToAdd 
+	
+	self assertCanAdd: anAccountToAdd. 
+	accounts add: anAccountToAdd.
+	anAccountToAdd addAsParent: self! !
+
+!testRun: #PortfolioTest #test01APortfolioCanBeCreatedEmptyAndItBalanceIsZero stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test02APortfolioWithOneAccountHasABalanceOfHisAccountBalance stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test03APortfolioWithManyAccountsHasTheSumOTheAccountBalances stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test04APortfolioWithOnePortfolio stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test05APortfolioWithManyAccountHasTheSumOfTheBalance stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test06APortfolioWithOneAccountWithATransactionKnowsTransaction stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test07AnEmptyPortfolioDoNotKnowAnyTransaction stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test08APortfolioWithManyAccountsKnowsAccountTransactions stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test09APortfolioWithManyAccountsAndPortfolioKnowsAllTransaction stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test10APortfolioWithotAnAccountHasNotAnyTransaction stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test11APortfolioWithOneAccountHasCorrectTransactions stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test12APortfolioWithManyAccountsReturnsAllTransactions stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test13APortfolioCanNotHaveDuplicatedAccount stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test14APortfolioCanNotIncludeItSelf stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test15APortfolioWithManyAccountCanNotConteintDuplicatedAccount stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test16APortfolioCanNotAddAPortfolioThatContaintsADuplicatedAccount stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanNotAddAnAccountIfAnyParentsHasIt stamp: 'ERMC 5/25/2021 23:06:46'!
+PASSED!
