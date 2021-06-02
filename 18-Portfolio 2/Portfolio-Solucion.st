@@ -1,3 +1,188 @@
+!classDefinition: #AccountSummaryTest category: 'Portfolio-Solucion'!
+TestCase subclass: #AccountSummaryTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:42:37'!
+test01UnaCuentaConBalanceCero
+
+	| account  accountSummary expectiveReport|
+	
+	account := ReceptiveAccount new.
+
+	accountSummary _ AccountSummary from: account.
+
+	expectiveReport _ OrderedCollection with:  'Balance = 0'.
+	
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:43:25'!
+test02UnaCuentaConUnDeposito
+
+	| account  expectiveReport accountSummary |
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Balance = 100'.
+
+	accountSummary _ AccountSummary from: account.
+
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:43:43'!
+test03UnaCuentaConUnaExtraccion
+
+	| account  expectiveReport accountSummary |
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	Withdraw  register: 50 on: account.
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Balance = 50' .
+	
+	accountSummary _ AccountSummary from: account.
+
+	self assert: accountSummary report  equals: expectiveReport.
+
+! !
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:44:06'!
+test04
+
+	| account1 account2  expectiveReport accountSummary |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	
+	account2 := ReceptiveAccount new.
+	
+	Transfer register: 20 from: account1 to: account2.
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Balance = 30' .
+	
+	accountSummary _ AccountSummary from: account1.
+
+	self assert: accountSummary report  equals: expectiveReport.
+
+! !
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:44:23'!
+test05
+
+	| account1 account2  expectiveReport accountSummary |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	
+	account2 := ReceptiveAccount new.
+	
+	Transfer register: 20 from: account1 to: account2.
+	Transfer register: 30 from: account2 to: account1.
+	
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.' with: 'Balance = 60' .
+
+	accountSummary _ AccountSummary from: account1.
+
+	self assert: accountSummary report  equals: expectiveReport.
+
+! !
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:44:35'!
+test06ConUnPortfolioVacio
+
+	| portfolio   expectiveReport accountSummary |
+	
+	portfolio := Portfolio new.
+
+	expectiveReport _ OrderedCollection with: 'Balance = 0' .
+
+	accountSummary _ AccountSummary from: portfolio .
+
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:11:58'!
+test07PortfolioConUnaCuenta
+
+	| portfolio account1 account2  expectiveReport accountSummary |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	portfolio _ Portfolio with: account1 .
+	
+	account2 := ReceptiveAccount new.
+	
+	Transfer register: 20 from: account1 to: account2.
+	Transfer register: 30 from: account2 to: account1.
+	
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.' with: 'Balance = 60' .
+
+	accountSummary _ AccountSummary from: portfolio .
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:12:46'!
+test08PortfolioConMasDeUnaCuenta
+
+	| portfolio account1 account2  expectiveReport accountSummary |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	portfolio _ Portfolio with: account1 .
+	
+	account2 := ReceptiveAccount new.
+	
+	Transfer register: 20 from: account1 to: account2.
+	Transfer register: 30 from: account2 to: account1.
+	
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.' with: 'Balance = 60' .
+
+	portfolio add: account2.
+	
+	accountSummary _ AccountSummary from: portfolio .
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:18:53'!
+test09PortfolioConPorfoliosYCuentas
+
+	| portfolio account1 account2  expectiveReport accountSummary portfolio2 |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	portfolio _ Portfolio with: account1 .
+	account2 := ReceptiveAccount new.
+	portfolio2 _ Portfolio with: account2 .	
+
+	
+	Transfer register: 20 from: account1 to: account2.
+	Transfer register: 30 from: account2 to: account1.
+	
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.'  with: 'Balance = 60' .
+
+	portfolio add: portfolio2.
+	
+	accountSummary _ AccountSummary from: portfolio .
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+
 !classDefinition: #PortfolioTest category: 'Portfolio-Solucion'!
 TestCase subclass: #PortfolioTest
 	instanceVariableNames: ''
@@ -382,7 +567,7 @@ test12LaTransferenciaEntreCuentasQuedaRegistradaEnAmbasCuentas
 	
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 5/29/2021 20:33:04'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'sgs 6/1/2021 21:17:12'!
 test13EnUnaTransferenciaAmbasCuentasConocenSusPatas
 	| account1 account2 transfer |
 	
@@ -392,6 +577,18 @@ test13EnUnaTransferenciaAmbasCuentasConocenSusPatas
 	transfer _ Transfer register: 50 from: account1 to: account2.
 	
 	self assert: (transfer withdrawLeg transferLeg) equals: (transfer depositLeg).
+	! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'sgs 6/1/2021 21:17:06'!
+test14
+	| account1 account2 transfer |
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.	
+	
+	transfer _ Transfer register: 50 from: account1 to: account2.
+	
+	
 	self assert: (transfer depositLeg transferLeg) equals: (transfer withdrawLeg).! !
 
 
@@ -547,6 +744,15 @@ signalCanNotAddAccount
 	
 	self error: self class canNotAddAccountErrorMessage! !
 
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:11:31'!
+accountSummary: aReport
+	
+
+	accounts do: [:anAccount |anAccount accountSummary: aReport.].
+	
+	^aReport .! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Portfolio class' category: 'Portfolio-Solucion'!
@@ -631,6 +837,19 @@ addedTo: aPortfolio
 	! !
 
 
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:04:04'!
+accountSummary: aReport
+	
+	
+	transactions do:[:aTransaction |aTransaction addToAccountSummary: aReport].
+	
+	"aReport add: 'Balance = ', self balance asString."
+	
+	^aReport .
+	
+	
+	! !
+
 !ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 5/29/2021 16:27:31'!
 assertCanTrasfer: anAmount.
 	
@@ -658,6 +877,38 @@ canNotTrasferirMontoMenorOIgualaACero
 	^'No se puede transferir monto cero o menor'! !
 
 
+!classDefinition: #AccountSummary category: 'Portfolio-Solucion'!
+Object subclass: #AccountSummary
+	instanceVariableNames: 'report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:04:28'!
+initializeFrom:anAccount
+
+	report _ OrderedCollection new.
+	anAccount accountSummary: report .
+	report add: 'Balance = ', anAccount balance asString.
+	
+	! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:49:40'!
+report
+	^report.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'AccountSummary class' category: 'Portfolio-Solucion'!
+AccountSummary class
+	instanceVariableNames: ''!
+
+!AccountSummary class methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:46:14'!
+from: anAccount
+
+	^self new initializeFrom:anAccount.! !
+
+
 !classDefinition: #AccountTransaction category: 'Portfolio-Solucion'!
 Object subclass: #AccountTransaction
 	instanceVariableNames: ''
@@ -675,6 +926,12 @@ value
 affectBalance: aBalance
 
 	self subclassResponsibility ! !
+
+
+!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:27:29'!
+addToAccountSummary: aReportSummary
+
+	self subclassResponsibility .! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -717,6 +974,12 @@ affectBalance: aBalance
 
 	^aBalance + value ! !
 
+
+!Deposit methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:28:51'!
+addToAccountSummary: aReportSummary
+	
+	^aReportSummary add: 'Depósito por ', value asString, '.'! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Deposit class' category: 'Portfolio-Solucion'!
@@ -741,11 +1004,28 @@ initializeFor: aTransfer
 
 	transfer := aTransfer.! !
 
+!DepositTransfer methodsFor: 'initialization' stamp: 'sgs 6/1/2021 21:48:46'!
+transfer
+
+	^ transfer 
+! !
+
 !DepositTransfer methodsFor: 'initialization' stamp: 'ERMC 5/29/2021 21:53:54'!
 transferLeg
 
 	^ transfer withdrawLeg
 ! !
+
+
+!DepositTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:30:28'!
+addToAccountSummary: aReportSummary
+	
+	^aReportSummary add: 'Entrada por transferencia de ', transfer value asString, '.'! !
+
+!DepositTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 21:52:33'!
+affectBalance: aBalance
+
+	^aBalance + (transfer value).! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -783,6 +1063,12 @@ affectBalance: aBalance
 
 	^aBalance - value! !
 
+
+!Withdraw methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:29:14'!
+addToAccountSummary: aReportSummary
+	
+	^aReportSummary add: 'Extracción por ', value asString, '.'! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Withdraw class' category: 'Portfolio-Solucion'!
@@ -807,10 +1093,26 @@ initializeFor: aTransfer
 
 	transfer _ aTransfer.! !
 
+!WithdrawTransfer methodsFor: 'initialization' stamp: 'sgs 6/1/2021 21:49:41'!
+transfer
+
+	^transfer  ! !
+
 !WithdrawTransfer methodsFor: 'initialization' stamp: 'ERMC 5/29/2021 21:54:10'!
 transferLeg
 	
 	^transfer depositLeg ! !
+
+
+!WithdrawTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:30:38'!
+addToAccountSummary: aReportSummary
+	
+	^aReportSummary add: 'Salida por transferencia de ', transfer value asString, '.'! !
+
+!WithdrawTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 21:53:03'!
+affectBalance: aBalance
+
+	^aBalance - (transfer value).! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -837,6 +1139,11 @@ initializeWithAmount: anAmountToTransfer from: anOriginAccount to: aDstAccount
 	value _ anAmountToTransfer.
 	withdrawLeg _ WithdrawTransfer register: self on: anOriginAccount.
 	depositLeg _ DepositTransfer register: self on: aDstAccount.! !
+
+!Transfer methodsFor: 'initialization' stamp: 'sgs 6/1/2021 21:50:19'!
+value
+	
+	^value ! !
 
 
 !Transfer methodsFor: 'as yet unclassified' stamp: 'ERMC 5/29/2021 20:27:33'!
