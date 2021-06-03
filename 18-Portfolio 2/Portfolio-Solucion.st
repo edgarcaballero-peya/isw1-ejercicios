@@ -5,13 +5,12 @@ TestCase subclass: #AccountSummaryTest
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:42:37'!
-test01UnaCuentaConBalanceCero
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:27:27'!
+test01AnEmptyAccountReturnsEmptyAccountSummary
 
 	| account  accountSummary expectiveReport|
 	
 	account := ReceptiveAccount new.
-
 	accountSummary _ AccountSummary from: account.
 
 	expectiveReport _ OrderedCollection with:  'Balance = 0'.
@@ -19,24 +18,22 @@ test01UnaCuentaConBalanceCero
 	self assert: accountSummary report  equals: expectiveReport.
 ! !
 
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:43:25'!
-test02UnaCuentaConUnDeposito
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:27:45'!
+test02AnAccountWithOneDepositReturnsCorrectAccountSummary
 
 	| account  expectiveReport accountSummary |
 	
 	account := ReceptiveAccount new.
-	
 	Deposit register: 100 on: account.
 
 	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Balance = 100'.
-
 	accountSummary _ AccountSummary from: account.
 
 	self assert: accountSummary report  equals: expectiveReport.
 ! !
 
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:43:43'!
-test03UnaCuentaConUnaExtraccion
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:23:47'!
+test03AnAccountWithDepositAndWithdrawTransactionReturnsCorrectReport
 
 	| account  expectiveReport accountSummary |
 	
@@ -53,8 +50,8 @@ test03UnaCuentaConUnaExtraccion
 
 ! !
 
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:44:06'!
-test04
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:25:27'!
+test04AnAccountWithOneTransferAndMoreThanOneTransactionReturnsCorrectReport
 
 	| account1 account2  expectiveReport accountSummary |
 	
@@ -74,8 +71,8 @@ test04
 
 ! !
 
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:44:23'!
-test05
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:25:52'!
+test05AnAccountWithMoreThanOneTransferReturnsCorrectReport
 
 	| account1 account2  expectiveReport accountSummary |
 	
@@ -97,8 +94,8 @@ test05
 
 ! !
 
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:44:35'!
-test06ConUnPortfolioVacio
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:26:18'!
+test06AnEmptyPortfolioHasEmptyAccountSummary
 
 	| portfolio   expectiveReport accountSummary |
 	
@@ -111,8 +108,8 @@ test06ConUnPortfolioVacio
 	self assert: accountSummary report  equals: expectiveReport.
 ! !
 
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:11:58'!
-test07PortfolioConUnaCuenta
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:26:51'!
+test07APortfolioWithOneAccountReturnsCorrectAccountSummary
 
 	| portfolio account1 account2  expectiveReport accountSummary |
 	
@@ -133,8 +130,8 @@ test07PortfolioConUnaCuenta
 	self assert: accountSummary report  equals: expectiveReport.
 ! !
 
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 21:56:16'!
-test08PortfolioConMasDeUnaCuenta
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:27:10'!
+test08APortfolioWithMoreThanOneAccountReturnsCorrectReport
 
 	| portfolio account1 account2  expectiveReport accountSummary |
 	
@@ -467,8 +464,8 @@ test07AccountKnowsItsTransactions
 	self assert: (account1 transactions includes: deposit1).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 5/29/2021 20:12:59'!
-test08UnaTransferenciaConMontoCeroEsInvalida
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 6/2/2021 23:09:19'!
+test08ATransferWithZeroAmountIsInvalid
 	| account1 account2|
 	
 	account1 := ReceptiveAccount new.
@@ -482,12 +479,11 @@ test08UnaTransferenciaConMontoCeroEsInvalida
 	
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'sgs 5/29/2021 16:07:15'!
-test09UnaTransferenciaConMontoNegativoEsInvalida
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 6/2/2021 23:11:17'!
+test09ATransferWithNegativeAmountIsInvalid
 	| account1 account2|
 	
 	account1 := ReceptiveAccount new.
-	
 	account2 := ReceptiveAccount new.	
 	
 	self 
@@ -498,8 +494,8 @@ test09UnaTransferenciaConMontoNegativoEsInvalida
 	
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 5/29/2021 20:13:37'!
-test10
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 6/2/2021 23:12:43'!
+test10ATransferBetweenAccountAffectsBalance
 	| account1 account2 |
 	
 	account1 := ReceptiveAccount new.
@@ -515,8 +511,8 @@ test10
 	
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 5/29/2021 20:18:17'!
-test11SePuedeHacerTransferenciaEnDescubierto
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 6/2/2021 23:14:22'!
+test11CanMakeATransferWithAmountBelow
 	| account1 account2 |
 	
 	account1 := ReceptiveAccount new.
@@ -530,8 +526,8 @@ test11SePuedeHacerTransferenciaEnDescubierto
 	
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 5/29/2021 20:21:34'!
-test12LaTransferenciaEntreCuentasQuedaRegistradaEnAmbasCuentas
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 6/2/2021 23:15:48'!
+test12TransferBetweenAccountsSaveTheTransactionInBothAccounts
 	| account1 account2 transfer |
 	
 	account1 := ReceptiveAccount new.
@@ -545,8 +541,8 @@ test12LaTransferenciaEntreCuentasQuedaRegistradaEnAmbasCuentas
 	
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'sgs 6/1/2021 21:17:12'!
-test13EnUnaTransferenciaAmbasCuentasConocenSusPatas
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 6/2/2021 23:17:38'!
+test13ASourceAccountKnowsHisTransferLeg
 	| account1 account2 transfer |
 	
 	account1 := ReceptiveAccount new.
@@ -557,8 +553,8 @@ test13EnUnaTransferenciaAmbasCuentasConocenSusPatas
 	self assert: (transfer withdrawLeg transferLeg) equals: (transfer depositLeg).
 	! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'sgs 6/1/2021 21:17:06'!
-test14
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ERMC 6/2/2021 23:17:55'!
+test14ADestinyAccountKnowsHisTransferLeg
 	| account1 account2 transfer |
 	
 	account1 := ReceptiveAccount new.
@@ -597,6 +593,60 @@ test02AnAccountWithOneTransferReturnsCorrenctTransferNet
 	expectedTransferNet _ 50.
 	
 	self assert: expectedTransferNet equals: (TransferNet from: anotherAccount).! !
+
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 00:04:45'!
+test03AnAccountWithManyTransfersReturnsCorrectTransferNet
+
+	| srcAccount dstAccount |
+	srcAccount _ ReceptiveAccount new.
+	dstAccount _ ReceptiveAccount new.
+	
+	Deposit register: 200 on: srcAccount.
+	
+	Transfer register: 50 from: srcAccount to: dstAccount.
+	Transfer register: 20 from: srcAccount to: dstAccount.
+	Transfer register: 30 from: srcAccount to: dstAccount.
+	Transfer register: 20 from: srcAccount to: dstAccount.
+	
+	
+	self assert: 120 equals: (TransferNet from: dstAccount).
+	self assert: -120 equals: (TransferNet from: srcAccount).! !
+
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 00:05:58'!
+test04AnEmptyPortfolioReturnsZeroTransferNet
+
+	| portfolio |
+	portfolio _ Portfolio new.
+	
+	self assert: 0 equals: (TransferNet from: portfolio)! !
+
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 00:13:32'!
+test05APortfolioWithOneAccountsReportsCorrectTransferNet
+
+	| portfolio dstAccount srcAccount |
+	
+	srcAccount _ ReceptiveAccount new.
+	dstAccount _ ReceptiveAccount new.
+	
+	Transfer register: 50 from: srcAccount to: dstAccount.
+	
+	portfolio _ Portfolio with: srcAccount.
+	
+	self assert: -50 equals: (TransferNet from: portfolio)! !
+
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 00:13:48'!
+test06APortfolioWithManyAccountReportsCorrectTransferNet
+
+	| portfolio dstAccount srcAccount |
+	
+	srcAccount _ ReceptiveAccount new.
+	dstAccount _ ReceptiveAccount new.
+	
+	Transfer register: 50 from: srcAccount to: dstAccount.
+	
+	portfolio _ Portfolio with: srcAccount with: dstAccount.
+	
+	self assert: 0 equals: (TransferNet from: portfolio)! !
 
 
 !classDefinition: #Account category: 'Portfolio-Solucion'!
@@ -760,6 +810,11 @@ accountSummary: aReport
 	
 	^aReport .! !
 
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 00:07:27'!
+calcualteReportFor: aReport 
+	
+	accounts do: [:anAccount |anAccount accountSummary: aReport.]! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Portfolio class' category: 'Portfolio-Solucion'!
@@ -844,35 +899,31 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:04:04'!
+!ReceptiveAccount methodsFor: 'reports' stamp: 'ERMC 6/2/2021 23:35:17'!
 accountSummary: aReport
 	
-	
-	transactions do:[:aTransaction |aTransaction addToAccountSummary: aReport].
-	
-	"aReport add: 'Balance = ', self balance asString."
-	
-	^aReport .
+	transactions do:[:aTransaction |aTransaction affectReport: aReport].
 	
 	
 	! !
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 5/29/2021 16:27:31'!
+!ReceptiveAccount methodsFor: 'reports' stamp: 'ERMC 6/2/2021 23:56:02'!
+calcualteReportFor: aTransferNet
+ 
+	transactions  do: [:aTransaction | 
+		(aTransaction isKindOf: DepositTransfer) ifTrue: [aTransaction affectReport: aTransferNet].
+		(aTransaction isKindOf: WithdrawTransfer) ifTrue: [aTransaction affectReport: aTransferNet]
+		]
+	! !
+
+
+!ReceptiveAccount methodsFor: 'transfer' stamp: 'sgs 5/29/2021 16:27:31'!
 assertCanTrasfer: anAmount.
 	
 	(anAmount > 0) ifFalse: [^self error: self  class canNotTrasferirMontoMenorOIgualaACero.]
 	! !
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:24:42'!
-calcualteTransferNetReport: aTransferNet
- 
-	transactions  do: [:aTransaction | 
-		(aTransaction isKindOf: DepositTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet].
-		(aTransaction isKindOf: WithdrawTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet]
-		]
-	! !
-
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ERMC 5/29/2021 20:16:41'!
+!ReceptiveAccount methodsFor: 'transfer' stamp: 'ERMC 5/29/2021 20:16:41'!
 transfer: anAmount to: aDstAccount
 	
 	self assertCanTrasfer: anAmount.
@@ -893,25 +944,88 @@ canNotTrasferirMontoMenorOIgualaACero
 	^'No se puede transferir monto cero o menor'! !
 
 
+!classDefinition: #AccountOperationsReport category: 'Portfolio-Solucion'!
+Object subclass: #AccountOperationsReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!AccountOperationsReport methodsFor: 'initialization' stamp: 'ERMC 6/3/2021 00:18:36'!
+initializeFor: anAmount
+
+	self subclassResponsibility ! !
+
+
+!AccountOperationsReport methodsFor: 'report' stamp: 'ERMC 6/3/2021 00:17:46'!
+addFromDeposit: anAmount
+
+	self subclassResponsibility ! !
+
+!AccountOperationsReport methodsFor: 'report' stamp: 'ERMC 6/3/2021 00:18:13'!
+addFromDepositTransfer: anAmount
+
+	self subclassResponsibility ! !
+
+!AccountOperationsReport methodsFor: 'report' stamp: 'ERMC 6/3/2021 00:17:58'!
+addFromWithdraw: anAmount
+
+	self subclassResponsibility ! !
+
+!AccountOperationsReport methodsFor: 'report' stamp: 'ERMC 6/3/2021 00:18:06'!
+addFromWithdrawTransfer: anAmount
+
+	self subclassResponsibility ! !
+
+
 !classDefinition: #AccountSummary category: 'Portfolio-Solucion'!
-Object subclass: #AccountSummary
+AccountOperationsReport subclass: #AccountSummary
 	instanceVariableNames: 'report'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:04:28'!
-initializeFrom:anAccount
-
-	report _ OrderedCollection new.
-	anAccount accountSummary: report .
-	report add: 'Balance = ', anAccount balance asString.
+!AccountSummary methodsFor: 'report' stamp: 'ERMC 6/2/2021 23:48:36'!
+addFromDeposit: anAmount
+	
+	^report add: 'Depósito por ', anAmount asString, '.'
 	
 	! !
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:49:40'!
+!AccountSummary methodsFor: 'report' stamp: 'ERMC 6/2/2021 23:50:10'!
+addFromDepositTransfer: anAmount
+	
+	^report add: 'Entrada por transferencia de ', anAmount value asString, '.'
+	
+	! !
+
+!AccountSummary methodsFor: 'report' stamp: 'ERMC 6/2/2021 23:51:13'!
+addFromWithdraw: anAmount
+	
+	^report add: 'Extracción por ', anAmount asString, '.'
+	
+	! !
+
+!AccountSummary methodsFor: 'report' stamp: 'ERMC 6/2/2021 23:52:43'!
+addFromWithdrawTransfer: anAmount
+	
+	^report add: 'Salida por transferencia de ', anAmount value asString, '.'
+	
+	! !
+
+!AccountSummary methodsFor: 'report' stamp: 'sgs 6/1/2021 22:49:40'!
 report
 	^report.! !
+
+
+!AccountSummary methodsFor: 'initialization' stamp: 'ERMC 6/2/2021 23:54:00'!
+initializeFrom:anAccount
+
+	report _ OrderedCollection new.
+	anAccount accountSummary: self.
+	report add: 'Balance = ', anAccount balance asString.
+	
+	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -923,6 +1037,56 @@ AccountSummary class
 from: anAccount
 
 	^self new initializeFrom:anAccount.! !
+
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion'!
+AccountOperationsReport subclass: #TransferNet
+	instanceVariableNames: 'account transferNet'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!TransferNet methodsFor: 'initialization' stamp: 'ERMC 6/2/2021 23:55:12'!
+initializeWith: anAccount 
+	
+	transferNet _ 0.
+	
+	anAccount calcualteReportFor: self.
+	
+	^transferNet 
+! !
+
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 00:19:37'!
+addFromDeposit: anAmount
+! !
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:57:37'!
+addFromDepositTransfer: anAmount
+	
+	 transferNet _ transferNet + anAmount.
+! !
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 00:19:44'!
+addFromWithdraw: anAmount
+! !
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 00:01:28'!
+addFromWithdrawTransfer: anAmount 
+		
+	transferNet _ transferNet - anAmount ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TransferNet class' category: 'Portfolio-Solucion'!
+TransferNet class
+	instanceVariableNames: ''!
+
+!TransferNet class methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:05:32'!
+from: anAccount
+
+	^self new initializeWith: anAccount 
+	! !
 
 
 !classDefinition: #AccountTransaction category: 'Portfolio-Solucion'!
@@ -944,8 +1108,8 @@ affectBalance: aBalance
 	self subclassResponsibility ! !
 
 
-!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:27:29'!
-addToAccountSummary: aReportSummary
+!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'ERMC 6/2/2021 23:31:51'!
+affectReport: aReportSummary
 
 	self subclassResponsibility .! !
 
@@ -991,10 +1155,10 @@ affectBalance: aBalance
 	^aBalance + value ! !
 
 
-!Deposit methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:28:51'!
-addToAccountSummary: aReportSummary
+!Deposit methodsFor: 'report' stamp: 'ERMC 6/2/2021 23:46:56'!
+affectReport: aReport
 	
-	^aReportSummary add: 'Depósito por ', value asString, '.'! !
+	^aReport addFromDeposit: value! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1020,33 +1184,30 @@ initializeFor: aTransfer
 
 	transfer := aTransfer.! !
 
-!DepositTransfer methodsFor: 'initialization' stamp: 'sgs 6/1/2021 21:48:46'!
+
+!DepositTransfer methodsFor: 'balance' stamp: 'sgs 6/1/2021 21:52:33'!
+affectBalance: aBalance
+
+	^aBalance + (transfer value).! !
+
+
+!DepositTransfer methodsFor: 'accesing' stamp: 'sgs 6/1/2021 21:48:46'!
 transfer
 
 	^ transfer 
 ! !
 
-!DepositTransfer methodsFor: 'initialization' stamp: 'ERMC 5/29/2021 21:53:54'!
+!DepositTransfer methodsFor: 'accesing' stamp: 'ERMC 5/29/2021 21:53:54'!
 transferLeg
 
 	^ transfer withdrawLeg
 ! !
 
 
-!DepositTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:30:28'!
-addToAccountSummary: aReportSummary
+!DepositTransfer methodsFor: 'report' stamp: 'ERMC 6/2/2021 23:49:44'!
+affectReport: aReport
 	
-	^aReportSummary add: 'Entrada por transferencia de ', transfer value asString, '.'! !
-
-!DepositTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 21:52:33'!
-affectBalance: aBalance
-
-	^aBalance + (transfer value).! !
-
-!DepositTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:26:55'!
-affectTransferNet: aTransferNet
-	
-	^aTransferNet + (transfer value)! !
+	^aReport addFromDepositTransfer: transfer value.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1054,10 +1215,10 @@ affectTransferNet: aTransferNet
 DepositTransfer class
 	instanceVariableNames: ''!
 
-!DepositTransfer class methodsFor: 'as yet unclassified' stamp: 'ERMC 5/29/2021 20:50:09'!
-for: anAmount 
+!DepositTransfer class methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 00:22:25'!
+for: aTransfer 
 	
-	^ self new initializeFor: anAmount ! !
+	^ self new initializeFor: aTransfer ! !
 
 
 !classDefinition: #Withdraw category: 'Portfolio-Solucion'!
@@ -1085,10 +1246,10 @@ affectBalance: aBalance
 	^aBalance - value! !
 
 
-!Withdraw methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:29:14'!
-addToAccountSummary: aReportSummary
+!Withdraw methodsFor: 'report' stamp: 'ERMC 6/2/2021 23:54:30'!
+affectReport: aReport
 	
-	^aReportSummary add: 'Extracción por ', value asString, '.'! !
+	^aReport addFromWithdraw: value ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1114,31 +1275,28 @@ initializeFor: aTransfer
 
 	transfer _ aTransfer.! !
 
-!WithdrawTransfer methodsFor: 'initialization' stamp: 'sgs 6/1/2021 21:49:41'!
+
+!WithdrawTransfer methodsFor: 'balance' stamp: 'sgs 6/1/2021 21:53:03'!
+affectBalance: aBalance
+
+	^aBalance - (transfer value).! !
+
+
+!WithdrawTransfer methodsFor: 'accesing' stamp: 'sgs 6/1/2021 21:49:41'!
 transfer
 
 	^transfer  ! !
 
-!WithdrawTransfer methodsFor: 'initialization' stamp: 'ERMC 5/29/2021 21:54:10'!
+!WithdrawTransfer methodsFor: 'accesing' stamp: 'ERMC 5/29/2021 21:54:10'!
 transferLeg
 	
 	^transfer depositLeg ! !
 
 
-!WithdrawTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 22:30:38'!
-addToAccountSummary: aReportSummary
+!WithdrawTransfer methodsFor: 'report' stamp: 'ERMC 6/2/2021 23:52:05'!
+affectReport: aReport
 	
-	^aReportSummary add: 'Salida por transferencia de ', transfer value asString, '.'! !
-
-!WithdrawTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 21:53:03'!
-affectBalance: aBalance
-
-	^aBalance - (transfer value).! !
-
-!WithdrawTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:25:41'!
-affectTransferNet: aTransferNet 
-	
-	^ aTransferNet - (transfer value)! !
+	^aReport addFromWithdrawTransfer: transfer value! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1193,34 +1351,4 @@ register: anAmountToTransfer from: anOriginAccount to: aDstAccount
 
 	^self new initializeWithAmount: anAmountToTransfer from: anOriginAccount to: aDstAccount.
 	
-	! !
-
-
-!classDefinition: #TransferNet category: 'Portfolio-Solucion'!
-Object subclass: #TransferNet
-	instanceVariableNames: 'account transferNet'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
-
-!TransferNet methodsFor: 'initialization' stamp: 'sgs 6/2/2021 22:15:08'!
-initializeWith: anAccount 
-	
-	transferNet _ 0.
-	
-	anAccount calcualteTransferNetReport: transferNet.
-	
-	^transferNet 
-! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'TransferNet class' category: 'Portfolio-Solucion'!
-TransferNet class
-	instanceVariableNames: ''!
-
-!TransferNet class methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:05:32'!
-from: anAccount
-
-	^self new initializeWith: anAccount 
 	! !
