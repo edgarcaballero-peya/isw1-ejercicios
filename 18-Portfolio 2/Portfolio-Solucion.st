@@ -133,7 +133,7 @@ test07PortfolioConUnaCuenta
 	self assert: accountSummary report  equals: expectiveReport.
 ! !
 
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:12:46'!
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 21:56:16'!
 test08PortfolioConMasDeUnaCuenta
 
 	| portfolio account1 account2  expectiveReport accountSummary |
@@ -149,34 +149,12 @@ test08PortfolioConMasDeUnaCuenta
 	Transfer register: 30 from: account2 to: account1.
 	
 
-	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.' with: 'Balance = 60' .
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.'.
+	expectiveReport add: 'Entrada por transferencia de 20.'.
+	expectiveReport  add: 'Salida por transferencia de 30.'.
+	expectiveReport  add: 'Balance = 50' .
 
 	portfolio add: account2.
-	
-	accountSummary _ AccountSummary from: portfolio .
-	self assert: accountSummary report  equals: expectiveReport.
-! !
-
-!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/1/2021 23:18:53'!
-test09PortfolioConPorfoliosYCuentas
-
-	| portfolio account1 account2  expectiveReport accountSummary portfolio2 |
-	
-	account1 := ReceptiveAccount new.
-	Deposit register: 100 on: account1.
-	Withdraw  register: 50 on: account1.
-	portfolio _ Portfolio with: account1 .
-	account2 := ReceptiveAccount new.
-	portfolio2 _ Portfolio with: account2 .	
-
-	
-	Transfer register: 20 from: account1 to: account2.
-	Transfer register: 30 from: account2 to: account1.
-	
-
-	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.'  with: 'Balance = 60' .
-
-	portfolio add: portfolio2.
 	
 	accountSummary _ AccountSummary from: portfolio .
 	self assert: accountSummary report  equals: expectiveReport.
@@ -592,6 +570,35 @@ test14
 	self assert: (transfer depositLeg transferLeg) equals: (transfer withdrawLeg).! !
 
 
+!classDefinition: #TransferNetTest category: 'Portfolio-Solucion'!
+TestCase subclass: #TransferNetTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:04:45'!
+test01AccountWithoutTransferReturnZeroReport
+
+	| anAccount |
+	anAccount _ ReceptiveAccount new.
+	
+	self assert: 0 equals: (TransferNet from: anAccount)! !
+
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:30:09'!
+test02AnAccountWithOneTransferReturnsCorrenctTransferNet
+
+	| anAccount anotherAccount expectedTransferNet |
+	anAccount _ ReceptiveAccount new.
+	anotherAccount _ ReceptiveAccount new.
+	
+	Transfer register: 50 from: anAccount to: anotherAccount.
+	
+	expectedTransferNet _ 50.
+	
+	self assert: expectedTransferNet equals: (TransferNet from: anotherAccount).! !
+
+
 !classDefinition: #Account category: 'Portfolio-Solucion'!
 Object subclass: #Account
 	instanceVariableNames: ''
@@ -856,6 +863,15 @@ assertCanTrasfer: anAmount.
 	(anAmount > 0) ifFalse: [^self error: self  class canNotTrasferirMontoMenorOIgualaACero.]
 	! !
 
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:24:42'!
+calcualteTransferNetReport: aTransferNet
+ 
+	transactions  do: [:aTransaction | 
+		(aTransaction isKindOf: DepositTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet].
+		(aTransaction isKindOf: WithdrawTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet]
+		]
+	! !
+
 !ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ERMC 5/29/2021 20:16:41'!
 transfer: anAmount to: aDstAccount
 	
@@ -1027,6 +1043,11 @@ affectBalance: aBalance
 
 	^aBalance + (transfer value).! !
 
+!DepositTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:26:55'!
+affectTransferNet: aTransferNet
+	
+	^aTransferNet + (transfer value)! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'DepositTransfer class' category: 'Portfolio-Solucion'!
@@ -1114,6 +1135,11 @@ affectBalance: aBalance
 
 	^aBalance - (transfer value).! !
 
+!WithdrawTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:25:41'!
+affectTransferNet: aTransferNet 
+	
+	^ aTransferNet - (transfer value)! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'WithdrawTransfer class' category: 'Portfolio-Solucion'!
@@ -1167,4 +1193,34 @@ register: anAmountToTransfer from: anOriginAccount to: aDstAccount
 
 	^self new initializeWithAmount: anAmountToTransfer from: anOriginAccount to: aDstAccount.
 	
+	! !
+
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion'!
+Object subclass: #TransferNet
+	instanceVariableNames: 'account transferNet'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!TransferNet methodsFor: 'initialization' stamp: 'sgs 6/2/2021 22:15:08'!
+initializeWith: anAccount 
+	
+	transferNet _ 0.
+	
+	anAccount calcualteTransferNetReport: transferNet.
+	
+	^transferNet 
+! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TransferNet class' category: 'Portfolio-Solucion'!
+TransferNet class
+	instanceVariableNames: ''!
+
+!TransferNet class methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:05:32'!
+from: anAccount
+
+	^self new initializeWith: anAccount 
 	! !

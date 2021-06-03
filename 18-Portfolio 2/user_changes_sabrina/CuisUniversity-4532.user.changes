@@ -5319,3 +5319,605 @@ test09PortfolioConPorfoliosYCuentas
 ! !
 
 ----SNAPSHOT----(1 June 2021 23:19:11) CuisUniversity-4532.image priorSource: 16885703!
+
+----STARTUP---- (2 June 2021 21:24:29) as C:\Users\sabri\OneDrive\Desktop\SegundaParte\windows64\CuisUniversity-4532.image!
+
+
+!testRun: #AccountSummaryTest #test01UnaCuentaConBalanceCero stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test02UnaCuentaConUnDeposito stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test03UnaCuentaConUnaExtraccion stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test04 stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test05 stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test06ConUnPortfolioVacio stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test07PortfolioConUnaCuenta stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:25:55'!
+FAILURE!
+
+!testRun: #AccountSummaryTest #test09PortfolioConPorfoliosYCuentas stamp: 'sgs 6/2/2021 21:25:55'!
+FAILURE!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'sgs 6/2/2021 21:25:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08UnaTransferenciaConMontoCeroEsInvalida stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09UnaTransferenciaConMontoNegativoEsInvalida stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SePuedeHacerTransferenciaEnDescubierto stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12LaTransferenciaEntreCuentasQuedaRegistradaEnAmbasCuentas stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13EnUnaTransferenciaAmbasCuentasConocenSusPatas stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14 stamp: 'sgs 6/2/2021 21:25:56'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:28:37'!
+FAILURE!
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:28:37'!
+FAILURE!
+
+accountSummary report !
+
+accountSummary report !
+
+!methodRemoval: AccountSummaryTest #test09PortfolioConPorfoliosYCuentas stamp: 'sgs 6/2/2021 21:43:34'!
+test09PortfolioConPorfoliosYCuentas
+
+	| portfolio account1 account2  expectiveReport accountSummary portfolio2 |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	portfolio _ Portfolio with: account1 .
+	account2 := ReceptiveAccount new.
+	portfolio2 _ Portfolio with: account2 .	
+
+	
+	Transfer register: 20 from: account1 to: account2.
+	Transfer register: 30 from: account2 to: account1.
+	
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.'  with: 'Balance = 60' .
+
+	portfolio add: portfolio2.
+	
+	accountSummary _ AccountSummary from: portfolio .
+	self assert: accountSummary report  equals: expectiveReport.
+!
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 21:46:14' prior: 50890270!
+test08PortfolioConMasDeUnaCuenta
+
+	| portfolio account1 account2  expectiveReport accountSummary |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	portfolio _ Portfolio with: account1 .
+	
+	account2 := ReceptiveAccount new.
+	
+	Transfer register: 20 from: account1 to: account2.
+	Transfer register: 30 from: account2 to: account1.
+	
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.'.
+	expectiveReport add: 'Salida por transferencia de 20.'.
+	expectiveReport  add: 'Entrada por transferencia de 30.'.
+	expectiveReport  add: 'Balance = 60' .
+
+	portfolio add: account2.
+	
+	accountSummary _ AccountSummary from: portfolio .
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+!testRun: #AccountSummaryTest #test01UnaCuentaConBalanceCero stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test02UnaCuentaConUnDeposito stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test03UnaCuentaConUnaExtraccion stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test04 stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test05 stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test06ConUnPortfolioVacio stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test07PortfolioConUnaCuenta stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:46:18'!
+FAILURE!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'sgs 6/2/2021 21:46:18'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08UnaTransferenciaConMontoCeroEsInvalida stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09UnaTransferenciaConMontoNegativoEsInvalida stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SePuedeHacerTransferenciaEnDescubierto stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12LaTransferenciaEntreCuentasQuedaRegistradaEnAmbasCuentas stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13EnUnaTransferenciaAmbasCuentasConocenSusPatas stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14 stamp: 'sgs 6/2/2021 21:46:19'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:46:19'!
+FAILURE!
+
+accountSummary report!
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:49:43'!
+FAILURE!
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 21:51:49' prior: 50890586!
+test08PortfolioConMasDeUnaCuenta
+
+	| portfolio account1 account2  expectiveReport accountSummary |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	portfolio _ Portfolio with: account1 .
+	
+	account2 := ReceptiveAccount new.
+	
+	Transfer register: 20 from: account1 to: account2.
+	Transfer register: 30 from: account2 to: account1.
+	
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Salida por transferencia de 30.'.
+	expectiveReport add: 'Entrada por transferencia de 20.'.
+	expectiveReport  add: 'Entrada por transferencia de 30.'.
+	expectiveReport  add: 'Balance = 60' .
+
+	portfolio add: account2.
+	
+	accountSummary _ AccountSummary from: portfolio .
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:51:52'!
+FAILURE!
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 21:54:41' prior: 50890756!
+test08PortfolioConMasDeUnaCuenta
+
+	| portfolio account1 account2  expectiveReport accountSummary |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	portfolio _ Portfolio with: account1 .
+	
+	account2 := ReceptiveAccount new.
+	
+	Transfer register: 20 from: account1 to: account2.
+	Transfer register: 30 from: account2 to: account1.
+	
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.'.
+	expectiveReport add: 'Entrada por transferencia de 20.'.
+	expectiveReport  add: 'Salida por transferencia de 30.'.
+	expectiveReport  add: 'Balance = 60' .
+
+	portfolio add: account2.
+	
+	accountSummary _ AccountSummary from: portfolio .
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:54:44'!
+FAILURE!
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 21:56:16' prior: 50890790!
+test08PortfolioConMasDeUnaCuenta
+
+	| portfolio account1 account2  expectiveReport accountSummary |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw  register: 50 on: account1.
+	portfolio _ Portfolio with: account1 .
+	
+	account2 := ReceptiveAccount new.
+	
+	Transfer register: 20 from: account1 to: account2.
+	Transfer register: 30 from: account2 to: account1.
+	
+
+	expectiveReport _ OrderedCollection with: 'Depósito por 100.' with: 'Extracción por 50.' with: 'Salida por transferencia de 20.' with: 'Entrada por transferencia de 30.'.
+	expectiveReport add: 'Entrada por transferencia de 20.'.
+	expectiveReport  add: 'Salida por transferencia de 30.'.
+	expectiveReport  add: 'Balance = 50' .
+
+	portfolio add: account2.
+	
+	accountSummary _ AccountSummary from: portfolio .
+	self assert: accountSummary report  equals: expectiveReport.
+! !
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:56:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test01UnaCuentaConBalanceCero stamp: 'sgs 6/2/2021 21:56:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test02UnaCuentaConUnDeposito stamp: 'sgs 6/2/2021 21:56:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test03UnaCuentaConUnaExtraccion stamp: 'sgs 6/2/2021 21:56:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test04 stamp: 'sgs 6/2/2021 21:56:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test05 stamp: 'sgs 6/2/2021 21:56:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test06ConUnPortfolioVacio stamp: 'sgs 6/2/2021 21:56:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test07PortfolioConUnaCuenta stamp: 'sgs 6/2/2021 21:56:18'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test08PortfolioConMasDeUnaCuenta stamp: 'sgs 6/2/2021 21:56:18'!
+PASSED!
+
+TestCase subclass: #TransferNetTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #TransferNetTest category: 'Portfolio-Solucion' stamp: 'sgs 6/2/2021 22:00:35'!
+TestCase subclass: #TransferNetTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion' stamp: 'sgs 6/2/2021 22:04:52'!
+Object subclass: #TransferNet
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!TransferNetTest methodsFor: 'nil' stamp: 'sgs 6/2/2021 22:04:45'!
+test01AccountWithoutTransferReturnZeroReport
+
+	| anAccount |
+	anAccount _ ReceptiveAccount new.
+	
+	self assert: 0 equals: (TransferNet from: anAccount)! !
+
+!testRun: #TransferNetTest #test01AccountWithoutTransferReturnZeroReport stamp: 'sgs 6/2/2021 22:04:54'!
+ERROR!
+!TransferNet class methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:04:59'!
+from: aReceptiveAccount 
+	self shouldBeImplemented.! !
+!TransferNet class methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:05:32' prior: 50890912!
+from: anAccount
+
+	^self new initializeWith: anAccount 
+	! !
+
+!testRun: #TransferNetTest #test01AccountWithoutTransferReturnZeroReport stamp: 'sgs 6/2/2021 22:05:34'!
+ERROR!
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion' stamp: 'sgs 6/2/2021 22:05:39'!
+Object subclass: #TransferNet
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!TransferNet methodsFor: 'initialization' stamp: 'sgs 6/2/2021 22:05:39'!
+initializeWith: anAccount 
+	self shouldBeImplemented.
+	account := anAccount.! !
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion' stamp: 'sgs 6/2/2021 22:09:07'!
+Object subclass: #TransferNet
+	instanceVariableNames: 'account transferNet'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!TransferNet methodsFor: 'initialization' stamp: 'sgs 6/2/2021 22:09:05' prior: 50890933!
+initializeWith: anAccount 
+	
+	transferNet _ 0.
+	^transferNet 
+! !
+
+!testRun: #TransferNetTest #test01AccountWithoutTransferReturnZeroReport stamp: 'sgs 6/2/2021 22:09:10'!
+PASSED!
+
+!testRun: #TransferNetTest #test01AccountWithoutTransferReturnZeroReport stamp: 'sgs 6/2/2021 22:09:10'!
+PASSED!
+
+Transfer!
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:13:15'!
+test02AnAccountWithOneTransferReturnsCorrenctTransferNet
+
+	| anAccount anotherAccount expectedTransferNet |
+	anAccount _ ReceptiveAccount new.
+	anotherAccount _ ReceptiveAccount new.
+	Deposit register: 100 on: anAccount.
+	
+	Transfer register: 50 from: anAccount to: anotherAccount.
+	
+	expectedTransferNet _ 50.
+	
+	self assert: expectedTransferNet equals: (TransferNet from: anAccount).! !
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:13:27'!
+FAILURE!
+!TransferNet methodsFor: 'initialization' stamp: 'sgs 6/2/2021 22:15:08' prior: 50890947!
+initializeWith: anAccount 
+	
+	transferNet _ 0.
+	
+	anAccount calcualteTransferNetReport: transferNet.
+	
+	^transferNet 
+! !
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:15:12'!
+ERROR!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:15:17'!
+calcualteTransferNetReport: aSmallInteger 
+	self shouldBeImplemented.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:21:49' prior: 50890990!
+calcualteTransferNetReport: aTransferNet
+ 
+	(transactions size) timesRepeat: [:aTransaction | 
+		(aTransaction isKindOf: DepositTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet].
+		(aTransaction isKindOf: WithdrawTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet]
+		]! !
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:21:52'!
+ERROR!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:23:27' prior: 50890996!
+calcualteTransferNetReport: aTransferNet
+ 
+	^(transactions size) timesRepeat: [:aTransaction | 
+		(aTransaction isKindOf: DepositTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet].
+		(aTransaction isKindOf: WithdrawTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet]
+		]
+	! !
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:23:28'!
+ERROR!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:24:42' prior: 50891013!
+calcualteTransferNetReport: aTransferNet
+ 
+	transactions  do: [:aTransaction | 
+		(aTransaction isKindOf: DepositTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet].
+		(aTransaction isKindOf: WithdrawTransfer) ifTrue: [aTransaction affectTransferNet: aTransferNet]
+		]
+	! !
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:24:44'!
+ERROR!
+!WithdrawTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:24:50'!
+affectTransferNet: aSmallInteger 
+	self shouldBeImplemented.! !
+!WithdrawTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:25:41' prior: 50891046!
+affectTransferNet: aTransferNet 
+	
+	^ aTransferNet - (transfer value)! !
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:25:43'!
+FAILURE!
+!DepositTransfer methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:26:55'!
+affectTransferNet: aTransferNet
+	
+	^aTransferNet + (transfer value)! !
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:27:04'!
+FAILURE!
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:27:04'!
+FAILURE!
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:29:11' prior: 50890960!
+test02AnAccountWithOneTransferReturnsCorrenctTransferNet
+
+	| anAccount anotherAccount expectedTransferNet |
+	anAccount _ ReceptiveAccount new.
+	anotherAccount _ ReceptiveAccount new.
+	Deposit register: 100 on: anAccount.
+	
+	Transfer register: 50 from: anAccount to: anotherAccount.
+	
+	expectedTransferNet _ 50.
+	
+	self assert: expectedTransferNet equals: (TransferNet from: anotherAccount).! !
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:29:13'!
+FAILURE!
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/2/2021 22:30:09' prior: 50891075!
+test02AnAccountWithOneTransferReturnsCorrenctTransferNet
+
+	| anAccount anotherAccount expectedTransferNet |
+	anAccount _ ReceptiveAccount new.
+	anotherAccount _ ReceptiveAccount new.
+	
+	Transfer register: 50 from: anAccount to: anotherAccount.
+	
+	expectedTransferNet _ 50.
+	
+	self assert: expectedTransferNet equals: (TransferNet from: anotherAccount).! !
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:30:11'!
+FAILURE!
+
+	^aTransferNet + (transfer value).!
+
+!testRun: #TransferNetTest #test02AnAccountWithOneTransferReturnsCorrenctTransferNet stamp: 'sgs 6/2/2021 22:32:32'!
+FAILURE!
+
+----QUIT----(2 June 2021 22:32:59) CuisUniversity-4532.image priorSource: 17880186!
