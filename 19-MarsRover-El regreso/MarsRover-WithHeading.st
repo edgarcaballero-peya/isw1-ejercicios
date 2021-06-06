@@ -1,4 +1,4 @@
-!classDefinition: #MarsRoverTest category: #'MarsRover-WithHeading'!
+!classDefinition: #MarsRoverTest category: 'MarsRover-WithHeading'!
 TestCase subclass: #MarsRoverTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -183,9 +183,239 @@ test16
 			self assert: MarsRover invalidCardinalPointErrorDescription equals: anError messageText ]! !
 
 
-!classDefinition: #MarsRover category: #'MarsRover-WithHeading'!
+!classDefinition: #OLogsTests category: 'MarsRover-WithHeading'!
+TestCase subclass: #OLogsTests
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 23:58:18'!
+test01WhenMarsRoverMoveForwardLogsPositionChange
+	
+	| log marsRover |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	
+	marsRover process: 'f'.
+	
+	self assert: 1 equals: log size.
+	self assert: '1@2' equals: log logs first.  ! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:34:43'!
+test02WhenMarsRoverMoveBackwardLogsPositionChange
+	
+	| log marsRover |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	
+	marsRover process: 'b'.
+	
+	self assert: 1 equals: log size.
+	self assert: '1@0' equals: log logs first.  ! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:35:38'!
+test03WhenMarsRoverRotateRightLogsHeadingChange
+	
+	| log marsRover |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	log _ Log new.
+	
+	marsRover addLogToHeading: log.
+	
+	marsRover process: 'r'.
+	
+	self assert: 1 equals: log size.
+	self assert: 'Apuntando al Este' equals: log logs first.  ! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:35:59'!
+test04WhenMarsRoverRotateLeftLogsHeadingChange
+	
+	| log marsRover |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	log _ Log new.
+	
+	marsRover addLogToHeading: log.
+	
+	marsRover process: 'l'.
+	
+	self assert: 1 equals: log size.
+	self assert: 'Apuntando al Oeste' equals: log logs first.  ! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:09:36'!
+test05WindowLogsPositionChange
+	
+	| marsRover window |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	
+	window _ MarsRoverStateWindow new.
+	marsRover addWindowToPosition: window.
+	
+	marsRover process: 'f'.
+	
+	self assert: 1@2 equals: window position.! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:11:09'!
+test06WindowLogsPositionChangeBackward
+	
+	| marsRover window |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	
+	window _ MarsRoverStateWindow new.
+	marsRover addWindowToPosition: window.
+	
+	marsRover process: 'b'.
+	
+	self assert: 1@0 equals: window position.! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:30:44'!
+test07WindowLogsHeadingChangeRotateRight
+	
+	| marsRover window |
+	marsRover _ MarsRover at: 1@1 heading: #East.
+	
+	window _ MarsRoverStateWindow new.
+	marsRover addWindowToHeading: window.
+	
+	marsRover process: 'r'.
+	
+	self assert: 'Apuntando al Sur' equals: window heading.! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:30:17'!
+test08WindowLogsHeadingChangeRotateLeft
+	
+	| marsRover window |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	
+	window _ MarsRoverStateWindow new.
+	marsRover addWindowToHeading: window.
+	
+	marsRover process: 'l'.
+	
+	self assert: 'Apuntando al Oeste' equals: window heading.! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 17:56:45'!
+test09LogPositionChangeWhenIsHeadingEastAndWindow
+	
+	| marsRover window log |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	
+	window _ MarsRoverStateWindow new.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	marsRover addWindowToHeading: window.
+	
+	marsRover process: 'rf'.
+	
+	
+	self assert: 1 equals: log size.
+	self assert: '2@1' equals: log first. 
+	self assert: 'Apuntando al Este' equals: window heading.! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 18:13:07'!
+test10LogPositionChangeWhenIsHeadingWestAndWindow
+	
+	| marsRover window log |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	
+	window _ MarsRoverStateWindow new.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	marsRover addWindowToHeading: window.
+	
+	marsRover process: 'lf'.
+	
+	
+	self assert: 1 equals: log size.
+	self assert: '0@1' equals: log first. 
+	self assert: 'Apuntando al Oeste' equals: window heading.! !
+
+!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 18:16:33'!
+test11xxxCompleteSecuenceOfFowardForAllPosition
+	
+	| marsRover window log |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	
+	window _ MarsRoverStateWindow new.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	marsRover addWindowToHeading: window.
+	
+	marsRover process: 'frfrfrf'.
+	
+	self assert: 4 equals: log size.
+	self assert: (log has: '1@2' at: 1).
+	self assert: (log has: '2@2' at: 2). 
+	self assert: (log has: '2@1' at: 3).
+	self assert: (log has: '1@1' at: 4).
+	self assert: 'Apuntando al Oeste' equals: window heading.! !
+
+
+!classDefinition: #Log category: 'MarsRover-WithHeading'!
+Object subclass: #Log
+	instanceVariableNames: 'logs'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 18:14:29'!
+at: anIndex
+	
+	^logs at: anIndex.! !
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 16:38:52'!
+first
+	
+	^logs first! !
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 18:17:29'!
+has: aString at: anIndex
+ 
+	^aString = (logs at: anIndex) ! !
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:30:49'!
+headingChangedTo: aMarsRoverHeading
+	
+	logs add: 'Apuntando al ', aMarsRoverHeading printHead.! !
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 20:38:09'!
+initialize
+	
+	logs _ OrderedCollection new.! !
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 20:37:10'!
+logger: aPoint 
+	
+	logs add: aPoint! !
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 20:41:58'!
+logs 
+	
+	^logs! !
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 18:13:55'!
+positionChangeTo: aPosition
+
+	logs add: aPosition printString.
+	! !
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 20:39:56'!
+size
+	
+	^logs size! !
+
+
+
+!classDefinition: #MarsRover category: 'MarsRover-WithHeading'!
 Object subclass: #MarsRover
-	instanceVariableNames: 'position head'
+	instanceVariableNames: 'position head positionObservers headingObservers'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
@@ -201,32 +431,48 @@ signalInvalidCommand
 	self error: self invalidCommandErrorDescription ! !
 
 
-!MarsRover methodsFor: 'initialization' stamp: 'HAW 8/22/2019 12:02:37'!
+!MarsRover methodsFor: 'initialization' stamp: 'ERMC 6/6/2021 17:31:47'!
 initializeAt: aPosition heading: aHeading
 
 	position := aPosition.
-	head := aHeading ! !
+	head := aHeading.
+	
+	positionObservers _ OrderedCollection new.
+	headingObservers _ OrderedCollection new.! !
 
 
-!MarsRover methodsFor: 'heading' stamp: 'HAW 8/22/2019 12:14:20'!
+!MarsRover methodsFor: 'heading' stamp: 'ERMC 6/6/2021 17:37:39'!
+changeHeadTo: newHeading
+
+	head _ newHeading.
+	
+	headingObservers do: [:aLog | aLog headingChangedTo: head]
+ ! !
+
+!MarsRover methodsFor: 'heading' stamp: 'ERMC 6/6/2021 17:23:42'!
 headEast
 	
-	head := MarsRoverHeadingEast new! !
+	self changeHeadTo: MarsRoverHeadingEast new.
+
+! !
 
 !MarsRover methodsFor: 'heading' stamp: 'HAW 8/22/2019 12:16:30'!
 headNorth
 	
 	head := MarsRoverHeadingNorth new! !
 
-!MarsRover methodsFor: 'heading' stamp: 'HAW 8/22/2019 12:16:05'!
+!MarsRover methodsFor: 'heading' stamp: 'ERMC 6/6/2021 00:38:55'!
 headSouth
 	
-	head := MarsRoverHeadingSouth new! !
+	 self changeHeadTo: MarsRoverHeadingSouth new.
 
-!MarsRover methodsFor: 'heading' stamp: 'HAW 8/22/2019 12:14:38'!
+	! !
+
+!MarsRover methodsFor: 'heading' stamp: 'ERMC 6/6/2021 00:37:48'!
 headWest
 	
-	head := MarsRoverHeadingWest new! !
+	self changeHeadTo: MarsRoverHeadingWest new.
+ ! !
 
 !MarsRover methodsFor: 'heading' stamp: 'HAW 8/22/2019 12:07:11'!
 rotateLeft
@@ -265,42 +511,50 @@ isRotateRightCommand: aCommand
 	^aCommand = $r! !
 
 
+!MarsRover methodsFor: 'moving' stamp: 'ERMC 6/6/2021 17:20:26'!
+changePositionTo: newPosition
+
+	position  _ newPosition.
+	
+	positionObservers do: [:aLog | aLog positionChangeTo: position]! !
+
 !MarsRover methodsFor: 'moving' stamp: 'HAW 8/22/2019 12:05:20'!
 moveBackward
 	
 	head moveBackward: self! !
 
-!MarsRover methodsFor: 'moving' stamp: 'HAW 8/22/2019 12:15:01'!
+!MarsRover methodsFor: 'moving' stamp: 'ERMC 6/6/2021 17:19:28'!
 moveEast
 	
-	position := position + (1@0)! !
+	self changePositionTo: position + (1@0).! !
 
 !MarsRover methodsFor: 'moving' stamp: 'HAW 8/22/2019 12:05:55'!
 moveForward
 	
 	head moveForward: self! !
 
-!MarsRover methodsFor: 'moving' stamp: 'HAW 8/22/2019 12:13:12'!
+!MarsRover methodsFor: 'moving' stamp: 'ERMC 6/6/2021 00:34:49'!
 moveNorth
 	
-	position := position + (0@1)! !
+	self changePositionTo: position + (0@1).
+! !
 
-!MarsRover methodsFor: 'moving' stamp: 'HAW 8/22/2019 12:13:34'!
+!MarsRover methodsFor: 'moving' stamp: 'ERMC 6/6/2021 00:36:33'!
 moveSouth
 	
-	position := position + (0@-1)! !
+	self changePositionTo: position + (0@-1).! !
 
-!MarsRover methodsFor: 'moving' stamp: 'HAW 8/22/2019 12:15:32'!
+!MarsRover methodsFor: 'moving' stamp: 'ERMC 6/6/2021 17:19:44'!
 moveWest
 	
-	position := position + (-1@0)! !
+	self changePositionTo: position + (-1@0)! !
 
 
-!MarsRover methodsFor: 'command processing' stamp: 'HAW 6/30/2018 19:48:26'!
+!MarsRover methodsFor: 'command processing' stamp: 'ERMC 6/5/2021 18:11:47'!
 process: aSequenceOfCommands
 
-	aSequenceOfCommands do: [:aCommand | self processCommand: aCommand ]
-! !
+	aSequenceOfCommands do: [:aCommand | self processCommand: aCommand ].
+ ! !
 
 !MarsRover methodsFor: 'command processing' stamp: 'HAW 8/22/2019 12:08:50'!
 processCommand: aCommand
@@ -312,9 +566,30 @@ processCommand: aCommand
 
 	self signalInvalidCommand.! !
 
+
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 17:35:10'!
+addLogToHeading: aLog 
+	
+	headingObservers add: aLog! !
+
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 17:33:53'!
+addLogToPosition: aLog 
+	
+	positionObservers add: aLog! !
+
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 17:35:04'!
+addWindowToHeading: aMarsRoverStateWindow 
+	
+	headingObservers add: aMarsRoverStateWindow ! !
+
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 17:33:07'!
+addWindowToPosition: aMarsRoverStateWindow 
+	
+	positionObservers add: aMarsRoverStateWindow ! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'MarsRover class' category: #'MarsRover-WithHeading'!
+!classDefinition: 'MarsRover class' category: 'MarsRover-WithHeading'!
 MarsRover class
 	instanceVariableNames: 'headings'!
 
@@ -329,7 +604,7 @@ invalidCardinalPointErrorDescription
 	^'Invalid cardinal point'! !
 
 
-!classDefinition: #MarsRoverHeading category: #'MarsRover-WithHeading'!
+!classDefinition: #MarsRoverHeading category: 'MarsRover-WithHeading'!
 Object subclass: #MarsRoverHeading
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -365,7 +640,7 @@ moveForward: aMarsRover
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'MarsRoverHeading class' category: #'MarsRover-WithHeading'!
+!classDefinition: 'MarsRoverHeading class' category: 'MarsRover-WithHeading'!
 MarsRoverHeading class
 	instanceVariableNames: ''!
 
@@ -390,7 +665,7 @@ isFor: aCardinalPoint
 	^self cardinalPoint = aCardinalPoint ! !
 
 
-!classDefinition: #MarsRoverHeadingEast category: #'MarsRover-WithHeading'!
+!classDefinition: #MarsRoverHeadingEast category: 'MarsRover-WithHeading'!
 MarsRoverHeading subclass: #MarsRoverHeadingEast
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -418,9 +693,15 @@ rotateRight: aMarsRover
 	
 	^aMarsRover headSouth! !
 
+
+!MarsRoverHeadingEast methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:31:56'!
+printHead
+	
+	^'Este'! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'MarsRoverHeadingEast class' category: #'MarsRover-WithHeading'!
+!classDefinition: 'MarsRoverHeadingEast class' category: 'MarsRover-WithHeading'!
 MarsRoverHeadingEast class
 	instanceVariableNames: ''!
 
@@ -430,7 +711,7 @@ cardinalPoint
 	^#East! !
 
 
-!classDefinition: #MarsRoverHeadingNorth category: #'MarsRover-WithHeading'!
+!classDefinition: #MarsRoverHeadingNorth category: 'MarsRover-WithHeading'!
 MarsRoverHeading subclass: #MarsRoverHeadingNorth
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -460,7 +741,7 @@ rotateRight: aMarsRover
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'MarsRoverHeadingNorth class' category: #'MarsRover-WithHeading'!
+!classDefinition: 'MarsRoverHeadingNorth class' category: 'MarsRover-WithHeading'!
 MarsRoverHeadingNorth class
 	instanceVariableNames: ''!
 
@@ -470,7 +751,7 @@ cardinalPoint
 	^#North! !
 
 
-!classDefinition: #MarsRoverHeadingSouth category: #'MarsRover-WithHeading'!
+!classDefinition: #MarsRoverHeadingSouth category: 'MarsRover-WithHeading'!
 MarsRoverHeading subclass: #MarsRoverHeadingSouth
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -498,9 +779,15 @@ rotateRight: aMarsRover
 	
 	^aMarsRover headWest! !
 
+
+!MarsRoverHeadingSouth methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:32:48'!
+printHead
+	
+	^'Sur'.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'MarsRoverHeadingSouth class' category: #'MarsRover-WithHeading'!
+!classDefinition: 'MarsRoverHeadingSouth class' category: 'MarsRover-WithHeading'!
 MarsRoverHeadingSouth class
 	instanceVariableNames: ''!
 
@@ -510,7 +797,7 @@ cardinalPoint
 	^#South! !
 
 
-!classDefinition: #MarsRoverHeadingWest category: #'MarsRover-WithHeading'!
+!classDefinition: #MarsRoverHeadingWest category: 'MarsRover-WithHeading'!
 MarsRoverHeading subclass: #MarsRoverHeadingWest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -538,9 +825,15 @@ rotateRight: aMarsRover
 	
 	^aMarsRover headNorth! !
 
+
+!MarsRoverHeadingWest methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:32:28'!
+printHead
+	
+	^'Oeste'! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'MarsRoverHeadingWest class' category: #'MarsRover-WithHeading'!
+!classDefinition: 'MarsRoverHeadingWest class' category: 'MarsRover-WithHeading'!
 MarsRoverHeadingWest class
 	instanceVariableNames: ''!
 
@@ -548,3 +841,31 @@ MarsRoverHeadingWest class
 cardinalPoint
 
 	^#West! !
+
+
+!classDefinition: #MarsRoverStateWindow category: 'MarsRover-WithHeading'!
+Object subclass: #MarsRoverStateWindow
+	instanceVariableNames: 'position heading'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:25:35'!
+heading
+
+	^heading ! !
+
+!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:21:50'!
+headingChangedTo: aMarsRoverHeading 
+	
+	heading _ 'Apuntando al ', aMarsRoverHeading printHead.! !
+
+!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 21:14:56'!
+position
+	
+	^position ! !
+
+!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 21:16:32'!
+positionChangeTo: aPoint 
+
+	position  _ aPoint ! !
