@@ -190,7 +190,7 @@ TestCase subclass: #OLogsTests
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 23:58:18'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/5/2021 23:58:18'!
 test01WhenMarsRoverMoveForwardLogsPositionChange
 	
 	| log marsRover |
@@ -204,7 +204,7 @@ test01WhenMarsRoverMoveForwardLogsPositionChange
 	self assert: 1 equals: log size.
 	self assert: '1@2' equals: log logs first.  ! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:34:43'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/5/2021 20:34:43'!
 test02WhenMarsRoverMoveBackwardLogsPositionChange
 	
 	| log marsRover |
@@ -218,7 +218,7 @@ test02WhenMarsRoverMoveBackwardLogsPositionChange
 	self assert: 1 equals: log size.
 	self assert: '1@0' equals: log logs first.  ! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:35:38'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/5/2021 20:35:38'!
 test03WhenMarsRoverRotateRightLogsHeadingChange
 	
 	| log marsRover |
@@ -232,7 +232,7 @@ test03WhenMarsRoverRotateRightLogsHeadingChange
 	self assert: 1 equals: log size.
 	self assert: 'Apuntando al Este' equals: log logs first.  ! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:35:59'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/5/2021 20:35:59'!
 test04WhenMarsRoverRotateLeftLogsHeadingChange
 	
 	| log marsRover |
@@ -246,7 +246,7 @@ test04WhenMarsRoverRotateLeftLogsHeadingChange
 	self assert: 1 equals: log size.
 	self assert: 'Apuntando al Oeste' equals: log logs first.  ! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:09:36'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/6/2021 00:09:36'!
 test05WindowLogsPositionChange
 	
 	| marsRover window |
@@ -259,7 +259,7 @@ test05WindowLogsPositionChange
 	
 	self assert: 1@2 equals: window position.! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:11:09'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/6/2021 00:11:09'!
 test06WindowLogsPositionChangeBackward
 	
 	| marsRover window |
@@ -272,7 +272,7 @@ test06WindowLogsPositionChangeBackward
 	
 	self assert: 1@0 equals: window position.! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:30:44'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/6/2021 00:30:44'!
 test07WindowLogsHeadingChangeRotateRight
 	
 	| marsRover window |
@@ -285,7 +285,7 @@ test07WindowLogsHeadingChangeRotateRight
 	
 	self assert: 'Apuntando al Sur' equals: window heading.! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:30:17'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/6/2021 00:30:17'!
 test08WindowLogsHeadingChangeRotateLeft
 	
 	| marsRover window |
@@ -298,7 +298,7 @@ test08WindowLogsHeadingChangeRotateLeft
 	
 	self assert: 'Apuntando al Oeste' equals: window heading.! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 17:56:45'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/6/2021 17:56:45'!
 test09LogPositionChangeWhenIsHeadingEastAndWindow
 	
 	| marsRover window log |
@@ -317,7 +317,7 @@ test09LogPositionChangeWhenIsHeadingEastAndWindow
 	self assert: '2@1' equals: log first. 
 	self assert: 'Apuntando al Este' equals: window heading.! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 18:13:07'!
+!OLogsTests methodsFor: 'test' stamp: 'ERMC 6/6/2021 18:13:07'!
 test10LogPositionChangeWhenIsHeadingWestAndWindow
 	
 	| marsRover window log |
@@ -336,8 +336,8 @@ test10LogPositionChangeWhenIsHeadingWestAndWindow
 	self assert: '0@1' equals: log first. 
 	self assert: 'Apuntando al Oeste' equals: window heading.! !
 
-!OLogsTests methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 18:16:33'!
-test11xxxCompleteSecuenceOfFowardForAllPosition
+!OLogsTests methodsFor: 'test' stamp: 'sgs 6/7/2021 12:46:16'!
+test11LogPositionChangeWhenIsHeadingWestRepeatedlyAndWindow
 	
 	| marsRover window log |
 	marsRover _ MarsRover at: 1@1 heading: #North.
@@ -357,6 +357,90 @@ test11xxxCompleteSecuenceOfFowardForAllPosition
 	self assert: (log has: '1@1' at: 4).
 	self assert: 'Apuntando al Oeste' equals: window heading.! !
 
+!OLogsTests methodsFor: 'test' stamp: 'sgs 6/7/2021 13:56:32'!
+test12LogPositionWhenChangeMarsRoverMoveForwardAndWindow
+	
+	| marsRover window log |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	
+	window _ MarsRoverStateWindow new.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	marsRover addWindowToPosition: window.
+	
+	marsRover process: 'f'.
+	
+	self assert: '1@2' equals: log logs first. 
+	self assert: 1@2 equals: window position.
+	! !
+
+!OLogsTests methodsFor: 'test' stamp: 'sgs 6/7/2021 13:57:01'!
+test13LogPositionWhenChangeMarsRoverMoveBackwardAndWindow
+	
+	| marsRover window log |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	
+	window _ MarsRoverStateWindow new.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	marsRover addWindowToPosition: window.
+	
+	marsRover process: 'b'.
+	
+	self assert: '1@0' equals: log logs first. 
+	self assert: 1@0 equals: window position.
+	! !
+
+!OLogsTests methodsFor: 'test' stamp: 'sgs 6/7/2021 14:23:31'!
+test14LogPositionAndHeadingWhenChangeMarsRoverMoveBackward
+	
+	| marsRover  log |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	marsRover addLogToHeading: log.
+	
+	marsRover process: 'br'.
+	
+	self assert: 2 equals: log size.
+	self assert: '1@0' equals: log logs first. 
+	self assert: 'Apuntando al Este' equals: log logs second .  ! !
+
+!OLogsTests methodsFor: 'test' stamp: 'sgs 6/7/2021 14:25:31'!
+test14LogPositionAndHeadingWhenChangeMarsRoverMoveBackwardAndHeadingEast
+
+	| marsRover  log |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	marsRover addLogToHeading: log.
+	
+	marsRover process: 'br'.
+	
+	self assert: 2 equals: log size.
+	self assert: '1@0' equals: log logs first. 
+	self assert: 'Apuntando al Este' equals: log logs second .  ! !
+
+!OLogsTests methodsFor: 'test' stamp: 'sgs 6/7/2021 14:24:59'!
+test15LogPositionAndHeadingWhenChangeMarsRoverMoveForwardAndHeadingWest
+	
+	| marsRover  log |
+	marsRover _ MarsRover at: 1@1 heading: #North.
+	log _ Log new.
+	
+	marsRover addLogToPosition: log.
+	marsRover addLogToHeading: log.
+	
+	marsRover process: 'fl'.
+	
+	self assert: 2 equals: log size.
+	self assert: '1@2' equals: log logs first. 
+	self assert: 'Apuntando al Oeste' equals: log logs second .  ! !
+
 
 !classDefinition: #Log category: 'MarsRover-WithHeading'!
 Object subclass: #Log
@@ -365,52 +449,55 @@ Object subclass: #Log
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
 
-!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 18:14:29'!
-at: anIndex
-	
-	^logs at: anIndex.! !
-
-!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 16:38:52'!
-first
-	
-	^logs first! !
-
-!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 18:17:29'!
-has: aString at: anIndex
- 
-	^aString = (logs at: anIndex) ! !
-
-!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 20:30:49'!
+!Log methodsFor: 'heading' stamp: 'ERMC 6/5/2021 20:30:49'!
 headingChangedTo: aMarsRoverHeading
 	
 	logs add: 'Apuntando al ', aMarsRoverHeading printHead.! !
 
-!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 20:38:09'!
-initialize
-	
-	logs _ OrderedCollection new.! !
 
-!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 20:37:10'!
-logger: aPoint 
-	
-	logs add: aPoint! !
-
-!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 20:41:58'!
-logs 
-	
-	^logs! !
-
-!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 18:13:55'!
+!Log methodsFor: 'position' stamp: 'ERMC 6/5/2021 18:13:55'!
 positionChangeTo: aPosition
 
 	logs add: aPosition printString.
 	! !
 
-!Log methodsFor: 'as yet unclassified' stamp: 'ERMC 6/3/2021 20:39:56'!
+
+!Log methodsFor: 'log' stamp: 'ERMC 6/3/2021 20:37:10'!
+logger: aPoint 
+	
+	logs add: aPoint! !
+
+!Log methodsFor: 'log' stamp: 'ERMC 6/3/2021 20:41:58'!
+logs 
+	
+	^logs! !
+
+
+!Log methodsFor: 'initialization' stamp: 'ERMC 6/3/2021 20:38:09'!
+initialize
+	
+	logs _ OrderedCollection new.! !
+
+
+!Log methodsFor: 'testing' stamp: 'ERMC 6/6/2021 18:14:29'!
+at: anIndex
+	
+	^logs at: anIndex.! !
+
+!Log methodsFor: 'testing' stamp: 'ERMC 6/6/2021 16:38:52'!
+first
+	
+	^logs first! !
+
+!Log methodsFor: 'testing' stamp: 'ERMC 6/6/2021 18:17:29'!
+has: aString at: anIndex
+ 
+	^aString = (logs at: anIndex) ! !
+
+!Log methodsFor: 'testing' stamp: 'ERMC 6/3/2021 20:39:56'!
 size
 	
 	^logs size! !
-
 
 
 !classDefinition: #MarsRover category: 'MarsRover-WithHeading'!
@@ -850,22 +937,23 @@ Object subclass: #MarsRoverStateWindow
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
 
-!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:25:35'!
-heading
-
-	^heading ! !
-
-!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'ERMC 6/6/2021 00:21:50'!
-headingChangedTo: aMarsRoverHeading 
-	
-	heading _ 'Apuntando al ', aMarsRoverHeading printHead.! !
-
-!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 21:14:56'!
+!MarsRoverStateWindow methodsFor: 'position' stamp: 'ERMC 6/5/2021 21:14:56'!
 position
 	
 	^position ! !
 
-!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'ERMC 6/5/2021 21:16:32'!
+!MarsRoverStateWindow methodsFor: 'position' stamp: 'ERMC 6/5/2021 21:16:32'!
 positionChangeTo: aPoint 
 
 	position  _ aPoint ! !
+
+
+!MarsRoverStateWindow methodsFor: 'heading' stamp: 'ERMC 6/6/2021 00:25:35'!
+heading
+
+	^heading ! !
+
+!MarsRoverStateWindow methodsFor: 'heading' stamp: 'ERMC 6/6/2021 00:21:50'!
+headingChangedTo: aMarsRoverHeading 
+	
+	heading _ 'Apuntando al ', aMarsRoverHeading printHead.! !
