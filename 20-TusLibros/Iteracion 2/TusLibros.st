@@ -115,7 +115,7 @@ itemSellByTheStore
 
 !classDefinition: #CashierTest category: 'TusLibros'!
 TestCase subclass: #CashierTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'today validBook aValidCreditCard anExpiredCreditCard'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -138,59 +138,110 @@ itemSellByTheStore
 	
 	^ 'validBook'! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/11/2021 20:37:50'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:26:59'!
+setUp
+
+	 today _ FixedGregorianDate today .
+	
+	validBook _ 'validBook'.
+	aValidCreditCard _ CreditCard numbered: 010101010101 owner:  'Jill' expiredOn: 122021.
+	"anExpiredCreditCard _ CreditCard numbered: 010101010101 owner:  'Flora' expiredOn: 012021"
+
+! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:57:34'!
 test01CheakOutWithEmptyCart
-	|aCart aCashier aCreditCardExpiration aCreditCardNumber aCreditCardOwner |
+	|aCart aCashier salesBook |
 	
 	aCart _ self createCart.
 	aCashier _ Cashier new.
 	
-	aCreditCardNumber _ '010101010101'.
-	aCreditCardExpiration _ '01010101'.
-	aCreditCardOwner _ 'Pepe'.
+	salesBook _ OrderedCollection  new.
+
 	
-	 self 
-		should: [aCashier checkOut:aCart with: aCreditCardNumber and: aCreditCardExpiration to: aCreditCardOwner. ]
+	 self
+		
+		should: [	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = aCashier canNotCheakOutWithEmptyCart.].! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/11/2021 20:55:51'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:56:57'!
 test02CheakOutWithOneItemInTheCart
-	|aCart aCashier aCreditCardExpiration aCreditCardNumber aCreditCardOwner totalTransaction aCatalogo |
+	|aCart aCashier totalTransaction salesBook |
 	
 	aCart _ self createCart.
 	aCart add: 'validBook'.
 
 	aCashier _ Cashier new.
+
+	salesBook _ OrderedCollection  new.
 	
-	aCreditCardNumber _ '010101010101'.
-	aCreditCardExpiration _ '01010101'.
-	aCreditCardOwner _ 'Pepe'.
-	
-	totalTransaction _	aCashier checkOut:aCart with: aCreditCardNumber and: aCreditCardExpiration to: aCreditCardOwner.
+	totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook.
 	
 	self assert: totalTransaction equals: 100.
 	
 	
 	! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/11/2021 21:03:35'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:56:26'!
 test03CheakOutWithManyItemsInTheCart
-	|aCart aCashier aCreditCardExpiration aCreditCardNumber aCreditCardOwner totalTransaction aCatalogo |
+	|aCart aCashier totalTransaction salesBook |
 	
 	aCart _ self createCart.
-	aCart add: 4 of: 'validBook'.
+	aCart add: 4 of: validBook.
 
 	aCashier _ Cashier new.
 	
-	aCreditCardNumber _ '010101010101'.
-	aCreditCardExpiration _ '01010101'.
-	aCreditCardOwner _ 'Pepe'.
+	salesBook _ OrderedCollection new.
 	
-	totalTransaction _	aCashier checkOut:aCart with: aCreditCardNumber and: aCreditCardExpiration to: aCreditCardOwner.
+	totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook.
 	
 	self assert: totalTransaction equals: 400.
+	
+	
+	! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:26:42'!
+test04CanNotCheckoutWithAnExpiredCreditCart
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 self 
+		should: [totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = aCashier canNotCheakOutWithAnExpiredCreditCard. 
+			self assert: salesBook isEmpty.].
+	
+	
+	
+	! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:24:35'!
+test05CanNotCheckoutWithAnExpiredCreditCart
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 self 
+		should: [totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = aCashier canNotCheakOutWithAnExpiredCreditCard. 
+			self assert: salesBook isEmpty.].
+	
 	
 	
 	! !
@@ -295,16 +346,23 @@ assertIsValidCart: aCart
 	^(aCart isEmpty) ifTrue: [ self error: self canNotCheakOutWithEmptyCart.].
 ! !
 
+!Cashier methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:24:07'!
+canNotCheakOutWithAnExpiredCreditCard
+	
+	^'Expired Card'! !
+
 !Cashier methodsFor: 'as yet unclassified' stamp: 'sgs 6/10/2021 20:18:11'!
 canNotCheakOutWithEmptyCart
 	
 	^'Invalidad Cart'! !
 
-!Cashier methodsFor: 'as yet unclassified' stamp: 'sgs 6/11/2021 20:40:01'!
-checkOut: aCart with: aCreditCardNumber and: aCreditCardExpiration to: aCreditCardOwner
+!Cashier methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:54:51'!
+checkOut: aCart with: aCreditCard on: aDate regiteringOn: aSalesBook	
+	
 	
 	self assertIsValidCart: aCart .
-	
+	(aCreditCard isExpiredOn: aDate)ifTrue: [self error: self canNotCheakOutWithAnExpiredCreditCard].
+
 	^aCart totalAmount.! !
 
 !Cashier methodsFor: 'as yet unclassified' stamp: 'sgs 6/10/2021 20:51:20'!
@@ -324,3 +382,79 @@ Cashier class
 initializeWith: aSalesBook
 	
 	^self new initializeWith: aSalesBook.! !
+
+
+!classDefinition: #CreditCard category: 'TusLibros'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'creditCardNumber creditCardOwner creditCardExpiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:16:19'!
+initializeWithNumbered: aNumber owner:  aOwner expiredOn: anExpirationMonthOfYear.
+
+	creditCardNumber _ aNumber.
+	creditCardOwner _ aOwner.
+	creditCardExpiration _ anExpirationMonthOfYear.! !
+
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:54:40'!
+isExpiredOn: aDate
+
+ 	^(aDate year > 	creditCardExpiration year) or:
+	((aDate year = 	creditCardExpiration year) and: (aDate month >=  	creditCardExpiration month)).! !
+
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:58:50'!
+month
+
+	creditCardExpiration! !
+
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:58:33'!
+year
+! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CreditCard class' category: 'TusLibros'!
+CreditCard class
+	instanceVariableNames: ''!
+
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:48:05'!
+assertIsExpiredOn: anExpirationMonthOfYear
+	
+
+	! !
+
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:37:39'!
+assertIsValidCreditCardWithNumbered: aNumber owner:  aOwner expiredOn: anExpirationMonthOfYear.
+
+	self assertIsValidNumbered: aNumber.
+	self assertIsValidOwner:  aOwner.
+	self assertIsExpiredOn: anExpirationMonthOfYear.! !
+
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:36:21'!
+assertIsValidNumbered: aNumber
+
+	((aNumber asString) size =16 ) ifTrue:  [ self error: self class canNotCreatAnInvalidadCreditCard].
+
+	! !
+
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:37:00'!
+assertIsValidOwner:  aOwner
+
+	(aOwner withBlanksTrimmed isEmpty) ifTrue:  [ self error: self class canNotCreatAnInvalidadCreditCard].
+! !
+
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:29:19'!
+canNotCreatAnInvalidadCreditCard
+	
+	^'Invalidad Card'! !
+
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'sgs 6/14/2021 19:35:25'!
+numbered: aNumber owner:  aOwner expiredOn: anExpirationMonthOfYear
+
+	
+	self assertIsValidCreditCardWithNumbered: aNumber owner:  aOwner expiredOn: anExpirationMonthOfYear.
+
+	^self new initializeWithNumbered: aNumber owner:  aOwner expiredOn: anExpirationMonthOfYear.
+! !
