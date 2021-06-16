@@ -12329,3 +12329,404 @@ month
 	creditCardExpiration! !
 
 ----SNAPSHOT----(14 June 2021 20:03:52) CuisUniversity-4532.image priorSource: 18268767!
+
+----SNAPSHOT----(14 June 2021 21:09:53) CuisUniversity-4532.image priorSource: 18311327!
+
+----STARTUP---- (15 June 2021 20:58:01) as C:\Users\sabri\OneDrive\Desktop\SegundaParte\windows64\CuisUniversity-4532.image!
+
+
+!testRun: #CashierTest #test01CheakOutWithEmptyCart stamp: 'sgs 6/15/2021 21:05:45'!
+PASSED!
+
+!testRun: #CashierTest #test02CheakOutWithOneItemInTheCart stamp: 'sgs 6/15/2021 21:05:45'!
+ERROR!
+
+!testRun: #CashierTest #test03CheakOutWithManyItemsInTheCart stamp: 'sgs 6/15/2021 21:05:45'!
+ERROR!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:05:45'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:05:45'!
+ERROR!
+
+!testRun: #CashierTest #test02CheakOutWithOneItemInTheCart stamp: 'sgs 6/15/2021 21:06:38'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:06:55'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:06:55'!
+ERROR!
+
+self year.!
+
+self year < 2020!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:26:00' prior: 50903686!
+isExpiredOn: aDate
+
+ 	^creditCardExpiration start < (Month month: aDate monthIndex year: aDate yearNumber) start ! !
+
+!testRun: #CashierTest #test01CheakOutWithEmptyCart stamp: 'sgs 6/15/2021 21:27:59'!
+PASSED!
+
+!testRun: #CashierTest #test02CheakOutWithOneItemInTheCart stamp: 'sgs 6/15/2021 21:27:59'!
+ERROR!
+
+!testRun: #CashierTest #test03CheakOutWithManyItemsInTheCart stamp: 'sgs 6/15/2021 21:27:59'!
+ERROR!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:27:59'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:27:59'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:30:55' prior: 50903445 overrides: 16927572!
+setUp
+
+	 today _ DateAndTime now .
+	
+	validBook _ 'validBook'.
+	aValidCreditCard _ CreditCard numbered: 010101010101 owner:  'Jill' expiredOn: 122021.
+	"anExpiredCreditCard _ CreditCard numbered: 010101010101 owner:  'Flora' expiredOn: 012021"
+
+! !
+
+!testRun: #CashierTest #test01CheakOutWithEmptyCart stamp: 'sgs 6/15/2021 21:31:20'!
+PASSED!
+
+!testRun: #CashierTest #test02CheakOutWithOneItemInTheCart stamp: 'sgs 6/15/2021 21:31:20'!
+ERROR!
+
+!testRun: #CashierTest #test03CheakOutWithManyItemsInTheCart stamp: 'sgs 6/15/2021 21:31:20'!
+ERROR!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:31:20'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:31:20'!
+ERROR!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:32:51'!
+ERROR!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:32:51'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:34:19' prior: 50903941 overrides: 16927572!
+setUp
+
+	 today _ DateAndTime now .
+	
+	validBook _ 'validBook'.
+	aValidCreditCard _ CreditCard numbered: 010101010101 owner:  'Jill' expiredOn:(Month month: today monthIndex year: today yearNumber + 1).
+	"anExpiredCreditCard _ CreditCard numbered: 010101010101 owner:  'Flora' expiredOn: 012021"
+
+! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'sgs 6/15/2021 21:34:23'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'sgs 6/15/2021 21:34:23'!
+ERROR!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'sgs 6/15/2021 21:34:23'!
+ERROR!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'sgs 6/15/2021 21:34:23'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'sgs 6/15/2021 21:34:23'!
+ERROR!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'sgs 6/15/2021 21:34:23'!
+ERROR!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'sgs 6/15/2021 21:34:23'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'sgs 6/15/2021 21:34:23'!
+ERROR!
+
+!testRun: #CashierTest #test01CheakOutWithEmptyCart stamp: 'sgs 6/15/2021 21:34:23'!
+PASSED!
+
+!testRun: #CashierTest #test02CheakOutWithOneItemInTheCart stamp: 'sgs 6/15/2021 21:34:23'!
+PASSED!
+
+!testRun: #CashierTest #test03CheakOutWithManyItemsInTheCart stamp: 'sgs 6/15/2021 21:34:23'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:34:23'!
+FAILURE!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:34:23'!
+FAILURE!
+
+!testRun: #CashierTest #test01CheakOutWithEmptyCart stamp: 'sgs 6/15/2021 21:34:39'!
+PASSED!
+
+!testRun: #CashierTest #test02CheakOutWithOneItemInTheCart stamp: 'sgs 6/15/2021 21:34:39'!
+PASSED!
+
+!testRun: #CashierTest #test03CheakOutWithManyItemsInTheCart stamp: 'sgs 6/15/2021 21:34:39'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:34:39'!
+FAILURE!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:34:39'!
+FAILURE!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:35:05'!
+FAILURE!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:35:05'!
+FAILURE!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:36:32' prior: 50903976 overrides: 16927572!
+setUp
+
+	 today _ DateAndTime now .
+	
+	validBook _ 'validBook'.
+	aValidCreditCard _ CreditCard numbered: 010101010101 owner:  'Jill' expiredOn:(Month month: today monthIndex year: today yearNumber + 1).
+
+	anExpiredCreditCard _ CreditCard numbered: 010101010101 owner:  'Jill' expiredOn:(Month month: today monthIndex year: today yearNumber - 1).
+		"anExpiredCreditCard _ CreditCard numbered: 010101010101 owner:  'Flora' expiredOn: 012021"
+
+! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:36:42' prior: 50903424!
+test04CanNotCheckoutWithAnExpiredCreditCart
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 self 
+		should: [totalTransaction _	aCashier checkOut:aCart with: anExpiredCreditCard on: today regiteringOn: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = aCashier canNotCheakOutWithAnExpiredCreditCard. 
+			self assert: salesBook isEmpty.].
+	
+	
+	
+	! !
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:36:50'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:38:28' prior: 50903379!
+test05CanNotCheckoutWithAnExpiredCreditCart
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. 
+		
+	self assert: salesBook size equals: 1.
+	
+	
+	
+	
+	
+	! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:38:55' prior: 50904095!
+test05CanNotCheckoutWithAnExpiredCreditCart
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. 
+		
+	self assert: salesBook size equals: 1.
+	
+	self assert: salesBook first equals: totalTransaction .
+	
+	
+	
+	
+	
+	! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:39:02' prior: 50904110!
+test05CanNotCheckoutWithAnExpiredCreditCart
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. 
+		
+	self assert: salesBook size equals: 1.
+	self assert: salesBook first equals: totalTransaction .
+	
+	
+	
+	
+	
+	! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:39:22' prior: 50904127!
+test05CanNotCheckoutWithAnExpiredCreditCart
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. 
+		
+	"self assert: salesBook size equals: 1."
+	self assert: salesBook first equals: totalTransaction .
+	
+	
+	
+	
+	
+	! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:39:32'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:39:33'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:39:45' prior: 50904144!
+test05CanNotCheckoutWithAnExpiredCreditCart
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. 
+		
+	self assert: salesBook size equals: 1.
+	self assert: salesBook first equals: totalTransaction .
+	
+	
+	
+	
+	
+	! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:40:51' prior: 50903695!
+checkOut: aCart with: aCreditCard on: aDate regiteringOn: aSalesBook	
+	
+	
+	self assertIsValidCart: aCart .
+	self assertIsValidCard: aCreditCard on: aDate.
+	
+
+	^aCart totalAmount.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:41:06'!
+ assertIsValidCard: aCreditCard on: aDate.
+
+	(aCreditCard isExpiredOn: aDate)ifTrue: [self error: self canNotCheakOutWithAnExpiredCreditCard].
+
+! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:42:54' prior: 50904185!
+checkOut: aCart with: aCreditCard on: aDate regiteringOn: aSalesBook	
+	
+	|total|
+	
+	self assertIsValidCart: aCart .
+	self assertIsValidCard: aCreditCard on: aDate.
+	
+	total _ aCart totalAmount.
+	self registerTotalAmount: total in: 	aSalesBook .
+	
+	^total.
+	! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:43:32'!
+registerTotalAmount: total in: 	aSalesBook .
+	
+	aSalesBook addLast: total.! !
+
+!testRun: #CashierTest #test01CheakOutWithEmptyCart stamp: 'sgs 6/15/2021 21:43:45'!
+PASSED!
+
+!testRun: #CashierTest #test02CheakOutWithOneItemInTheCart stamp: 'sgs 6/15/2021 21:43:45'!
+PASSED!
+
+!testRun: #CashierTest #test03CheakOutWithManyItemsInTheCart stamp: 'sgs 6/15/2021 21:43:45'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:43:45'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:43:45'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'sgs 6/15/2021 21:44:36'!
+test05CheckoutRegistersASales
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. 
+		
+	self assert: salesBook size equals: 1.
+	self assert: salesBook first equals: totalTransaction .
+	
+	
+	
+	
+	
+	! !
+
+!methodRemoval: CashierTest #test05CanNotCheckoutWithAnExpiredCreditCart stamp: 'sgs 6/15/2021 21:44:36'!
+test05CanNotCheckoutWithAnExpiredCreditCart
+
+	|aCart aCashier totalTransaction salesBook  |
+	
+	aCart _ self createCart.
+	aCart add: 4 of: validBook.
+
+	aCashier _ Cashier new.
+	salesBook _  OrderedCollection new.
+	
+	 totalTransaction _	aCashier checkOut:aCart with: aValidCreditCard on: today regiteringOn: salesBook. 
+		
+	self assert: salesBook size equals: 1.
+	self assert: salesBook first equals: totalTransaction .
+	
+	
+	
+	
+	
+	!
+
+!methodRemoval: CreditCard #year stamp: 'sgs 6/15/2021 21:56:44'!
+year
+!
+
+!methodRemoval: CreditCard #month stamp: 'sgs 6/15/2021 21:56:47'!
+month
+
+	creditCardExpiration!
+
+----SNAPSHOT----(15 June 2021 22:00:14) CuisUniversity-4532.image priorSource: 18311417!
