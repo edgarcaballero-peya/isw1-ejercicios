@@ -246,14 +246,14 @@ debit: anAmount from: aCreditCard
 	^debitBehavior value: anAmount value: aCreditCard ! !
 
 
-!classDefinition: #XXXTest category: 'TusLibros'!
-TestCase subclass: #XXXTest
+!classDefinition: #TusLibrosSystemTests category: 'TusLibros'!
+TestCase subclass: #TusLibrosSystemTests
 	instanceVariableNames: 'testObjectsFactory tusLibros'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!XXXTest methodsFor: 'tests - creating cart' stamp: 'ERMC 6/22/2021 21:33:58'!
+!TusLibrosSystemTests methodsFor: 'tests - creating cart' stamp: 'ERMC 6/22/2021 21:33:58'!
 test01_createCartWithValidUserIdAndPassword
 
 	| cartId |
@@ -263,7 +263,7 @@ test01_createCartWithValidUserIdAndPassword
 	self assert: (tusLibros listCartById: cartId) isEmpty.
 	! !
 
-!XXXTest methodsFor: 'tests - creating cart' stamp: 'ERMC 6/22/2021 21:34:55'!
+!TusLibrosSystemTests methodsFor: 'tests - creating cart' stamp: 'ERMC 6/22/2021 21:34:55'!
 test02_CanNotCreateACartWithInvalidUser
 
 	self 
@@ -277,7 +277,7 @@ test02_CanNotCreateACartWithInvalidUser
 
 	! !
 
-!XXXTest methodsFor: 'tests - creating cart' stamp: 'ERMC 6/22/2021 21:35:18'!
+!TusLibrosSystemTests methodsFor: 'tests - creating cart' stamp: 'ERMC 6/22/2021 21:35:18'!
 test03_CanNotCreateACartWithValidUserButIncorrectPassword
 
 	self 
@@ -292,7 +292,7 @@ test03_CanNotCreateACartWithValidUserButIncorrectPassword
 	! !
 
 
-!XXXTest methodsFor: 'setup' stamp: 'ERMC 6/22/2021 20:17:27'!
+!TusLibrosSystemTests methodsFor: 'setup' stamp: 'ERMC 6/22/2021 20:17:27'!
 defaultCatalog
 	
 	| storeTestObjectsFactory |
@@ -301,12 +301,12 @@ defaultCatalog
 	
  	^storeTestObjectsFactory defaultCatalog ! !
 
-!XXXTest methodsFor: 'setup' stamp: 'ERMC 6/22/2021 20:19:12'!
+!TusLibrosSystemTests methodsFor: 'setup' stamp: 'ERMC 6/22/2021 20:19:12'!
 defaultSalesBook
 
 	^Dictionary new.! !
 
-!XXXTest methodsFor: 'setup' stamp: 'ERMC 6/22/2021 20:23:42'!
+!TusLibrosSystemTests methodsFor: 'setup' stamp: 'ERMC 6/22/2021 20:23:42'!
 defaultUsersAndPaswords
 
 	| usersAndPassword |
@@ -319,19 +319,19 @@ defaultUsersAndPaswords
 
 	^ usersAndPassword ! !
 
-!XXXTest methodsFor: 'setup' stamp: 'ERMC 6/22/2021 21:33:47'!
+!TusLibrosSystemTests methodsFor: 'setup' stamp: 'ERMC 6/22/2021 21:33:47'!
 invalidPassword
  
 	^'123'.
 
 	! !
 
-!XXXTest methodsFor: 'setup' stamp: 'ERMC 6/22/2021 21:32:59'!
+!TusLibrosSystemTests methodsFor: 'setup' stamp: 'ERMC 6/22/2021 21:32:59'!
 invalidUser
 
 	^ 'Wilkinson'! !
 
-!XXXTest methodsFor: 'setup' stamp: 'ERMC 6/23/2021 20:41:08'!
+!TusLibrosSystemTests methodsFor: 'setup' stamp: 'ERMC 6/23/2021 20:41:08'!
 setUp
 	
 	tusLibros _ TusLibros 
@@ -341,20 +341,20 @@ setUp
 		
 	testObjectsFactory _ StoreTestObjectsFactory new.! !
 
-!XXXTest methodsFor: 'setup' stamp: 'ERMC 6/22/2021 21:33:37'!
+!TusLibrosSystemTests methodsFor: 'setup' stamp: 'ERMC 6/22/2021 21:33:37'!
 validPassword
  
 	^'Isw123'.
 
 	! !
 
-!XXXTest methodsFor: 'setup' stamp: 'ERMC 6/22/2021 21:32:25'!
+!TusLibrosSystemTests methodsFor: 'setup' stamp: 'ERMC 6/22/2021 21:32:25'!
 validUser
 
 	^ 'Pepe'! !
 
 
-!XXXTest methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/22/2021 21:52:44'!
+!TusLibrosSystemTests methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/22/2021 21:52:44'!
 test04_CanNotAddAnItemInACartThatIsNotInTusLibros
 	
 	| invalidCartId |
@@ -368,7 +368,7 @@ test04_CanNotAddAnItemInACartThatIsNotInTusLibros
 		
 		! !
 
-!XXXTest methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/22/2021 21:58:51'!
+!TusLibrosSystemTests methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/22/2021 21:58:51'!
 test05_CanNotAddItemThatIsNotInTheEditorialISBN
 	
 	| invalidBook cartId |
@@ -386,7 +386,7 @@ test05_CanNotAddItemThatIsNotInTheEditorialISBN
 		
 		! !
 
-!XXXTest methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/22/2021 22:15:17'!
+!TusLibrosSystemTests methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/22/2021 22:15:17'!
 test06_CanAdddItemsToAValidCartCreated
 	
 	| validBook cartId |
@@ -400,7 +400,7 @@ test06_CanAdddItemsToAValidCartCreated
 	self assert: ((tusLibros listCartById: cartId) occurrencesOf: validBook) equals: 1
 		! !
 
-!XXXTest methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/23/2021 19:54:49'!
+!TusLibrosSystemTests methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/23/2021 19:54:49'!
 test07_ListingAnEmptyCartReturnsEmptyList
 	
 	| cartId |
@@ -410,7 +410,7 @@ test07_ListingAnEmptyCartReturnsEmptyList
 	self assert: (tusLibros listCartById: cartId) isEmpty.
 		! !
 
-!XXXTest methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/23/2021 19:59:16'!
+!TusLibrosSystemTests methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/23/2021 19:59:16'!
 test08_CanNotListACartItemsOfAnInvalidCartId
 	
 	self 
@@ -419,7 +419,7 @@ test08_CanNotListACartItemsOfAnInvalidCartId
 		withExceptionDo: [:anError |
 			self assert: tusLibros invalidBookISBNErrorDescription equals: anError messageText]! !
 
-!XXXTest methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/23/2021 20:11:04'!
+!TusLibrosSystemTests methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/23/2021 20:11:04'!
 test09_ListingCartOfValidCartIdReturnsCorrectItems
 	
 	| cartId expectedItems |
@@ -433,7 +433,8 @@ test09_ListingCartOfValidCartIdReturnsCorrectItems
 	self assert: (expectedItems occurrencesOf: 'validBook') equals: 1.
 	self assert: (expectedItems occurrencesOf: 'validBook2') equals: 1.! !
 
-!XXXTest methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/23/2021 20:39:30'!
+
+!TusLibrosSystemTests methodsFor: 'tests - check out cart' stamp: 'ERMC 6/23/2021 20:39:30'!
 test10_CanNotCheckoutOfAnInvalidCart
 	
 	| invalidCartId |
@@ -448,7 +449,7 @@ test10_CanNotCheckoutOfAnInvalidCart
 			self assert: tusLibros invalidCartErrorDescription equals: anError messageText
 			]! !
 
-!XXXTest methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/23/2021 22:20:12'!
+!TusLibrosSystemTests methodsFor: 'tests - check out cart' stamp: 'ERMC 6/23/2021 22:20:12'!
 test11_CanNotCheckoutWithAnEmptyCart
 	
 	| cartId |
@@ -706,6 +707,44 @@ of: aTotal
 	^self new initializeTotal: aTotal ! !
 
 
+!classDefinition: #ShoppingCart category: 'TusLibros'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: 'owner system user tusLibros cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!ShoppingCart methodsFor: 'initialization' stamp: 'ERMC 6/23/2021 23:02:46'!
+initializeWithOwner: anUser for: aTusLibrosSystem with: aCart 
+
+	user _ anUser.
+	tusLibros _ aTusLibrosSystem.
+	cart _ aCart.! !
+
+
+!ShoppingCart methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:19:09'!
+listItems
+	
+	^cart listItems.! !
+
+
+!ShoppingCart methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:21:23'!
+add: aQuantity of: aBook 
+	
+	cart add: aQuantity of: aBook.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ShoppingCart class' category: 'TusLibros'!
+ShoppingCart class
+	instanceVariableNames: ''!
+
+!ShoppingCart class methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:01:19'!
+owner: anUser for: tusLibrosSystem with: aCart 
+	
+	^self new initializeWithOwner: anUser for: tusLibrosSystem with: aCart.! !
+
+
 !classDefinition: #StoreTestObjectsFactory category: 'TusLibros'!
 Object subclass: #StoreTestObjectsFactory
 	instanceVariableNames: 'today'
@@ -793,19 +832,19 @@ today
 
 !classDefinition: #TusLibros category: 'TusLibros'!
 Object subclass: #TusLibros
-	instanceVariableNames: 'usersAndPasswords catalog salesBook carts shoppingCarts'
+	instanceVariableNames: 'usersAndPasswords catalog salesBook shoppingCarts currentCartId'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/22/2021 22:13:05'!
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:20:26'!
 addTocartId: cartId bookIsbn: anIsbn andQuantity: aQuantity
 	
 	| cart |
-	(self assertId: cartId on: carts) ifFalse: [^self error: self canNotAddItemsOfABookToInvalidCartErrorDescription].
+	(self assertId: cartId on: shoppingCarts) ifFalse: [^self error: self canNotAddItemsOfABookToInvalidCartErrorDescription].
 	(self assertId: anIsbn on: catalog) ifFalse: [^self error: self invalidBookISBNErrorDescription].
 	
-	cart _ carts at: cartId. 
+	cart _ shoppingCarts at: cartId. 
 		
 	cart add: aQuantity of: anIsbn.
 	
@@ -829,34 +868,51 @@ checkoutCartBy: anId withCreditCardNumber: aCreditCarNumber ownedBy: anOwner exp
  
 	^self error: self invalidCartErrorDescription! !
 
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 22:52:13'!
+getCartId 
+	
+	currentCartId _ currentCartId + 1.
+	^currentCartId ! !
+
 !TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/22/2021 21:18:50'!
 invalidUserPasswordErrorDescription
 	
 	^'invalid password. Please check again' ! !
 
-!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 19:59:53'!
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:14:50'!
 listCartById: anId
 	
 	| cart |
-	cart _ carts at: 0  ifAbsent: [^self error: self invalidBookISBNErrorDescription].
+	cart _ shoppingCarts at: (self currentCartId) ifAbsent: [^self error: self invalidBookISBNErrorDescription].
 	^cart listItems.
 
 	! !
 
 
-!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/22/2021 21:28:49'!
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:15:14'!
 createCartFor: anUser withPassword: aPassword
 	
-	| cart |
+	| shoppingCart cartId |
 	
 	(self assertUser: anUser withPasswordValid: aPassword) ifFalse: [^self error: self invalidUserPasswordErrorDescription].
-		
-	cart _ Cart acceptingItemsOf: catalog.
+			
+	shoppingCart _ ShoppingCart owner: anUser for: self with: (Cart acceptingItemsOf: catalog).
 	
-	carts at: 0 put: cart.
+	cartId _ self getCartId.
+	shoppingCarts at: cartId put: shoppingCart.
 	
-	^0 ! !
+	^cartId! !
 
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:14:14'!
+currentCartId
+
+	^currentCartId! !
+
+
+!TusLibros methodsFor: 'errors' stamp: 'ERMC 6/23/2021 22:41:17'!
+canNotCheckoutWithAnEmptyCartErrorDescription
+	
+	^'can not check out with empty cart'.! !
 
 !TusLibros methodsFor: 'errors' stamp: 'ERMC 6/22/2021 22:01:11'!
 invalidBookISBNErrorDescription
@@ -891,13 +947,14 @@ assertUser: anUser withPasswordValid: aPassword
 	! !
 
 
-!TusLibros methodsFor: 'initialization' stamp: 'ERMC 6/23/2021 22:04:29'!
+!TusLibros methodsFor: 'initialization' stamp: 'ERMC 6/23/2021 22:51:24'!
 InitializeWithUsersAndPasswords: XusersAndPasswords acceptingItemsOf: aCatalog registeringOn: aSalesBook
 
 	usersAndPasswords  _ XusersAndPasswords.
 	catalog _ aCatalog.
 	salesBook _ aSalesBook.
 	carts _ Dictionary new.
+	currentCartId _ 0.
 	
 	shoppingCarts _ Dictionary new.! !
 

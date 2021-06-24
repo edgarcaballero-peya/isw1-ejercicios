@@ -1576,3 +1576,505 @@ test11_CanNotCheckoutWithAnEmptyCart
 		withExceptionDo: [:anError |
 			self assert: tusLibros canNotCheckoutWithAnEmptyCartErrorDescription equals: anError messageText
 			]! !
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 22:40:36'!
+ERROR!
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 22:40:44'!
+ERROR!
+!TusLibros methodsFor: 'errors' stamp: 'ERMC 6/23/2021 22:40:53'!
+canNotCheckoutWithAnEmptyCartErrorDescription
+	self shouldBeImplemented.! !
+!TusLibros methodsFor: 'errors' stamp: 'ERMC 6/23/2021 22:41:17' prior: 50910944!
+canNotCheckoutWithAnEmptyCartErrorDescription
+	
+	^'can not check out with empty cart'.! !
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 22:41:18'!
+FAILURE!
+
+!classDefinition: #ShoppingCart category: 'TusLibros' stamp: 'ERMC 6/23/2021 22:47:21'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 22:47:09' prior: 50909815!
+createCartFor: anUser withPassword: aPassword
+	
+	| cart shoppingCart |
+	
+	(self assertUser: anUser withPasswordValid: aPassword) ifFalse: [^self error: self invalidUserPasswordErrorDescription].
+		
+	cart _ Cart acceptingItemsOf: catalog.
+	
+	shoppingCart _ ShoppingCart owner: anUser for: self.
+	
+	carts at: 0 put: cart.
+	
+	^0 ! !
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 22:47:30'!
+ERROR!
+!ShoppingCart class methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 22:47:44'!
+owner: aString for: aTusLibros 
+	self shouldBeImplemented.! !
+!ShoppingCart class methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 22:48:36' prior: 50910982!
+owner: anUser for: aTusLibrosSystem 
+	
+	^self new InitializationWithOwner: anUser for: aTusLibrosSystem.! !
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 22:48:39'!
+ERROR!
+!ShoppingCart methodsFor: 'initialization' stamp: 'ERMC 6/23/2021 22:48:54'!
+InitializationWithOwner: aString for: aTusLibros 
+	self shouldBeImplemented.! !
+
+!classDefinition: #ShoppingCart category: 'TusLibros' stamp: 'ERMC 6/23/2021 22:49:28'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: 'owner'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ShoppingCart category: 'TusLibros' stamp: 'ERMC 6/23/2021 22:49:30'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: 'owner system'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ShoppingCart methodsFor: 'initialization' stamp: 'ERMC 6/23/2021 22:49:26' prior: 50910997!
+InitializationWithOwner: anUser for: aTusLibrosSystem
+ 
+	owner _ anUser.
+	system _ aTusLibrosSystem.! !
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 22:49:32'!
+FAILURE!
+
+!classDefinition: #TusLibros category: 'TusLibros' stamp: 'ERMC 6/23/2021 22:51:25'!
+Object subclass: #TusLibros
+	instanceVariableNames: 'usersAndPasswords catalog salesBook carts shoppingCarts currentCartId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!TusLibros methodsFor: 'initialization' stamp: 'ERMC 6/23/2021 22:51:24' prior: 50910874!
+InitializeWithUsersAndPasswords: XusersAndPasswords acceptingItemsOf: aCatalog registeringOn: aSalesBook
+
+	usersAndPasswords  _ XusersAndPasswords.
+	catalog _ aCatalog.
+	salesBook _ aSalesBook.
+	carts _ Dictionary new.
+	currentCartId _ 0.
+	
+	shoppingCarts _ Dictionary new.! !
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 22:52:13'!
+getCartId 
+	
+	currentCartId _ currentCartId + 1.
+	^currentCartId ! !
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 22:53:12' prior: 50910965!
+createCartFor: anUser withPassword: aPassword
+	
+	| cart shoppingCart cartId |
+	
+	(self assertUser: anUser withPasswordValid: aPassword) ifFalse: [^self error: self invalidUserPasswordErrorDescription].
+		
+	cart _ Cart acceptingItemsOf: catalog.
+	
+	shoppingCart _ ShoppingCart owner: anUser for: self.
+	
+	cartId _ self getCartId.
+	
+	carts at: cartId put: cart.
+	
+	^cartId! !
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 22:53:21' prior: 50911052!
+createCartFor: anUser withPassword: aPassword
+	
+	| cart shoppingCart cartId |
+	
+	(self assertUser: anUser withPasswordValid: aPassword) ifFalse: [^self error: self invalidUserPasswordErrorDescription].
+		
+	cart _ Cart acceptingItemsOf: catalog.
+	
+	shoppingCart _ ShoppingCart owner: anUser for: self.
+	
+	cartId _ self getCartId.
+	carts at: cartId put: cart.
+	
+	^cartId! !
+
+!testRun: #XXXTest #test10_CanNotCheckoutOfAnInvalidCart stamp: 'ERMC 6/23/2021 22:53:30'!
+PASSED!
+
+!testRun: #XXXTest #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/23/2021 22:53:32'!
+ERROR!
+
+!testRun: #XXXTest #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/23/2021 22:53:32'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 22:54:08'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 22:54:08'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 22:54:25'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 22:54:25'!
+ERROR!
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 22:55:48'!
+FAILURE!
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 22:55:48'!
+FAILURE!
+
+!testRun: #XXXTest #test10_CanNotCheckoutOfAnInvalidCart stamp: 'ERMC 6/23/2021 22:55:53'!
+PASSED!
+
+!testRun: #XXXTest #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/23/2021 22:55:56'!
+ERROR!
+
+!testRun: #XXXTest #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/23/2021 22:55:56'!
+ERROR!
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 22:59:35' prior: 50911067!
+createCartFor: anUser withPassword: aPassword
+	
+	| shoppingCart cartId |
+	
+	(self assertUser: anUser withPasswordValid: aPassword) ifFalse: [^self error: self invalidUserPasswordErrorDescription].
+			
+	shoppingCart _ ShoppingCart owner: anUser for: self with: (Cart acceptingItemsOf: catalog).
+	
+	cartId _ self getCartId.
+	carts at: cartId put: shoppingCart.
+	
+	^cartId! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 22:59:59'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 22:59:59'!
+ERROR!
+!ShoppingCart class methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:00:05'!
+owner: aString for: aTusLibros with: aCart 
+	self shouldBeImplemented.! !
+!ShoppingCart class methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:01:19' prior: 50911144!
+owner: anUser for: tusLibrosSystem with: aCart 
+	
+	^self new initializeWithOwner: anUser for: tusLibrosSystem with: aCart.! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:01:21'!
+ERROR!
+
+!classDefinition: #ShoppingCart category: 'TusLibros' stamp: 'ERMC 6/23/2021 23:01:27'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: 'owner system user'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ShoppingCart category: 'TusLibros' stamp: 'ERMC 6/23/2021 23:01:27'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: 'owner system user tusLibrosSystem_CHANGE_ME'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ShoppingCart category: 'TusLibros' stamp: 'ERMC 6/23/2021 23:01:27'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: 'owner system user tusLibrosSystem_CHANGE_ME cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ShoppingCart methodsFor: 'initialization' stamp: 'ERMC 6/23/2021 23:01:27'!
+initializeWithOwner: anUser for: tusLibrosSystem with: aCart 
+	self shouldBeImplemented.
+	user := anUser.
+	tusLibrosSystem_CHANGE_ME := tusLibrosSystem.
+	cart := aCart.! !
+!ShoppingCart methodsFor: 'initialization' stamp: 'ERMC 6/23/2021 23:02:38' prior: 50911184!
+initializeWithOwner: anUser for: aTusLibrosSystem with: aCart 
+
+	user _ anUser.
+	tusLibrosSystem_CHANGE_ME _ aTusLibrosSystem.
+	cart _ aCart.! !
+
+!classDefinition: #ShoppingCart category: 'TusLibros' stamp: 'ERMC 6/23/2021 23:02:46'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: 'owner system user tusLibros cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ShoppingCart methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:02:46' prior: 50911193!
+initializeWithOwner: anUser for: aTusLibrosSystem with: aCart 
+
+	user _ anUser.
+	tusLibros _ aTusLibrosSystem.
+	cart _ aCart.! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:02:49'!
+ERROR!
+
+!methodRemoval: ShoppingCart class #owner:for: stamp: 'ERMC 6/23/2021 23:03:01'!
+owner: anUser for: aTusLibrosSystem 
+	
+	^self new InitializationWithOwner: anUser for: aTusLibrosSystem.!
+
+!methodRemoval: ShoppingCart #InitializationWithOwner:for: stamp: 'ERMC 6/23/2021 23:03:08'!
+InitializationWithOwner: anUser for: aTusLibrosSystem
+ 
+	owner _ anUser.
+	system _ aTusLibrosSystem.!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:10:56'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:10:56'!
+ERROR!
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:12:00' prior: 50910583!
+listCartById: anId
+	
+	| cart |
+	cart _ carts at: (self getCartId )ifAbsent: [^self error: self invalidBookISBNErrorDescription].
+	^cart listItems.
+
+	! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:12:07'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:12:07'!
+ERROR!
+
+Object subclass: #TusLibros
+	instanceVariableNames: 'usersAndPasswords catalog salesBook shoppingCarts currentCartId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #TusLibros category: 'TusLibros' stamp: 'ERMC 6/23/2021 23:12:22'!
+Object subclass: #TusLibros
+	instanceVariableNames: 'usersAndPasswords catalog salesBook shoppingCarts currentCartId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:12:28'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:12:28'!
+ERROR!
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:12:44' prior: 50911238!
+listCartById: anId
+	
+	| cart |
+	cart _ shoppingCarts at: (self getCartId )ifAbsent: [^self error: self invalidBookISBNErrorDescription].
+	^cart listItems.
+
+	! !
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:13:07' prior: 50911122!
+createCartFor: anUser withPassword: aPassword
+	
+	| shoppingCart cartId |
+	
+	(self assertUser: anUser withPasswordValid: aPassword) ifFalse: [^self error: self invalidUserPasswordErrorDescription].
+			
+	shoppingCart _ ShoppingCart owner: anUser for: self with: (Cart acceptingItemsOf: catalog).
+	
+	cartId _ self getCartId.
+	shoppingCarts at: cartId put: shoppingCart.
+	
+	^cartId! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:13:10'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:13:10'!
+ERROR!
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:14:00' prior: 50911282!
+createCartFor: anUser withPassword: aPassword
+	
+	| shoppingCart cartId |
+	
+	(self assertUser: anUser withPasswordValid: aPassword) ifFalse: [^self error: self invalidUserPasswordErrorDescription].
+			
+	shoppingCart _ ShoppingCart owner: anUser for: self with: (Cart acceptingItemsOf: catalog).
+	
+	cartId _ self currentCartId.
+	shoppingCarts at: cartId put: shoppingCart.
+	
+	^cartId! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:14:05'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:14:05'!
+ERROR!
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:14:10'!
+currentCartId
+	self shouldBeImplemented.
+	^currentCartId! !
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:14:14' prior: 50911325!
+currentCartId
+
+	^currentCartId! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:14:16'!
+ERROR!
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:14:50' prior: 50911274!
+listCartById: anId
+	
+	| cart |
+	cart _ shoppingCarts at: (self currentCartId) ifAbsent: [^self error: self invalidBookISBNErrorDescription].
+	^cart listItems.
+
+	! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:14:52'!
+ERROR!
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:15:12' prior: 50911304!
+createCartFor: anUser withPassword: aPassword
+	
+	| shoppingCart cartId |
+	
+	(self assertUser: anUser withPasswordValid: aPassword) ifFalse: [^self error: self invalidUserPasswordErrorDescription].
+			
+	shoppingCart _ ShoppingCart owner: anUser for: self with: (Cart acceptingItemsOf: catalog).
+	
+	cartId _ self getCartId .
+	shoppingCarts at: cartId put: shoppingCart.
+	
+	^cartId! !
+!TusLibros methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:15:14' prior: 50911350!
+createCartFor: anUser withPassword: aPassword
+	
+	| shoppingCart cartId |
+	
+	(self assertUser: anUser withPasswordValid: aPassword) ifFalse: [^self error: self invalidUserPasswordErrorDescription].
+			
+	shoppingCart _ ShoppingCart owner: anUser for: self with: (Cart acceptingItemsOf: catalog).
+	
+	cartId _ self getCartId.
+	shoppingCarts at: cartId put: shoppingCart.
+	
+	^cartId! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:15:18'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:15:18'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:18:44'!
+ERROR!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:18:44'!
+ERROR!
+!ShoppingCart methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:18:54'!
+listItems
+	self shouldBeImplemented.! !
+!ShoppingCart methodsFor: 'accesing' stamp: 'ERMC 6/23/2021 23:19:09' prior: 50911393!
+listItems
+	
+	^cart listItems.! !
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:19:11'!
+PASSED!
+
+!testRun: #XXXTest #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/23/2021 23:19:14'!
+PASSED!
+
+!testRun: #XXXTest #test02_CanNotCreateACartWithInvalidUser stamp: 'ERMC 6/23/2021 23:19:16'!
+PASSED!
+
+!testRun: #XXXTest #test03_CanNotCreateACartWithValidUserButIncorrectPassword stamp: 'ERMC 6/23/2021 23:19:18'!
+PASSED!
+
+!testRun: #XXXTest #test04_CanNotAddAnItemInACartThatIsNotInTusLibros stamp: 'ERMC 6/23/2021 23:19:20'!
+PASSED!
+
+!testRun: #XXXTest #test05_CanNotAddItemThatIsNotInTheEditorialISBN stamp: 'ERMC 6/23/2021 23:19:22'!
+FAILURE!
+
+!testRun: #XXXTest #test05_CanNotAddItemThatIsNotInTheEditorialISBN stamp: 'ERMC 6/23/2021 23:19:22'!
+FAILURE!
+
+!testRun: #XXXTest #test06_CanAdddItemsToAValidCartCreated stamp: 'ERMC 6/23/2021 23:19:39'!
+ERROR!
+
+!testRun: #XXXTest #test06_CanAdddItemsToAValidCartCreated stamp: 'ERMC 6/23/2021 23:19:39'!
+ERROR!
+
+!testRun: #XXXTest #test07_ListingAnEmptyCartReturnsEmptyList stamp: 'ERMC 6/23/2021 23:19:43'!
+PASSED!
+
+!testRun: #XXXTest #test08_CanNotListACartItemsOfAnInvalidCartId stamp: 'ERMC 6/23/2021 23:19:45'!
+PASSED!
+
+!testRun: #XXXTest #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/23/2021 23:19:47'!
+ERROR!
+
+!testRun: #XXXTest #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/23/2021 23:19:47'!
+ERROR!
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:20:26' prior: 50910333!
+addTocartId: cartId bookIsbn: anIsbn andQuantity: aQuantity
+	
+	| cart |
+	(self assertId: cartId on: shoppingCarts) ifFalse: [^self error: self canNotAddItemsOfABookToInvalidCartErrorDescription].
+	(self assertId: anIsbn on: catalog) ifFalse: [^self error: self invalidBookISBNErrorDescription].
+	
+	cart _ shoppingCarts at: cartId. 
+		
+	cart add: aQuantity of: anIsbn.
+	
+	^cart
+	
+	 
+! !
+
+!testRun: #XXXTest #test05_CanNotAddItemThatIsNotInTheEditorialISBN stamp: 'ERMC 6/23/2021 23:20:27'!
+PASSED!
+
+!testRun: #XXXTest #test05_CanNotAddItemThatIsNotInTheEditorialISBN stamp: 'ERMC 6/23/2021 23:20:30'!
+PASSED!
+
+!testRun: #XXXTest #test06_CanAdddItemsToAValidCartCreated stamp: 'ERMC 6/23/2021 23:20:32'!
+ERROR!
+
+!testRun: #XXXTest #test06_CanAdddItemsToAValidCartCreated stamp: 'ERMC 6/23/2021 23:20:32'!
+ERROR!
+!ShoppingCart methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:20:53'!
+add: aSmallInteger of: aString 
+	self shouldBeImplemented.! !
+!ShoppingCart methodsFor: 'as yet unclassified' stamp: 'ERMC 6/23/2021 23:21:23' prior: 50911474!
+add: aQuantity of: aBook 
+	
+	cart add: aQuantity of: aBook.! !
+
+!testRun: #XXXTest #test06_CanAdddItemsToAValidCartCreated stamp: 'ERMC 6/23/2021 23:21:25'!
+PASSED!
+
+!testRun: #XXXTest #test07_ListingAnEmptyCartReturnsEmptyList stamp: 'ERMC 6/23/2021 23:21:27'!
+PASSED!
+
+!testRun: #XXXTest #test08_CanNotListACartItemsOfAnInvalidCartId stamp: 'ERMC 6/23/2021 23:21:29'!
+PASSED!
+
+!testRun: #XXXTest #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/23/2021 23:21:30'!
+PASSED!
+
+!testRun: #XXXTest #test10_CanNotCheckoutOfAnInvalidCart stamp: 'ERMC 6/23/2021 23:21:32'!
+PASSED!
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 23:21:34'!
+FAILURE!
+
+!testRun: #XXXTest #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/23/2021 23:21:34'!
+FAILURE!
+
+!classRenamed: #XXXTest as: #TusLibrosSystemTests stamp: 'ERMC 6/23/2021 23:22:47'!
+Smalltalk renameClassNamed: #XXXTest as: #TusLibrosSystemTests!
