@@ -2078,3 +2078,283 @@ FAILURE!
 
 !classRenamed: #XXXTest as: #TusLibrosSystemTests stamp: 'ERMC 6/23/2021 23:22:47'!
 Smalltalk renameClassNamed: #XXXTest as: #TusLibrosSystemTests!
+
+----QUIT----(23 June 2021 23:26:07) CuisUniversity-4532.image priorSource: 18521815!
+
+----STARTUP---- (24 June 2021 15:43:16) as /Users/edgardo.mosqueira/Desktop/ISW/CuisUniversity/CuisUniversity-4532.image!
+
+!TusLibrosSystemTests methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/24/2021 15:45:29' prior: 50910568!
+test08_CanNotListACartItemsOfAnInvalidCartId
+	
+	| invalidCart |
+	invalidCart _ 199.
+	self 
+		should: [tusLibros listCartById: 1] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError |
+			self assert: tusLibros invalidBookISBNErrorDescription equals: anError messageText]! !
+!TusLibrosSystemTests methodsFor: 'carts - adding to cart' stamp: 'ERMC 6/24/2021 15:45:40' prior: 50911519!
+test08_CanNotListACartItemsOfAnInvalidCartId
+	
+	| invalidCart |
+	
+	invalidCart _ 199.
+	self 
+		should: [tusLibros listCartById: invalidCart] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError |
+			self assert: tusLibros invalidBookISBNErrorDescription equals: anError messageText]! !
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/24/2021 15:50:57' prior: 50910892!
+checkoutCartBy: anId withCreditCardNumber: aCreditCarNumber ownedBy: anOwner expiredDate: aExpiredDate
+ 
+	| cart |
+	cart _ ShoppingCart at: anId.
+	((cart listItems) isEmpty) ifTrue: [^self error: self canNotCheckoutWithAnEmptyCartErrorDescription].
+	^self error: self invalidCartErrorDescription.! !
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/24/2021 15:51:07' prior: 50911545!
+checkoutCartBy: anId withCreditCardNumber: aCreditCarNumber ownedBy: anOwner expiredDate: aExpiredDate
+ 
+	| cart |
+	
+	cart _ ShoppingCart at: anId.
+	((cart listItems) isEmpty) ifTrue: [^self error: self canNotCheckoutWithAnEmptyCartErrorDescription].
+	^self error: self invalidCartErrorDescription.! !
+
+!testRun: #TusLibrosSystemTests #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/24/2021 15:51:08'!
+FAILURE!
+
+!testRun: #TusLibrosSystemTests #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/24/2021 15:52:17'!
+FAILURE!
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/24/2021 15:52:55' prior: 50911558!
+checkoutCartBy: anId withCreditCardNumber: aCreditCarNumber ownedBy: anOwner expiredDate: aExpiredDate
+ 
+	| cart |
+	
+	cart _ shoppingCarts at: anId.
+	((cart listItems) isEmpty) ifTrue: [^self error: self canNotCheckoutWithAnEmptyCartErrorDescription].
+	^self error: self invalidCartErrorDescription.! !
+
+!testRun: #TusLibrosSystemTests #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/24/2021 15:52:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test02_CanNotCreateACartWithInvalidUser stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test03_CanNotCreateACartWithValidUserButIncorrectPassword stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test04_CanNotAddAnItemInACartThatIsNotInTusLibros stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test05_CanNotAddItemThatIsNotInTheEditorialISBN stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test06_CanAdddItemsToAValidCartCreated stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test07_ListingAnEmptyCartReturnsEmptyList stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test08_CanNotListACartItemsOfAnInvalidCartId stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test10_CanNotCheckoutOfAnInvalidCart stamp: 'ERMC 6/24/2021 15:53:04'!
+FAILURE!
+
+!testRun: #TusLibrosSystemTests #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/24/2021 15:53:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test10_CanNotCheckoutOfAnInvalidCart stamp: 'ERMC 6/24/2021 15:53:04'!
+FAILURE!
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/24/2021 15:55:24' prior: 50911578!
+checkoutCartBy: anId withCreditCardNumber: aCreditCarNumber ownedBy: anOwner expiredDate: aExpiredDate
+ 
+	| cart |
+	
+	cart _ shoppingCarts at: anId ifAbsent: [	^self error: self invalidCartErrorDescription].
+	((cart listItems) isEmpty) ifTrue: [^self error: self canNotCheckoutWithAnEmptyCartErrorDescription].! !
+
+!testRun: #TusLibrosSystemTests #test10_CanNotCheckoutOfAnInvalidCart stamp: 'ERMC 6/24/2021 15:55:25'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test10_CanNotCheckoutOfAnInvalidCart stamp: 'ERMC 6/24/2021 15:55:30'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/24/2021 15:55:35'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/24/2021 15:55:40'!
+PASSED!
+!TusLibrosSystemTests methodsFor: 'tests - check out cart' stamp: 'ERMC 6/24/2021 16:32:03'!
+test12_CanCheckoutWithAnonEmptyCart
+	
+	| cartId purchases |
+	
+	cartId _ tusLibros createCartFor: self validUser withPassword: self validPassword.
+	
+	tusLibros addTocartId: cartId bookIsbn: 'validBook'  andQuantity: 3.
+	
+	tusLibros checkoutCartBy: cartId
+		    withCreditCardNumber: testObjectsFactory validCreditCartNumber 
+		    ownedBy: testObjectsFactory validOwner 
+		    expiredDate: testObjectsFactory validAndNotExpiredMonthOfYear.
+		
+	purchases _ tusLibros listItemsBuyedFrom: self validUser withPassword: self validPassword.
+	
+	self assert: (purchases at: 'validBook') equals: testObjectsFactory itemSellByTheStore ! !
+
+!classDefinition: #ShoppingCart category: 'TusLibros' stamp: 'ERMC 6/24/2021 16:41:39'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: 'system user tusLibros cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ShoppingCart category: 'TusLibros' stamp: 'ERMC 6/24/2021 16:41:39'!
+Object subclass: #ShoppingCart
+	instanceVariableNames: 'user tusLibros cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!TusLibros methodsFor: 'as yet unclassified' stamp: 'ERMC 6/24/2021 16:45:05' prior: 50911640!
+checkoutCartBy: anId withCreditCardNumber: aCreditCarNumber ownedBy: anOwner expiredDate: aExpiredDate
+ 
+	| shoppingCart |
+	
+	shoppingCart _ shoppingCarts at: anId ifAbsent: [	^self error: self invalidCartErrorDescription].
+	((shoppingCart listItems) isEmpty) ifTrue: [^self error: self canNotCheckoutWithAnEmptyCartErrorDescription].
+	
+	shoppingCart toCheckoutWithCreditCardNumber: aCreditCarNumber
+				ownedBy: anOwner
+				expiredData: aExpiredDate.! !
+
+!testRun: #TusLibrosSystemTests #test12_CanCheckoutWithAnonEmptyCart stamp: 'ERMC 6/24/2021 16:45:09'!
+ERROR!
+!ShoppingCart methodsFor: 'as yet unclassified' stamp: 'ERMC 6/24/2021 16:45:13'!
+toCheckoutWithCreditCardNumber: aString ownedBy: aString2 expiredData: aMonth 
+	self shouldBeImplemented.! !
+!TusLibrosSystemTests methodsFor: 'tests - check out cart' stamp: 'ERMC 6/24/2021 16:51:52' prior: 50911667!
+test12_CanCheckoutWithAnonEmptyCart
+	
+	| cartId purchases |
+	
+	cartId _ tusLibros createCartFor: self validUser withPassword: self validPassword.
+	
+	tusLibros addTocartId: cartId bookIsbn: 'validBook'  andQuantity: 3.
+	
+	tusLibros checkoutCartBy: cartId
+		    withCreditCardNumber: testObjectsFactory validCreditCartNumber 
+		    ownedBy: testObjectsFactory validOwner 
+		    expiredDate: testObjectsFactory validAndNotExpiredMonthOfYear.
+		
+	purchases _ tusLibros listItemsBuyedFrom: self validUser withPassword: self validPassword.
+	
+	self assert: (purchases at: 'validBook') equals: testObjectsFactory itemSellByTheStore.! !
+
+!testRun: #TusLibrosSystemTests #test12_CanCheckoutWithAnonEmptyCart stamp: 'ERMC 6/24/2021 16:51:52'!
+ERROR!
+
+!testRun: #TusLibrosSystemTests #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test02_CanNotCreateACartWithInvalidUser stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test03_CanNotCreateACartWithValidUserButIncorrectPassword stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test04_CanNotAddAnItemInACartThatIsNotInTusLibros stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test05_CanNotAddItemThatIsNotInTheEditorialISBN stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test06_CanAdddItemsToAValidCartCreated stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test07_ListingAnEmptyCartReturnsEmptyList stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test08_CanNotListACartItemsOfAnInvalidCartId stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test10_CanNotCheckoutOfAnInvalidCart stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/24/2021 16:51:56'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test12_CanCheckoutWithAnonEmptyCart stamp: 'ERMC 6/24/2021 16:51:56'!
+ERROR!
+
+!testRun: #TusLibrosSystemTests #test12_CanCheckoutWithAnonEmptyCart stamp: 'ERMC 6/24/2021 16:51:56'!
+ERROR!
+!TusLibrosSystemTests methodsFor: 'tests - check out cart' stamp: 'ERMC 6/24/2021 16:53:03' prior: 50911733!
+test12_CanCheckoutWithAnonEmptyCart
+	
+	"| cartId purchases |
+	
+	cartId _ tusLibros createCartFor: self validUser withPassword: self validPassword.
+	
+	tusLibros addTocartId: cartId bookIsbn: 'validBook'  andQuantity: 3.
+	
+	tusLibros checkoutCartBy: cartId
+		    withCreditCardNumber: testObjectsFactory validCreditCartNumber 
+		    ownedBy: testObjectsFactory validOwner 
+		    expiredDate: testObjectsFactory validAndNotExpiredMonthOfYear.
+		
+	purchases _ tusLibros listItemsBuyedFrom: self validUser withPassword: self validPassword.
+	
+	self assert: (purchases at: 'validBook') equals: testObjectsFactory itemSellByTheStore."
+	
+	"llegamos hasta aca, nos quedamos si tiempo"! !
+
+!testRun: #TusLibrosSystemTests #test01_createCartWithValidUserIdAndPassword stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test02_CanNotCreateACartWithInvalidUser stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test03_CanNotCreateACartWithValidUserButIncorrectPassword stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test04_CanNotAddAnItemInACartThatIsNotInTusLibros stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test05_CanNotAddItemThatIsNotInTheEditorialISBN stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test06_CanAdddItemsToAValidCartCreated stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test07_ListingAnEmptyCartReturnsEmptyList stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test08_CanNotListACartItemsOfAnInvalidCartId stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test09_ListingCartOfValidCartIdReturnsCorrectItems stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test10_CanNotCheckoutOfAnInvalidCart stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test11_CanNotCheckoutWithAnEmptyCart stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!testRun: #TusLibrosSystemTests #test12_CanCheckoutWithAnonEmptyCart stamp: 'ERMC 6/24/2021 16:53:06'!
+PASSED!
+
+!methodRemoval: TusLibros #carts stamp: 'ERMC 6/24/2021 16:53:55'!
+carts
+
+	^carts!
